@@ -1,16 +1,9 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 import { dbURI } from '../config/environment.js'
-// import AllPark from '../models/park.js'
-import North from '../models/north.js'
-import South from '../models/south.js'
-import East from '../models/east.js'
-import West from '../models/west.js'
-import Central from '../models/central.js'
-import northData from './data/north_data.js'
-import southData from './data/south_data.js'
-import eastData from './data/east_data.js'
-import westData from './data/west_data.js'
-import centralData from './data/central_data.js'
+import { Park } from '../models/parks_model.js'
+import { User } from '../models/user.js'
+import parkData from './data/parks_data.js'
+import userData from './data/user_data.js'
 
 const seedDatabase = async () => {
   try {
@@ -22,12 +15,11 @@ const seedDatabase = async () => {
 
     //adding data into each model
 
-    const north = await North.create(northData)
-    const south = await South.create(southData)
-    const east = await East.create(eastData)
-    const west = await West.create(westData)
-    const central = await Central.create(centralData)
+    const parks = await Park.create(parkData)
+    console.log('parks created')
 
+    const users = await User.create(userData)
+    console.log('users created')
 
     //close connection to the database
     await mongoose.connection.close()
@@ -41,4 +33,4 @@ const seedDatabase = async () => {
   }
 }
 
-seedDatabase
+seedDatabase()

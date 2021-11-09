@@ -11,7 +11,7 @@ const commentSchema = new mongoose.Schema({
 }
 )
 
-export const eastParksSchema = new mongoose.schema({
+const parkSchema = new mongoose.Schema({
   title: { type: String, required: true, unique: true },
   description: { type: String, required: true, unique: true },
   postcode: { type: String, required: true, unique: true },
@@ -20,9 +20,10 @@ export const eastParksSchema = new mongoose.schema({
   images: [{ type: String, required: true }],
   url: { type: String },
   activites: [{ type: String }],
+  region: { type: String }, 
   comments: [commentSchema]
 })
 
-eastParksSchema.plugin(uniqueValidator)
+parkSchema.plugin(uniqueValidator)
 
-export const East = mongoose.model('East', eastParksSchema) 
+export const Park = mongoose.model('Park', parkSchema) 

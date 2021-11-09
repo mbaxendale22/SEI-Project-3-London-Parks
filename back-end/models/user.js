@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   profilePicture: { type: String }
 })
 
-//* needs methods for user validation
+//******************* */ needs methods for user validation 
 
 
 userSchema.plugin(uniqueValidator)

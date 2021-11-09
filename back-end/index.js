@@ -11,7 +11,7 @@ const startServer = async () => {
 
     //connect to the database
     await mongoose.connect(dbURI)
-    console.log(`database connected on port ${port}`)
+    console.log('database connected')
 
     //middleware 
 
@@ -26,6 +26,9 @@ const startServer = async () => {
 
     //send requests to the router 
     app.use(router)
+
+    //start express server 
+    app.listen(port, () => console.log('Express server started on port ${port}'))
 
   } catch (err) {
     console.log(err)
