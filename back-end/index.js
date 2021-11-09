@@ -28,7 +28,7 @@ const startServer = async () => {
     app.use(router)
 
     //start express server 
-    app.listen(port, () => console.log('Express server started on port ${port}'))
+    app.listen(port, () => console.log(`Express server started on port ${port}`))
 
   } catch (err) {
     console.log(err)

@@ -3,7 +3,7 @@ import uniqueValidator from 'mongoose-unique-validator'
 
 const commentSchema = new mongoose.Schema({
   text: { type: String, required: true, maxLength: 300 },
-  owner: { type: mongoose.Schema.ObjectId, ref: 'User' },
+  owner: { type: String, ref: 'User' }, // owner: { type: mongoose.Schema.ObjectId, ref: 'User' }, this will go when we will do authorization bit
   rating: { type: Number, required: true }
 },
 {
@@ -26,4 +26,4 @@ const parkSchema = new mongoose.Schema({
 
 parkSchema.plugin(uniqueValidator)
 
-export const Park = mongoose.model('Park', parkSchema) 
+export default  mongoose.model('Park', parkSchema) 
