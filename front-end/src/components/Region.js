@@ -12,7 +12,6 @@ const Region = () => {
     const getData = async () => {
       const { data } = await axios.get(`/api/london-parks-api/region/${location.state}`)
       setRegion(data)
-      data.forEach(r => console.log(r._id))
     }
     getData()
   }, [location.state])
@@ -20,10 +19,11 @@ const Region = () => {
   return (
     <>
     <h1>Test</h1>
-    { region &&
+    { region ?
     <ul>
     {region.map(r => <li onClick={ () => history.push(`/parks/${r._id}`)}>{r.title}</li>)}
     </ul>
+    : <h2>Loading info...</h2>
     }
     </>
 
