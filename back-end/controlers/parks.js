@@ -3,6 +3,7 @@ import Park from '../models/parks_model.js'
 // getting all parks
 export const getAllParks = async (_req, res) => {
   try {
+    console.log('GETREQUEST')
     const getParksData = await Park.find()
     return res.status(200).json(getParksData)
   } catch (err) {
