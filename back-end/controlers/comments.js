@@ -18,7 +18,7 @@ export const addComment = async (req, res) => {
     const { id } = req.params
     const park = await Park.findById(id) // finding park we want to add comment to
     if (!park) throw new Error() // error handleing
-    const newComment = { ...req.body }  //{ ...req.body, owner: req.currentUser._id } this will go when we will do authorization bit
+    const newComment = { ...req.body, owner: req.currentUser._id } //this will go when we will do authorization bit
     park.comments.push(newComment) //adding comment to the park object
     await park.save({ validateModifiedOnly: true }) // saving comment in db
     return res.status(200).json(park) // returning park with new comment

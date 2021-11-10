@@ -14,5 +14,9 @@
   "scripts": {
     "serve": "npx nodemon index.js",
     "seed": "node db/seeds.js"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/mongoose-unique-validator": "^1.0.5"
   }
 }
