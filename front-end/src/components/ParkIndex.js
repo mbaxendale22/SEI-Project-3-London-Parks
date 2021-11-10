@@ -8,7 +8,6 @@ const ParkIndex = () => {
     useEffect(() => {
         const getData = async () => {
           const { data } = await axios.get('/api/london-parks-api')
-          console.log('looking for id ->', data[0]._id)
           setParks(data)
         }
         getData()
