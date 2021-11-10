@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 const NavBar = () => {
-
+  
   const history = useHistory()
 
   const handleLogout = () => {
@@ -34,7 +34,7 @@ const NavBar = () => {
           <Link to="/register"><div className="navbar-item ">Register</div></Link>
           <Link to="/login"><div className="navbar-item">Login</div></Link>
           <Link to="/profile"><div className="navbar-item">My profile</div></Link>
-          <div className="navbar-item" onClick={handleLogout}>Logout</div>
+          <div className="navbar-item" onClick={ handleLogout }>Logout</div>
         </div>
       </div>
     </nav>
