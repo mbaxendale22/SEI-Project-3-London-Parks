@@ -9,7 +9,7 @@ export default [
     url: 'test',
     activites: ['test 4', 'test 5'],
     region: 'north london'
-  }
+  },
   {
     title: 'Hyde Park',
     description: 'When King Henry VIII and his court were thundering across Hyde Park in 1536 in pursuit of deer and wild boar, it would have been difficult to visualise that years later the noble art of tai chi would be peacefully performed among the trees in the early morning, and the Italianate tenor of Pavarotti would echo across the park, applauded by vast audiences. Hyde Park was created to satisfy a royal passion for hunting. But over the years it became a place where people have pursued many other pleasures.',
