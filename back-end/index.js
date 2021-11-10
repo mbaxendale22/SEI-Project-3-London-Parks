@@ -25,7 +25,11 @@ const startServer = async () => {
     app.use(express.json())
 
     //send requests to the router 
+<<<<<<< HEAD
+    app.use('/api', router)
+=======
     app.use('/api',router)
+>>>>>>> development
 
     //start express server 
     app.listen(port, () => console.log(`Express server started on port ${port}`))
