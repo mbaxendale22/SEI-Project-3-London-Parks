@@ -1,7 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 const NavBar = () => {
+
+  const history = useHistory()
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('token') // remove token from local storage
+    history.push('/') // redirect user to the home page
+  }
 
   return (
     <nav className="navbar has-background-success">
@@ -23,8 +30,11 @@ const NavBar = () => {
         </div>
         </div>
         <div className="navbar-end">
-          <div className="navbar-item ">Register</div>
-          <div className="navbar-item">Login</div>
+          <Link to="/parks"><div className="navbar-item ">Take me to Parks!</div></Link>
+          <Link to="/register"><div className="navbar-item ">Register</div></Link>
+          <Link to="/login"><div className="navbar-item">Login</div></Link>
+          <Link to="/profile"><div className="navbar-item">My profile</div></Link>
+          <div className="navbar-item" onClick={handleLogout}>Logout</div>
         </div>
       </div>
     </nav>
