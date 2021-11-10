@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { dbURI } from '../config/environment.js'
-import { Park } from '../models/parks_model.js'
-import { User } from '../models/user.js'
+import Park from '../models/parks_model.js'
+import User from '../models/user.js'
 import parkData from './data/parks_data.js'
 import userData from './data/user_data.js'
 

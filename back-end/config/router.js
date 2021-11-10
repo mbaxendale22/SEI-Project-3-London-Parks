@@ -1,5 +1,6 @@
 import express from 'express'
 import { createPark, deletePark, editingPark, getAllParks, getParkByID } from '../controlers/parks.js'
+import { getRegion } from '../controlers/filters.js'
 import { addComment,deleteComment, showComments } from '../controlers/comments.js'
 
 const router = express.Router()
@@ -12,6 +13,9 @@ router.route('/london-parks-api/:id')
   .get(getParkByID)
   .delete(deletePark)
   .post(editingPark)
+
+router.route('/london-parks-api/region/:id')
+  .get(getRegion)
 
 // router.route('/login')
 //   .post(loginUser)
