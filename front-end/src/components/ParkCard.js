@@ -11,7 +11,7 @@ const ParkCard = ({ _id, title, images, description, postcode, activities, url }
         </div>
         <div className="card-image">
           <figure className="image image-is-5by4">
-            <img src={images[1]} alt={title}></img>
+            <img src={images[0]} alt={title}></img>
           </figure>
         </div>
         <div className="card-content">

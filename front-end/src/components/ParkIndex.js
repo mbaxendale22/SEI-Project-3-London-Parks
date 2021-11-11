@@ -22,7 +22,7 @@ return (
       {parks.map(park => {
         return (
           <ParkCard 
-            key={park._id}
+            _id={park._id}
             title={park.title}
             images={park.images}
             description={park.description}
