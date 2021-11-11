@@ -1,14 +1,12 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 
 const NavBar = () => {
-  
   const history = useHistory()
 
-  const handleLogout = () => {
-    window.localStorage.removeItem('token') // remove token from local storage
-    history.push('/') // redirect user to the home page
-  }
+  //onChange function that takes the value of each option and redirects to the corresponding router endpoint
+  const redirect = e => e.target.value === 'All' ? history.push('/parks') : history.push({ pathname: '/parks/region', state: e.target.value }) 
+  // 
 
   return (
     <nav className="navbar has-background-success">
@@ -19,12 +17,12 @@ const NavBar = () => {
         </div>
         <div className="navbar-start">
         <div>
-          <select>
-            <option value='North'>North London</option>
-            <option value='Central'>Central London</option>
-            <option value='South'>South London</option>
-            <option value='East'>East London</option>
-            <option value='West'>West London</option>
+          <select onChange={redirect}>
+            <option value='North%20London'>North London</option>
+            <option value='Central%20London'>Central London</option>
+            <option value='South%20London'>South London</option>
+            <option value='East%20London'>East London</option>
+            <option value='West%20London'>West London</option>
             <option value='All'>All Parks</option>
           </select>
         </div>

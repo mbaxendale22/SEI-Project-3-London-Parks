@@ -9,7 +9,6 @@ const ParkIndex = () => {
         const getData = async () => {
           const { data } = await axios.get('/api/london-parks-api')
           setParks(data)
-          console.log(data)
         }
         getData()
     }, [])
@@ -22,7 +21,7 @@ return (
       {parks.map(park => {
         return (
           <ParkCard 
-            key={park._id}
+            _id={park._id}
             title={park.title}
             images={park.images}
             description={park.description}

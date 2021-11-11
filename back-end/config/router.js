@@ -1,5 +1,6 @@
 import express from 'express'
 import { createPark, deletePark, editingPark, getAllParks, getParkByID } from '../controlers/parks.js'
+import { getRegion } from '../controlers/filters.js'
 import { addComment, deleteComment, showComments } from '../controlers/comments.js'
 import { loginUser, registerUser } from '../controlers/auth.js'
 import { secureRoute } from '../config/secureRoute.js'
@@ -16,6 +17,9 @@ router.route('/london-parks-api/:id')
   .get(getParkByID)
   .delete(secureRoute,deletePark)
   .post(secureRoute,editingPark)
+
+router.route('/london-parks-api/region/:id')
+  .get(getRegion)
 
 router.route('/login')
   .post(loginUser)
