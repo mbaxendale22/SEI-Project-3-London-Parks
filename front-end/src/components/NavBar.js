@@ -1,8 +1,13 @@
 import React from 'react'
-import { useHistory} from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 const NavBar = () => {
+  
   const history = useHistory()
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('token') // remove token from local storage
+    history.push('/') }// redirect user to the home page
 
   //onChange function that takes the value of each option and redirects to the corresponding router endpoint
   const redirect = e => e.target.value === 'All' ? history.push('/parks') : history.push({ pathname: '/parks/region', state: e.target.value }) 
