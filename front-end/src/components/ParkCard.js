@@ -1,11 +1,16 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+
 
 const ParkCard = ({ _id, title, images, description, postcode, activities, url }) => {
-  console.log("IMAGES", images)
+  const history = useHistory()
+  
   return (
-    <div key={_id} className="column is-one-quarter-desktop is-one-third-tablet">
-      <div className="card">
+    <div 
+      key={_id} className="column is-one-quarter-desktop is-one-third-tablet"
+      >
+      <div className="card"
+        onClick={() => history.push(`/parks/${_id}`)}>
         <div className="card-header">
           <div className="card-header-title is-centered">{title}</div>
         </div>

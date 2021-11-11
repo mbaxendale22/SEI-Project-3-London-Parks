@@ -9,7 +9,6 @@ const ParkIndex = () => {
         const getData = async () => {
           const { data } = await axios.get('/api/london-parks-api')
           setParks(data)
-          console.log(data)
         }
         getData()
     }, [])
