@@ -1,13 +1,14 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-
 const ParkCard = ({ _id, title, images, description, postcode, activities, url }) => {
   const history = useHistory()
   
   return (
+
+
     <div 
-      key={_id} className="column is-one-quarter-desktop is-one-third-tablet"
+      _id={_id} className="column is-one-quarter-desktop is-one-third-tablet"
       >
       <div className="card"
         onClick={() => history.push(`/parks/${_id}`)}>
