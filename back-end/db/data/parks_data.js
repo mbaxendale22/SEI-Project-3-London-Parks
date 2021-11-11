@@ -266,8 +266,7 @@ export default [
       'https://www.royalparks.org.uk/parks/greenwich-park/things-to-see-and-do/gardens-and-landscapes/the-rose-garden/_gallery/Garden-beds-in-the-Rose-Gardens.jpg/w_1200.jpg',
       'https://www.royalparks.org.uk/_media/images/greenwich-park/anglo-saxon-barrow-cemetery/Ancient-barrow-cemetery-at-Greenwich-Pk.jpg/w_1200.jpg',
       'https://www.royalparks.org.uk/_media/images/greenwich-park/Greenwich-from-the-air.jpg/w_1200.jpg',
-      'https://a.travel-assets.com/findyours-php/viewfinder/images/res40/302000/302588-Greenwich-Park.jpg',
-      ''
+      'https://a.travel-assets.com/findyours-php/viewfinder/images/res40/302000/302588-Greenwich-Park.jpg'
     ],
     url: 'https://www.royalparks.org.uk/parks/greenwich-park',
     activites: ['walks', 'boating', 'tennis', 'cricket', 'playground'],
@@ -332,7 +331,7 @@ export default [
     postcode: 'SM4 5JD',
     dogFriendly: 'with some restrictions',
     cyclistFriendly: 'yes',
-    images: ['',
+    images: [
       'https://nt.global.ssl.fastly.net/images/1431798576827-snuffmill770555andrewbutlerformat.jpg?width=1920&auto=webp&crop=16:7',
       'https://nt.global.ssl.fastly.net/images/1431804658236-1321250catherinehayburn.jpg.jpg?width=1920&auto=webp&crop=16:7',
       'https://media-cdn.tripadvisor.com/media/photo-c/768x250/07/3f/f0/0d/morden-hall-park.jpg',
