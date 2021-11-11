@@ -3,6 +3,7 @@ import Park from '../models/parks_model.js'
 
 export const getRegion = async (req, res) => {
   try {
+    console.log('request for a region has been made')
     const { id } = req.params
     const region = await Park.find({
       region: id

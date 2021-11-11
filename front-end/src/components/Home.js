@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
 
@@ -9,24 +10,30 @@ const Home = () => {
           <h1 className="title is-1 has-text-centered">
                 Best London Parks
           </h1>
-          <button className='button'>
+          <Link to = {{pathname: '/parks'}}>
+            <button className='button'>
             All Parks
-          </button>
-          <button className='button'>
+            </button></Link>
+          <Link to = {{pathname: '/parks/region', state: 'North%20London'}}>
+            <button className='button'>
             North London
-          </button>
-          <button className='button'>
+            </button></Link>
+          <Link to = {{pathname: '/parks/region', state: 'Central%20London'}}>
+            <button className='button'>
             Central London
-          </button>
-          <button className='button'>
+            </button></Link>
+          <Link to = {{pathname: '/parks/region', state: 'East%20London'}}>
+            <button className='button'>
             East London
-          </button>
+            </button></Link>
+            <Link to = {{pathname: '/parks/region', state: 'South%20London'}}>
           <button className='button'>
             South London
-          </button>
+            </button></Link>
+          <Link to = {{pathname: '/parks/region', state: 'West%20London'}}>
           <button className='button'>
             West London
-          </button>
+            </button></Link>
         </div>
       </div>
     </section>
