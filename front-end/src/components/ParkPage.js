@@ -21,7 +21,6 @@ useEffect(() => {
       <>
       {park &&
       <>
-      <h1>Test</h1>
       <h2>{park.title}</h2>
       <p>{park.description}</p>
       </>

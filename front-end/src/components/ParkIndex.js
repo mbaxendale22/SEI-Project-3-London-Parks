@@ -13,6 +13,8 @@ const ParkIndex = () => {
         getData()
     }, [])
 
+    
+
 return (
   // <h1>My Parks</h1>
   <section className="section">
@@ -26,7 +28,7 @@ return (
             images={park.images}
             description={park.description}
             postcode={park.postcode}
-            activities={park.activities}
+            activities={park.activites}
             url={park.url}
           />
         )
