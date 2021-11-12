@@ -26,16 +26,14 @@ useEffect(() => {
           <Segment>
             <Header as='h1' textAlign='center'>{park.title}</Header>
           </Segment>
-            <Image src={park.images[0]} alt={park.title} class='ui fluid image'/>
+          <Image src={park.images[Math.floor(Math.random()* park.images.length)]} alt={park.title} class='ui image'/>
         </Container>
-        
         <Header>
           <b>Description</b>
         </Header>
         <Segment>
           <Container >{park.description}</Container>
         </Segment>
-        
         <Grid columns={3}>
           <Grid.Column>
             <Segment >
