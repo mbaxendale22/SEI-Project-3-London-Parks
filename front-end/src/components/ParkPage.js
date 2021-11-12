@@ -18,6 +18,7 @@ useEffect(() => {
 }, [id])
 
 
+
   return (
       <>
       {park &&
@@ -26,7 +27,7 @@ useEffect(() => {
           <Segment>
             <Header as='h1' textAlign='center'>{park.title}</Header>
           </Segment>
-            <Image src={park.images[0]} alt={park.title} class='ui fluid image'/>
+            <Image src={park.images[Math.floor(Math.random()* park.images.length)]} alt={park.title} class='ui fluid image'/>
         </Container>
         
         <Header>
