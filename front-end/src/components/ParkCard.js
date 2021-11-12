@@ -1,14 +1,16 @@
-import react from 'react'
-import { useHistory } from 'react-router-dom'
+import react, { useEffect } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import { Container, Divider, Grid, GridColumn, Icon, Header, Image, Reveal, RevealContent, Segment } from 'semantic-ui-react'
 import { motion } from 'framer-motion'
 const ParkCard = ({ _id, title, images, postcode, activities, url }) => {
   const history = useHistory()
+  const location = useLocation()
 
 const activeUpper = activities.map(x => `${x.charAt(0).toUpperCase()}${x.slice(1, x.length)} ` )
 const activityList = activeUpper.join(' ')
-console.log(activityList)
 
+useEffect(() => {
+}, [location.pathname, _id])
 
   return (
     <motion.div 

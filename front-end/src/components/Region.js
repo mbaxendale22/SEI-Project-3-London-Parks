@@ -24,7 +24,7 @@ const Region = () => {
   <div className='container'>
     <div className="columns is-multiline">
       <Header as={'h1'} textAlign={'center'}>
-        {region[0].region}
+        {region && region[0].region}
         </Header>
       {region && 
         region.map(region => {
