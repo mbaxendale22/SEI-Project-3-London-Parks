@@ -12,6 +12,7 @@ const UserProfile = () => {
       const { data } = await axios.get('/api/profile', {
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
       })
+      console.log(data.favouriteParks)
       setUserInfo(data)
     }
     getData()
@@ -19,9 +20,14 @@ const UserProfile = () => {
 
   return (
     <>
+      { userInfo && 
+      <>
       <h1>User Name: {userInfo.username}</h1>
       <h1>User email: {userInfo.email}</h1>
       <h1>User id: {userInfo._id}</h1>
+      <h1>Favourite Parks: {userInfo.favouriteParks.map(p => p.title)}</h1>
+      </>
+      }
     </>
 
   )

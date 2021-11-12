@@ -4,29 +4,25 @@ import mongoose from 'mongoose'
 
 export const addFavPark = async (req, res) => {
   try {
+    console.log('request to add a park has been made')
     const { targetPark } = req.body
-    const [ user ] = await User.find({
-      _id: req.currentUser._id
-    }) 
-    const [ park ] = await Park.find({
-      _id: targetPark
-    })
+    const [ user ] = await User.find({ _id: req.currentUser._id }) 
+    const [ park ] = await Park.find({ _id: targetPark })
     if (!user) throw new Error('no data available for this user')
     user.favouriteParks.push(park._id)
     await user.save({ validateModifiedOnly: true })
     return res.status(200).json(user)
   } catch (err) {
     console.log(err)
-    res.status(404).json({ message: 'error fetching region data' })
+    res.status(404).json({ message: 'error processing this request' })
   }
 
 }
-export const getFavParks = async (req, res) => {
+export const deleteFavParks = async (req, res) => {
   try {
+    console.log('request to delete park has been made')
     const { targetPark } = req.body
-    const [ user ] = await User.find({
-      _id: req.currentUser._id
-    }) 
+    const [ user ] = await User.find({ _id: req.currentUser._id }) 
     if (!user) throw new Error('no data available for this user')
     const parkToDelete = user.favouriteParks.indexOf(targetPark)
     user.favouriteParks.splice(parkToDelete, 1)
@@ -35,7 +31,7 @@ export const getFavParks = async (req, res) => {
     
   } catch (err) {
     console.log(err)
-    res.status(404).json({ message: 'error fetching region data' })
+    res.status(404).json({ message: 'error processing this request' })
   }
 
 }

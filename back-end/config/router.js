@@ -6,7 +6,7 @@ import { loginUser, registerUser } from '../controlers/auth.js'
 import { secureRoute } from '../config/secureRoute.js'
 import { userProfile } from '../controlers/userProfile.js'
 import { getAllUsers } from '../controlers/users.js'
-import { addFavPark, getFavParks } from '../controlers/favParks.js'
+import { addFavPark, deleteFavParks } from '../controlers/favParks.js'
 
 const router = express.Router()
 
@@ -36,7 +36,7 @@ router.route('/profile')
 
 router.route('/favourite-parks')
   .post(secureRoute,addFavPark)
-  .delete(secureRoute, getFavParks)
+  .delete(secureRoute, deleteFavParks)
 
 router.route('/london-parks-api/:id/comments')
   .post(secureRoute,addComment)

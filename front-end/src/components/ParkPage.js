@@ -1,13 +1,40 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { Header, Image, Divider, Grid, Segment, Container, Icon, Comment } from 'semantic-ui-react'
+import { Header, Image, Divider, Grid, Segment, Container, Icon, Comment , Popup} from 'semantic-ui-react'
+import { getTokenFromLocalStorage } from '../helpers/auth.js'
 
 const ParkPage = () => {
 
 const { id } = useParams()
-console.log(id)
 const [park, setPark] = useState(null)
+const [ toggle, setToggle ] = useState(null)
+const [ favData, setFavData ] = useState(null)
+
+const handleMouseEnter = () => {
+  const newFavData = { ...favData, targetPark: id }
+  setFavData(newFavData)
+  setToggle(!toggle)
+  console.log('state change')
+}
+// const handleMouseExit = () => {
+//   const newFavData = { ...favData, targetPark: id }
+//   setFavData(newFavData)
+//   setToggle(!toggle)
+//   console.log('state change')
+// }
+const handleClick = async () => {
+  try {
+    console.log('request being made')
+    await axios.post('/api/favourite-parks', favData, 
+    {
+      headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
+    }
+    )
+} catch {
+console.log('error')
+} 
+}
 
 useEffect(() => {
   const getData = async () => {
@@ -16,6 +43,12 @@ useEffect(() => {
   }
   getData()
 }, [id])
+
+console.log(toggle)
+
+// const PopupExample = () => (
+//   <Popup content='Add users to your feed' trigger={<Icon icon='add' />} />
+// )
 
 
   return (
@@ -47,8 +80,6 @@ useEffect(() => {
             </Grid.Row>
             </Segment>
           </Grid.Column>
-          
-
           <Grid.Column>
             <Segment raised class='parkPageColumns'>
               <div> 
@@ -70,6 +101,17 @@ useEffect(() => {
                 <Image src={'http://cdn.onlinewebfonts.com/svg/img_249555.png'} size='mini' left/>
                 <p textAlign='centered'>{park.url}</p>
               </div>
+            </Segment>
+            <Segment raised class='parkPageColumns'>
+            <Header as='h3'icon textAlign='center' inverted color='red' >
+              <Popup 
+                trigger ={
+                  !toggle ? <Icon onMouseEnter ={handleMouseEnter} onClick={handleClick}  name ='heart outline'/> : <Icon onClick={handleClick} name ='heart'/>
+                }>
+                <Popup.Content> <p>would you like to add this to your favourites?</p></Popup.Content>
+                </Popup>
+                  <Header.Content>Favourite</Header.Content>
+                </Header>
             </Segment>
           </Grid.Column>
         </Grid>
