@@ -7,6 +7,10 @@ const NavBarHome = () => {
   const history = useHistory()
   const [toggle, setToogle ] = useState(false)
 
+  const handleLogout = () => {
+    window.localStorage.removeItem('token') // remove token from local storage
+    history.push('/') }// redirect user to the home page
+
 
 
     return (
@@ -38,6 +42,11 @@ const NavBarHome = () => {
             name='Login'
             position='right'
             onClick={() => history.push('/login')}
+            />
+          <Menu.Item
+            name='Logout'
+            position='right'
+            onClick={handleLogout}
             />
           
         </Menu>
