@@ -1,22 +1,33 @@
-import react from 'react'
-import { useHistory } from 'react-router-dom'
+import react, { useEffect } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import { Container, Divider, Grid, GridColumn, Icon, Header, Image, Reveal, RevealContent, Segment } from 'semantic-ui-react'
 import { motion } from 'framer-motion'
 const ParkCard = ({ _id, title, images, postcode, activities, url }) => {
   const history = useHistory()
+  const location = useLocation()
+
+const activeUpper = activities.map(x => `${x.charAt(0).toUpperCase()}${x.slice(1, x.length)} ` )
+const activityList = activeUpper.join(' ')
+
+useEffect(() => {
+}, [location.pathname, _id])
 
   return (
-    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+    <motion.div 
+    whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+    initial={{x: '-100vw'}}
+    animate={{x:0}}
+    >
       <Container textAlign='center' key={_id} >
         <Segment piled raised>
-          <Grid columns={2} devided onClick={() => history.push(`/parks/${_id}`)}>
+          <Grid columns={2} divided onClick={() => history.push(`/parks/${_id}`)}>
             <GridColumn>
               <Reveal animated='move' instant>
                 <RevealContent visible>
-                  <Image src={images[0]} alt={title} fluid rounded size='big'></Image>
+                  <Image src={images[0]} alt={title} rounded fluid size='big'></Image>
                 </RevealContent>
                 <RevealContent hidden>
-                  <Image src={images[1]} alt={title} fluid rounded size='big'></Image>
+                  <Image src={images[1]} alt={title} rounded fluid size='big'></Image>
                 </RevealContent>
               </Reveal>
             </GridColumn>
@@ -38,7 +49,7 @@ const ParkCard = ({ _id, title, images, postcode, activities, url }) => {
               <motion.div whileHover={{ scale: 1.5 }} whileTap={{ scale: 0.9 }}>
                 <Header as='h3' icon textAlign='center' color='teal'>
                   <Icon name='futbol' />
-                  <Header.Content>{activities}</Header.Content>
+                  <Header.Content>{activityList}</Header.Content>
                 </Header>
               </motion.div>
               {/* <h5>{url}</h5> */}

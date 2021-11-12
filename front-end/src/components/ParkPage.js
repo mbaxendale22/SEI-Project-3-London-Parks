@@ -29,14 +29,12 @@ useEffect(() => {
           </Segment>
             <Image src={park.images[Math.floor(Math.random()* park.images.length)]} alt={park.title} class='ui fluid image'/>
         </Container>
-        
         <Header>
           <b>Description</b>
         </Header>
         <Segment>
           <Container >{park.description}</Container>
         </Segment>
-        
         <Grid columns={3}>
           <Grid.Column>
             <Segment >

@@ -1,27 +1,54 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { Menu, Segment } from 'semantic-ui-react'
+import RegionLinks from './RegionLinks'
 
 const NavBarHome = () => {
+  const history = useHistory()
+  const [toggle, setToogle ] = useState(false)
 
-  return (
-    <nav className="navbar has-background-success">
-      <div className="container">
-        <div className="navbar-brand">
-          <span role="img" aria-label="logo" className="title"> 
-          </span>
-        </div>
-        <div className="navbar-start">
-          <div className="navbar-item">
-            <Link className="has-text-white" to="/cars">All parks 🌳</Link>
-          </div>
-        </div>
-        <div className="navbar-end">
-          <div className="navbar-item ">Register</div>
-          <div className="navbar-item">Login</div>
-        </div>
-      </div>
-    </nav>
-  )
+
+
+    return (
+      <>
+      <Segment color='green' inverted>
+        <Menu color='green' inverted style = {{position: 'relative'}} >
+        <Menu.Item
+         name="Home"
+         position='left'
+         onClick={() => history.push('/')}
+        />
+          <Menu.Item
+            name='Parks by Region'
+            position ='left'
+            onClick={() => setToogle(!toggle)}
+          />
+          <Menu.Item
+            position='right'
+            name='My Profile'
+            onClick={() => history.push('/profile')}
+            />
+          <Menu.Item
+            name='Register'
+            position='right'
+            right
+            onClick={() => history.push('/register')}
+            />
+          <Menu.Item
+            name='Login'
+            position='right'
+            onClick={() => history.push('/login')}
+            />
+          
+        </Menu>
+      </Segment>
+      <>
+        {
+          toggle && < RegionLinks />
+        }
+      </>
+      </>
+    )
 }
 
 export default NavBarHome
