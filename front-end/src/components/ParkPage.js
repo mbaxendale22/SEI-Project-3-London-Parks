@@ -10,21 +10,22 @@ const { id } = useParams()
 const [park, setPark] = useState(null)
 const [ toggle, setToggle ] = useState(null)
 const [ favData, setFavData ] = useState(null)
+const [ clicked, setClicked ] = useState(false)
 
 const handleMouseEnter = () => {
   const newFavData = { ...favData, targetPark: id }
   setFavData(newFavData)
-  setToggle(!toggle)
+  setToggle(true)
+}
+const handleMouseExit = () => {
+  console.log(clicked)
+  clicked ? setToggle(true) : setToggle(false)
   console.log('state change')
 }
-// const handleMouseExit = () => {
-//   const newFavData = { ...favData, targetPark: id }
-//   setFavData(newFavData)
-//   setToggle(!toggle)
-//   console.log('state change')
-// }
 const handleClick = async () => {
   try {
+    setToggle(true)
+    setClicked(!clicked)
     console.log('request being made')
     await axios.post('/api/favourite-parks', favData, 
     {
@@ -43,8 +44,6 @@ useEffect(() => {
   }
   getData()
 }, [id])
-
-console.log(toggle)
 
 // const PopupExample = () => (
 //   <Popup content='Add users to your feed' trigger={<Icon icon='add' />} />
@@ -106,9 +105,13 @@ console.log(toggle)
             <Header as='h3'icon textAlign='center' inverted color='red' >
               <Popup 
                 trigger ={
-                  !toggle ? <Icon onMouseEnter ={handleMouseEnter} onClick={handleClick}  name ='heart outline'/> : <Icon onClick={handleClick} name ='heart'/>
+                  !toggle ? <Icon onMouseEnter ={handleMouseEnter} onClick={handleClick}  name ='heart outline'/> : <Icon onClick={handleClick} onMouseLeave={handleMouseExit} name ='heart'/>
                 }>
-                <Popup.Content> <p>would you like to add this to your favourites?</p></Popup.Content>
+                <Popup.Content>
+                  {
+                    clicked ? <p>Would you like to <strong>remove</strong> this from your favourites?</p> : <p>would you like to <strong>add</strong> this to your favourites?</p>
+                  }
+                   </Popup.Content>
                 </Popup>
                   <Header.Content>Favourite</Header.Content>
                 </Header>
