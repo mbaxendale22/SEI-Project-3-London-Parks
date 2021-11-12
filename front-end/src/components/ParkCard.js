@@ -24,10 +24,10 @@ useEffect(() => {
             <GridColumn>
               <Reveal animated='move' instant>
                 <RevealContent visible>
-                  <Image src={images[0]} alt={title} fluid rounded size='big'></Image>
+                  <Image src={images[0]} alt={title} rounded fluid size='big'></Image>
                 </RevealContent>
                 <RevealContent hidden>
-                  <Image src={images[1]} alt={title} fluid rounded size='big'></Image>
+                  <Image src={images[1]} alt={title} rounded fluid size='big'></Image>
                 </RevealContent>
               </Reveal>
             </GridColumn>
