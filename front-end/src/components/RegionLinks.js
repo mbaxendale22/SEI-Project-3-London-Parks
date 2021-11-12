@@ -13,11 +13,11 @@ const RegionLinks = () => {
   return (
    
     <motion.div
-    initial= {{opacity: 0, translateY: '-10px',}}
-    animate={{opacity: 0.7, translateY: '0'}}
+    initial= {{opacity: 0, translateY: '0',}}
+    animate={{opacity: 0.7, translateY: '10px'}}
     transition={{delay: 0.2}} 
     style={{
-      position: 'absolute', left: '18.5vw', top: '6vw',
+      position: 'fixed', left: '18.5vw', top: '4em',
       background: 'green',
       color: 'white',
       fontWeight: 'bold',

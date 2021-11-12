@@ -12,7 +12,7 @@ const NavBarHome = () => {
     return (
       <>
       <Segment color='green' inverted>
-        <Menu color='green' inverted >
+        <Menu color='green' inverted style = {{position: 'relative'}} >
         <Menu.Item
          name="Home"
          position='left'
@@ -42,11 +42,11 @@ const NavBarHome = () => {
           
         </Menu>
       </Segment>
-      <div>
+      <>
         {
           toggle && < RegionLinks />
         }
-      </div>
+      </>
       </>
     )
 }
