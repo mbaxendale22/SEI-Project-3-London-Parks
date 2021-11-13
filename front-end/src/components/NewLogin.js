@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Grid, Segment, GridColumn, Button, Modal } from 'semantic-ui-react'
+import { Form, Grid, Segment, GridColumn, Button } from 'semantic-ui-react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 

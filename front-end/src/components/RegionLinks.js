@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useHistory } from 'react-router-dom' 
 
 const RegionLinks = () => {
 
+  const [ toggle, setToggle ] = useState(true)
+
   const history = useHistory()
   const redirect = e => {
+    setToggle(!toggle)
     e.target.dataset.id === 'All' ? history.push('/parks') : history.push({ pathname: '/parks/region', state: e.target.dataset.id}) 
   }
 
+  const displayToggle = () => toggle ? 'visable' : 'none' 
   
   return (
    
@@ -17,12 +21,12 @@ const RegionLinks = () => {
     animate={{opacity: 0.7, translateY: '10px'}}
     transition={{delay: 0.2}} 
     style={{
-      position: 'fixed', left: '18.5vw', top: '4em',
+      position: 'fixed', left: '15.5vw', top: '4em',
       background: 'green',
       color: 'white',
       fontWeight: 'bold',
       textAlign: 'center',
-      opacity: '0.8',
+      display: displayToggle(),
       borderRadius: '5px',  
       padding: '20px',
       zIndex: 1,  

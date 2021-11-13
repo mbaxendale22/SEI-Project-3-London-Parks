@@ -89,7 +89,7 @@ useEffect(()=> {
     }  
   }
   checkFavourite()
-}, [userData])
+}, [userData, park._id])
 
 //onclick handler to remove favourite set by useEffect directly above && send
 // a delete request to the db for the current user
