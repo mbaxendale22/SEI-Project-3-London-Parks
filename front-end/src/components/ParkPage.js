@@ -20,18 +20,25 @@ const handleMouseEnter = () => {
 const handleMouseExit = () => {
   console.log(clicked)
   clicked ? setToggle(true) : setToggle(false)
-  console.log('state change')
 }
 const handleClick = async () => {
   try {
     setToggle(true)
     setClicked(!clicked)
-    console.log('request being made')
-    await axios.post('/api/favourite-parks', favData, 
-    {
-      headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
+    if (!clicked) {
+      await axios.post('/api/favourite-parks', favData, 
+      {
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
+      }
+      )
+    } else {
+      await axios.delete('/api/favourite-parks', 
+      {
+        data: { favData },
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
+      }
+      )
     }
-    )
 } catch {
 console.log('error')
 } 
@@ -44,10 +51,6 @@ useEffect(() => {
   }
   getData()
 }, [id])
-
-// const PopupExample = () => (
-//   <Popup content='Add users to your feed' trigger={<Icon icon='add' />} />
-// )
 
 
   return (
@@ -105,11 +108,15 @@ useEffect(() => {
             <Header as='h3'icon textAlign='center' inverted color='red' >
               <Popup 
                 trigger ={
-                  !toggle ? <Icon onMouseEnter ={handleMouseEnter} onClick={handleClick}  name ='heart outline'/> : <Icon onClick={handleClick} onMouseLeave={handleMouseExit} name ='heart'/>
+                  !toggle ? 
+                  <Icon onMouseEnter ={handleMouseEnter} onClick={handleClick}  name ='heart outline'/> 
+                  : <Icon onClick={handleClick} onMouseLeave={handleMouseExit} name ='heart'/>
                 }>
                 <Popup.Content>
                   {
-                    clicked ? <p>Would you like to <strong>remove</strong> this from your favourites?</p> : <p>would you like to <strong>add</strong> this to your favourites?</p>
+                    clicked ? 
+                    <p>Click to<strong>remove</strong> this park from your favourites</p> 
+                    : <p>Click to <strong>add</strong> this to your favourites</p>
                   }
                    </Popup.Content>
                 </Popup>
