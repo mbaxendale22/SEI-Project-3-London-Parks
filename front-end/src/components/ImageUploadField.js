@@ -18,11 +18,11 @@ export const ImageUploadField = ({ handleImageUrl, value }) => {
   }
   return (
     <>
-    <label>Profile Picture</label>
+      <label>Profile Picture</label>
       {value ?
-        <div>
-          <Image src={value} alt='Choosen image' />
-        </div>
+
+        <Image src={value} alt='Choosen image' />
+
         :
         <Input
           name='profilePicture'
