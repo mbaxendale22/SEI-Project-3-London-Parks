@@ -5,7 +5,7 @@ import { getTokenFromLocalStorage } from '../helpers/auth'
 
 const UserProfile = () => {
 
-  const [userInfo, setUserInfo] = useState([])
+  const [userInfo, setUserInfo] = useState(null)
 
   useEffect(() => {
     const getData = async () => {

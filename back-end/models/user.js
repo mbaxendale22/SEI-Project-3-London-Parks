@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   profilePicture: { type: String },
-  favouriteParks: [{ type: mongoose.Schema.ObjectId, ref: 'Park' }]
+  favouriteParks: [{ type: mongoose.Schema.ObjectId, ref: 'Park', unique: true }]
 })
 
 //******************* */ needs methods for user validation 

@@ -16,26 +16,6 @@ const activeUpper = activities.map(x => `${x.charAt(0).toUpperCase()}${x.slice(1
 const activityList = activeUpper.join(' ')
 
 
-
-
-
-// useEffect(() => {
-//   const deleteData = async () => {
-//         try {
-//         await axios.delete('/api/favourite-parks', favData, 
-//         {
-//         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
-//         }
-//         )
-//     } catch {
-//       console.log('error')
-//     }
-//   } 
-//     deleteData()
-//   }, [x])
-      
-    
-
 useEffect(() => {
 }, [location.pathname, _id])
 

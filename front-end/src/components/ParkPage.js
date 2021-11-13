@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { Header, Image, Divider, Grid, Segment, Container, Icon, Comment , Popup} from 'semantic-ui-react'
@@ -11,7 +11,13 @@ const [park, setPark] = useState(null)
 const [ toggle, setToggle ] = useState(null)
 const [ favData, setFavData ] = useState(null)
 const [ clicked, setClicked ] = useState(false)
+const [ userData, setUserData ] = useState(null)
+const [ favourite, setFavourite ] = useState(null)
 
+
+
+//event handlers to toggle between an outline and full heart favourite icon
+// also set state to be sent when the click event (handleclick) is triggered 
 const handleMouseEnter = () => {
   const newFavData = { ...favData, targetPark: id }
   setFavData(newFavData)
@@ -21,6 +27,8 @@ const handleMouseExit = () => {
   console.log(clicked)
   clicked ? setToggle(true) : setToggle(false)
 }
+
+//make the request to add or remove this park from the user's favourite parks key in the db
 const handleClick = async () => {
   try {
     setToggle(true)
@@ -44,6 +52,7 @@ console.log('error')
 } 
 }
 
+// get the park to display
 useEffect(() => {
   const getData = async () => {
     const { data } = await axios.get(`/api/london-parks-api/${id}`)
@@ -53,9 +62,56 @@ useEffect(() => {
 }, [id])
 
 
-  return (
-      <>
-      {park &&
+//get the userData of the current user, will be used to check if this park is in their 
+// favourite parks key in the useEffect directly below
+useEffect(() => {
+  const getData = async () => {
+    const { data } = await axios.get('/api/profile', 
+    {
+      headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
+    }
+    )
+    setUserData(data)
+  }
+  getData()
+}, [])
+
+// function to check if this park is already in the users FavouriteParks key, check to see if the 
+// userData request has returned yet. 
+useEffect(()=> {
+  const checkFavourite = () => {
+    if (userData === null ) {
+      return console.log('use effect running on initial render')
+    }
+    else {
+      const checkPark = userData.favouriteParks.filter(x => x._id === park._id)
+      checkPark.length ? setFavourite(true): console.log('not a fav park')
+    }  
+  }
+  checkFavourite()
+}, [userData])
+
+//onclick handler to remove favourite set by useEffect directly above && send
+// a delete request to the db for the current user
+
+const removeFav = async () => {
+  setFavourite(false)
+  try {
+    await axios.delete('/api/favourite-parks', 
+      {
+        data: { targetPark: id },
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
+      }
+      )
+  } catch (err) {
+  console.log(err)
+}
+}
+  
+
+return (
+  <>
+      {park && 
       <Container >
         <Container>
           <Segment>
@@ -104,6 +160,21 @@ useEffect(() => {
                 <p textAlign='centered'>{park.url}</p>
               </div>
             </Segment>
+            {
+              favourite ? 
+            <Segment raised class='parkPageColumns'>
+            <Header as='h3'icon textAlign='center' inverted color='red' >
+              <Popup trigger ={<Icon onClick={removeFav} name = 'heart'/>}>
+                <Popup.Content>
+                  <p>Click to <strong>REMOVE</strong> this park from your favourites</p>
+                </Popup.Content>
+              </Popup>     
+            <Header.Content>Favourite</Header.Content>
+            </Header>
+            </Segment>
+
+            : 
+
             <Segment raised class='parkPageColumns'>
             <Header as='h3'icon textAlign='center' inverted color='red' >
               <Popup 
@@ -115,14 +186,18 @@ useEffect(() => {
                 <Popup.Content>
                   {
                     clicked ? 
-                    <p>Click to<strong>remove</strong> this park from your favourites</p> 
-                    : <p>Click to <strong>add</strong> this to your favourites</p>
+                    <p>Click to <strong>REMOVE</strong> this park from your favourites</p> 
+                    : <p>Click to <strong>ADD</strong> this to your favourites</p>
                   }
-                   </Popup.Content>
+                  </Popup.Content>
                 </Popup>
                   <Header.Content>Favourite</Header.Content>
                 </Header>
             </Segment>
+
+            }
+
+
           </Grid.Column>
         </Grid>
         <Container>
