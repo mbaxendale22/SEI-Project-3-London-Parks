@@ -1,12 +1,8 @@
 import React from 'react'
-import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Link } from 'react-router-dom'
 
 const Home = () => {
-  toast.success('Welcome to London Parks!', {
-    position: toast.POSITION.TOP_CENTER
-  })
   return (
     <section className="hero is-fullheight-with-navbar">
       <div className="hero-body ">
@@ -41,7 +37,6 @@ const Home = () => {
           </Link>
         </div>
       </div>
-      <ToastContainer />
     </section>
 
   )

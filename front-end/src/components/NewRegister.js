@@ -12,12 +12,14 @@ const NewRegister = () => {
     username:"",
     email:"",
     password:"",
+    profilePicture:"",
     passwordConfirmation:""
   })
 
   const [errors, setErrors] = useState({
     username:"",
     email:"",
+    profilePicture:"",
     password:"",
     passwordConfirmation:""
   })
@@ -81,15 +83,21 @@ const NewRegister = () => {
         name='passwordConfirmation'
         onChange={handleChange}
         />
-    </Form.Field>
+      </Form.Field>  
+        <Form.Field>
+      <label>Profile Picture</label>
+      <input 
+      placeholder='Your Picture'
+      name='profilePicture'
+      type='text'
+      onChange={handleChange}
+      />
+    </Form.Field> 
     <Button positive fluid type='submit'>Submit</Button>
   </Form>
     </Segment>
       </GridColumn>
     </Grid>
-       
-       
-    
   )
 }
 
