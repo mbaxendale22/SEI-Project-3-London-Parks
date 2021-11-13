@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Header, Segment, Icon, Popup} from 'semantic-ui-react'
 import { getTokenFromLocalStorage } from '../helpers/auth.js'
-
 import axios from 'axios'
+
+// requirements: ui - toggle making a park a 'favourite', display the park as a favourite if previously marked by the user as such 
+// requirements: functionality - check if the park is already a user favourite on db; send http requests to add or remove the park from user's favourites in db 
 
 const Favourite = ({ park, id }) => {
   console.log(id)
@@ -65,7 +67,7 @@ useEffect(() => {
 }, [])
 
 // function to check if this park is already in the users FavouriteParks key, check to see if the 
-// userData request has returned yet. 
+// userData request has returned before running main function.
 useEffect(()=> {
   const checkFavourite = () => {
     if (userData === null ) {
