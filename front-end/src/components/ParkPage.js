@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import axios from 'axios'
-import { Header, Image, Divider, Grid, Segment, Container, Icon, Comment, Form, Button, Rating, List } from 'semantic-ui-react'
+import { Header, Image, Divider, Grid, Segment, Container, Comment, Form, Button, Rating, List } from 'semantic-ui-react'
 import { getTokenFromLocalStorage } from "../helpers/auth"
 import Favourite from './Favourite.js'
+import { userIsAuthenticated } from '../helpers/auth'
 
 const ParkPage = () => {
 
@@ -50,7 +51,7 @@ const ParkPage = () => {
     if (park === null) {
       return
     } else {
-      refreshPage.current = park.images[Math.floor(Math.random()* park.images.length)]
+      // refreshPage.current = park.images[Math.floor(Math.random()* park.images.length)]
       console.log(refreshPage.current)
     }
   }
@@ -176,7 +177,7 @@ const ParkPage = () => {
                 {park.comments.map(comment => {
                   return (
                     <>
-                      <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
+                      <Comment.Avatar as='a' src={comment.owner.profilePicture} />
                       <Comment.Author as='a'>{comment.owner.username}</Comment.Author>
                       <Comment.Metadata>
                         <div>{comment.createdAt.slice(0, 10)}</div>
@@ -186,12 +187,15 @@ const ParkPage = () => {
                     </>
                   )
                 })}
-                <Form reply>
+                {userIsAuthenticated() ? <Form reply>
                   <Form.TextArea onChange={handleChange} name='text' placeholder='Your comment...'/>
                   <input onChange={handleChange} name='rating' placeholder='Rating from 1 to 5' />
                   <Rating onChange={handleChange} icon='star' maxRating={5} name='rating'/>
                   <Button onClick={handleSubmit} content='Reply' labelPosition='left' />
-                </Form>      
+                </Form>:
+                  <Segment raised>
+                    <Header textAlign='center' as='h3'>To add comment and rating you have to <a href='/login'>Log</a> in or <a href='/register'>Register</a>!</Header>
+                  </Segment>}
               </Comment.Content>
             </Comment>
           </Comment.Group>

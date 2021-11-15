@@ -28,3 +28,11 @@
 #homeImg {
   height:200px;
 }
+
+.ui.image {
+  height: 20em;
+}
+
+.ui.vertical.left.aligned.segment {
+  padding-left: 10px;
+}

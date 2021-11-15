@@ -1,37 +1,145 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { getTokenFromLocalStorage } from '../helpers/auth'
-import { Container, Grid, GridColumn, Header, Image, Segment } from 'semantic-ui-react'
+import { Grid, Card, GridColumn, Image, Button, GridRow, Modal, Header, Icon, Segment, Container, Divider } from 'semantic-ui-react'
+import { useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { motion } from 'framer-motion'
 
 const UserProfile = ({ setUserData }) => {
 
- const [userInfo, setUserInfo] = useState([])
+  const [userInfo, setUserInfo] = useState([])
+  const [favParks, setFavParks] = useState([])
+  const [joinData, setJoinDate] = useState([])
+  const [open, setOpen] = useState(false)
+  const history = useHistory()
 
-useEffect(() => {
+
+
+  const showMeToast = (name) => {
+    toast.info(`Welcome ${name}!`, {
+      position: "top-right",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+    })
+  }
+
+  useEffect(() => {
     const getData = async () => {
       const { data } = await axios.get('/api/profile', {
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
       })
-      console.log(data.favouriteParks)
       setUserInfo(data)
+      setFavParks(data.favouriteParks)
+      setJoinDate(data.createdAt)
+      showMeToast(data.username)
     }
     getData()
-  },[])
-  
+
+  }, [])
+
   setUserData(userInfo)
+
+  const handleDelete = async (event) => {
+    event.preventDefault()
+    try {
+      await axios.delete(`/api/profile/${userInfo._id}`,
+        {
+          headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` } // need to send the token on the headers object
+        })
+      window.localStorage.removeItem('token')
+      history.push('/parks')
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
-    <Container>
-      <Segment>
-        <Grid columns={1}>
-        <GridColumn >
-          <Image src={userInfo.profilePicture}  circular/>
-          <Header as='h1'textAlign='center'>User: {userInfo.username}</Header></GridColumn>
-        </Grid>
-      </Segment>
-      <Segment>
-        <Header textAlign='center' as='h1'>Here will go favourite parks</Header>
-      </Segment>
-    </Container>
+    <>
+    <motion.div
+  initial={{ scale: 0 }}
+  animate={{ rotate: 360, scale: 1 }}
+  transition={{
+    type: "spring",
+    stiffness: 160,
+    damping: 20
+  }}>
+      <Grid centered columns={3}>
+        <GridColumn>
+          <Card fluid>
+            <Image src={userInfo.profilePicture} size='medium' />
+            <Card.Content>
+              <Card.Header>{userInfo.username}</Card.Header>
+              <Card.Meta>
+                <span className='date'>Joined: {joinData.slice(0, 10)}</span>
+              </Card.Meta>
+            </Card.Content>
+            <Card.Content extra>
+              <Modal
+                closeIcon
+                open={open}
+                trigger={<Button color='red' fluid>Delete my profile</Button>}
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+              >
+                <Header icon='archive' content='Deleting your profile' />
+                <Modal.Content>
+                  <p>
+                    Are you sure you want to delete your profile?
+                    <br />All data will be lost
+                  </p>
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button color='red' onClick={() => setOpen(false)}>
+                    <Icon name='remove' /> No
+                  </Button>
+                  <Button color='green' onClick={handleDelete}>
+                    <Icon name='checkmark' /> Yes
+                  </Button>
+                </Modal.Actions>
+              </Modal>
+            </Card.Content>
+          </Card>
+        </GridColumn>
+      </Grid>
+      </motion.div>
+      <Grid centered celled='internally'>
+        {favParks.map(park => {
+          return (
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              initial={{y:'-100vh'}}
+              animate={{y: 0}}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                damping: 10
+              }}
+            >
+              <Segment vertical textAlign='left'>
+                <Card onClick={() => history.push(`/parks/${park._id}`)} key={park._id} >
+                  <Image src={park.images[0]} />
+                  <Card.Content>
+                    <Card.Header>{park.title}</Card.Header>
+                    <Card.Meta>
+                      <span className='date'>{park.postcode}</span>
+                    </Card.Meta>
+                    <Card.Description>
+                      {park.region}
+                    </Card.Description>
+                  </Card.Content>
+                </Card>
+              </Segment>
+            </motion.div>
+          )
+        })}
+
+      </Grid>
+    </>
 
   )
 }
