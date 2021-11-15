@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useParams, useHistory, useLocation } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useParams, useHistory} from 'react-router-dom'
 import axios from 'axios'
-import { Header, Image, Divider, Grid, Segment, Container, Icon, Comment, Form, Button, Rating, List } from 'semantic-ui-react'
+import { Header, Image, Divider, Grid, Segment, Container, Icon, Comment, Form, Button, Rating, List, Popup } from 'semantic-ui-react'
 import { getTokenFromLocalStorage, getPayload } from "../helpers/auth"
 import Favourite from './Favourite.js'
 
@@ -11,7 +11,7 @@ const ParkPage = () => {
   const [park, setPark] = useState(null)
   const history = useHistory()
   const [newComment, setNewComment] = useState(false)
-  const refreshPage = useRef(null)
+  const [toggle, setToggle] = useState(false)
 
   useEffect(() => {
     const getData = async () => {
@@ -62,28 +62,28 @@ const ParkPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    try {
-      await axios.post(`/api/london-parks-api/${park._id}/comments`, comment, 
-      {
-        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }, // need to send the token on the headers object
-      })
-      setNewComment(!newComment)
-      // history.push(`/${park._id}`)
-    } catch (err) {
-      console.log(err)
-    }
+   if (comment.rating === 0) {
+     setToggle(!toggle) 
+     return
+   } else {
+     try {
+       await axios.post(`/api/london-parks-api/${park._id}/comments`, comment, 
+       {
+         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }, // need to send the token on the headers object
+       })
+       setNewComment(!newComment)
+       setToggle(!toggle)
+       // history.push(`/${park._id}`)
+     } catch (err) {
+       console.log(err)
+     }
+
+   }
+
     document.querySelector('textarea').value = ''
     }
 
-  const displayParkImages = () => {
-    if (park === null) {
-      return
-    } else {
-      refreshPage.current = park.images[Math.floor(Math.random()* park.images.length)]
-      console.log(refreshPage.current)
-    }
-  }
-  // setInterval(displayParkImages, 5000)
+  
 
 
   const cyclingFriendly = () => {
@@ -136,7 +136,7 @@ const ParkPage = () => {
           <Segment>
             <Header as='h1' color='green' textAlign='center'>{park.title}</Header>
           </Segment>
-            <Image src={refreshPage.current} alt={park.title} class='ui fluid image' centered/>
+            <Image src={park.images[Math.floor(Math.random()* park.images.length)]} alt={park.title} class='ui fluid image' centered/>
         </Container>
         <Header as='h3' color='green'>
           <b>Description</b>
@@ -206,7 +206,7 @@ const ParkPage = () => {
                 park.comments.map(comment => {
                   return (
                     <>
-                      <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg' />
+                      <Comment.Avatar as='a' src={comment.owner.profilePicture} />
                       <Comment.Author as='a'>{comment.owner.username}</Comment.Author>
                       <Comment.Metadata>
                         <div>{comment.createdAt.slice(0, 10)}</div>
@@ -223,20 +223,31 @@ const ParkPage = () => {
                 
                 
                 
-                }
+              }
+              
                 <Form reply>
                   <Form.TextArea onChange={handleChange} name='text' placeholder='Your comment...'/>
-                  {/* <input onChange={handleChange} name='rating' placeholder='Rating from 1 to 5' /> */}
                   <Rating onClick={handleStars} icon='star' maxRating={5} name='rating'/>
-                  <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />
-                </Form>      
+                {
+                toggle ? 
+                    <>
+                  <p style={{color: 'red'}}>Please add a rating to submit your comment</p>
+                  <Button autoFocus onClick={handleSubmit} content='Add Comment' labelPosition='left' />
+                  </>
+    
+                :
+                <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />
+             
+              }
+              
+              </Form>      
               </Comment.Content>
-            </Comment>
-          </Comment.Group>
-        </Container>
-        <Divider />
-      </Container>
-      }
+              </Comment>
+              </Comment.Group>
+              </Container>
+              <Divider />
+              </Container>
+            }
     </>
   )
 }
