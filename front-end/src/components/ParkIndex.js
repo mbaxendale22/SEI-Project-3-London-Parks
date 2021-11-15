@@ -13,10 +13,7 @@ const ParkIndex = () => {
         getData()
     }, [])
 
-    
-
 return (
-  // <h1>My Parks</h1>
   <section className="section">
   <div className='container'>
     <div className="columns is-multiline">

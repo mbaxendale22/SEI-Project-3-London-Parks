@@ -10,12 +10,14 @@ const Register = () => {
     username:"",
     email:"",
     password:"",
+    profilePicture:"",
     passwordConfirmation:""
   })
 
   const [errors, setErrors] = useState({
     username:"",
     email:"",
+    profilePicture:"",
     password:"",
     passwordConfirmation:""
   })

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { getTokenFromLocalStorage } from '../helpers/auth'
+import { Container, Grid, GridColumn, Header, Image, Segment } from 'semantic-ui-react'
 
+const UserProfile = ({ setUserData }) => {
 
-const UserProfile = () => {
+ const [userInfo, setUserInfo] = useState([])
 
-  const [userInfo, setUserInfo] = useState(null)
-
-  useEffect(() => {
+useEffect(() => {
     const getData = async () => {
       const { data } = await axios.get('/api/profile', {
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
@@ -16,19 +16,22 @@ const UserProfile = () => {
       setUserInfo(data)
     }
     getData()
-  }, [])
-
+  },[])
+  
+  setUserData(userInfo)
   return (
-    <>
-      { userInfo && 
-      <>
-      <h1>User Name: {userInfo.username}</h1>
-      <h1>User email: {userInfo.email}</h1>
-      <h1>User id: {userInfo._id}</h1>
-      <h1>Favourite Parks: {userInfo.favouriteParks.map(p => p.title)}</h1>
-      </>
-      }
-    </>
+    <Container>
+      <Segment>
+        <Grid columns={1}>
+        <GridColumn >
+          <Image src={userInfo.profilePicture}  circular/>
+          <Header as='h1'textAlign='center'>User: {userInfo.username}</Header></GridColumn>
+        </Grid>
+      </Segment>
+      <Segment>
+        <Header textAlign='center' as='h1'>Here will go favourite parks</Header>
+      </Segment>
+    </Container>
 
   )
 }

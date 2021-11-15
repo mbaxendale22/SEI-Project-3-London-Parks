@@ -44,14 +44,14 @@ useEffect(() => {
                   <Header.Content>{title}</Header.Content>
                   </Header>
               </motion.div>
-              <Divider />
+              <Divider hidden/>
               <motion.div whileHover={{ scale: 1.5 }} whileTap={{ scale: 0.9 }}>
                 <Header as='h3' icon textAlign='center' inverted color='blue'>
                   <Icon name='home' />
                   <Header.Content>{postcode}</Header.Content>
                 </Header>
               </motion.div>
-              <Divider />
+              <Divider hidden/>
               <motion.div whileHover={{ scale: 1.5 }} whileTap={{ scale: 0.9 }}>
                 <Header as='h3' icon textAlign='center' color='teal'>
                   <Icon name='futbol' />
@@ -61,7 +61,7 @@ useEffect(() => {
             </GridColumn>
           </Grid>
         </Segment>
-        <Divider />
+        <Divider hidden/>
       </Container>
     </motion.div>
   )

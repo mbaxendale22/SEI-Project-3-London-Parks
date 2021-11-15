@@ -4,7 +4,7 @@ import uniqueValidator from 'mongoose-unique-validator'
 const commentSchema = new mongoose.Schema({
   text: { type: String, required: true, maxLength: 300 },
   owner: { type: mongoose.Schema.ObjectId, ref: 'User' },// this will go when we will do authorization bit
-  rating: { type: Number, required: true }
+  rating: { type: Number, required: true, min: 1, max: 5 }
 },
 {
   timestamps: true
