@@ -1,5 +1,19 @@
 .ui.big.fluid.rounded.image {
   height: 20em;
 }
+#dog {
+  height: 65px;
+}
 
+#greenBicycle {
+  height: 78px;
+  width: 100px;
+}
 
+#postCode {
+  height: 30px;
+  width: 27px;
+}
+#homeImg {
+  height:200px;
+}
