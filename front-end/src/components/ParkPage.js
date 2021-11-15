@@ -5,6 +5,7 @@ import { Header, Image, Divider, Grid, Segment, Container, Comment, Form, Button
 import { getTokenFromLocalStorage } from "../helpers/auth"
 import Favourite from './Favourite.js'
 import { userIsAuthenticated } from '../helpers/auth'
+import { motion } from 'framer-motion'
 
 const ParkPage = () => {
 
@@ -99,9 +100,11 @@ const ParkPage = () => {
       )
     }
   }
-
   return (
-    <>
+    <motion.div
+    initial={{ scaleY: 0 }}
+    animate={{ scaleY: 1 }}
+    exit={{ scaleY: 0 }}>
       {park &&
       <Container >
         <Container>
@@ -203,7 +206,7 @@ const ParkPage = () => {
         <Divider />
       </Container>
       }
-    </>
+    </motion.div>
   )
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, Grid, Segment, GridColumn, Button, Header } from 'semantic-ui-react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const NewLogin = () => {
   const history = useHistory()
@@ -33,7 +34,10 @@ const NewLogin = () => {
   }
 
   return (
-    <>
+    <motion.div
+      initial={{ scaleY: 0 }}
+      animate={{ scaleY: 1 }}
+      exit={{ scaleY: 0 }}>
     <Grid centered>
     <GridColumn style ={{maxWidth: 550, marginTop: 100}}>
   <Segment>   
@@ -64,7 +68,7 @@ const NewLogin = () => {
   </Segment>
     </GridColumn>
   </Grid>
-  </>
+  </motion.div>
   )
 }
 

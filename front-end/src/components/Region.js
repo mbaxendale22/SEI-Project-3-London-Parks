@@ -3,6 +3,7 @@ import { useLocation} from 'react-router-dom'
 import { Header } from 'semantic-ui-react'
 import ParkCard from './ParkCard.js'
 import axios from 'axios'
+import { motion } from 'framer-motion'
 
 const Region = () => {
   
@@ -44,7 +45,6 @@ const Region = () => {
     </div>
   </div>
 </section>
-
   )
 
 }

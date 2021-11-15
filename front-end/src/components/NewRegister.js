@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Form, Button, Grid, GridColumn, Segment,Header } from 'semantic-ui-react'
 import { ImageUploadField } from './ImageUploadField'
+import { motion } from 'framer-motion'
 
 
 const NewRegister = () => {
@@ -46,6 +47,10 @@ const NewRegister = () => {
   }
 
   return (
+    <motion.div
+    initial={{ scaleY: 0 }}
+    animate={{ scaleY: 1 }}
+    exit={{ scaleY: 0 }}>
     <Grid centered>
       <GridColumn style={{ maxWidth: 550, marginTop: 100 }}>
         <Segment>
@@ -103,6 +108,7 @@ const NewRegister = () => {
         </Segment>
       </GridColumn>
     </Grid>
+    </motion.div>
   )
 }
 
