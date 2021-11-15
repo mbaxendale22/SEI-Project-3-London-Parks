@@ -8,3 +8,14 @@ export const getAllUsers = async (_req, res) => {
     return res.status(404).json({ message: 'Users not found' })
   }
 }
+
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params
+    const removeUser = await User.findOneAndRemove({ _id: id })
+    if (!removeUser) throw new Error()
+    return res.status(200).json({ message: 'User Data has been deleted!' })
+  } catch (err) {
+    res.status(404).json({ message: err.message })
+  }
+}
