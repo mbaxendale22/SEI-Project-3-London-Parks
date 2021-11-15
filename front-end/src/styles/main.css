@@ -2,6 +2,7 @@
   height: 20em;
 }
 
+
 .ui.green.inverted.segment {
   padding: 0px;
   margin-bottom: 30px;
@@ -9,4 +10,21 @@
 
 .ui.div.a.item {
   padding: 0px;
+}
+
+#dog {
+  height: 65px;
+}
+
+#greenBicycle {
+  height: 78px;
+  width: 100px;
+}
+
+#postCode {
+  height: 30px;
+  width: 27px;
+}
+#homeImg {
+  height:200px;
 }
