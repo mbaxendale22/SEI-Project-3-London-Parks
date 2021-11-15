@@ -7,7 +7,6 @@ import axios from 'axios'
 // requirements: functionality - check if the park is already a user favourite on db; send http requests to add or remove the park from user's favourites in db 
 
 const Favourite = ({ park, id }) => {
-  console.log(id)
 
   const [ toggle, setToggle ] = useState(null)
   const [ clicked, setClicked ] = useState(false)

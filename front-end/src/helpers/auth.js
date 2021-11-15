@@ -10,3 +10,4 @@ export const getPayload = () => {
   const payloadString = splitToken[1] // get just the payload string from the array
   return JSON.parse(atob(payloadString)) // decode the payload string, using json.parse to convert from JSON to JS object
 }
+

@@ -7,20 +7,11 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   profilePicture: { type: String },
-  favouriteParks: [{ type: mongoose.Schema.ObjectId, ref: 'Park', unique: true }]
+  favouriteParks: [{ type: mongoose.Schema.ObjectId, ref: 'Park' }]
 })
 
 //******************* */ needs methods for user validation 
 
-
-
-// we can think to use this for realtion for favourite parks
-// // * Reverse relationship, show the shows that user has created
-// userSchema.virtual('createdShows', {
-//   ref: 'Show', // * which model does this relate to
-//   localField: '_id', // * which field from the User model is stored on the show model
-//   foreignField: 'owner' // * name of field on the Show that stores the user id
-// })
 
 // * Remove password when returning user as JSON in the response, that happens in the controllers
 userSchema.set('toJSON', { // * when data is set to json in the response (in controllers)
