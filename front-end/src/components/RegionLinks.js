@@ -21,7 +21,7 @@ const RegionLinks = () => {
     animate={{opacity: 0.7, translateY: '10px'}}
     transition={{delay: 0.2}} 
     style={{
-      position: 'fixed', left: '15.5vw', top: '4em',
+      position: 'fixed', left: '5.5vw', top: '4em',
       background: 'green',
       color: 'white',
       fontWeight: 'bold',
