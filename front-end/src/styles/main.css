@@ -1,3 +1,22 @@
 .ui.big.fluid.rounded.image {
   height: 20em;
 }
+<<<<<<< HEAD
+=======
+#dog {
+  height: 65px;
+}
+
+#greenBicycle {
+  height: 78px;
+  width: 100px;
+}
+
+#postCode {
+  height: 30px;
+  width: 27px;
+}
+#homeImg {
+  height:200px;
+}
+>>>>>>> bcc52447e934e57dda4ac97c27f3d519670ea1ad
