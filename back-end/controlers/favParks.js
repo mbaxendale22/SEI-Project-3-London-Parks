@@ -4,7 +4,6 @@ import mongoose from 'mongoose'
 
 export const addFavPark = async (req, res) => {
   try {
-    console.log('request to add a park has been made')
     const { targetPark } = req.body
     const [ user ] = await User.find({ _id: req.currentUser._id }) 
     const [ park ] = await Park.find({ _id: targetPark })
@@ -20,7 +19,6 @@ export const addFavPark = async (req, res) => {
 }
 export const deleteFavParks = async (req, res) => {
   try {
-    console.log('request to delete park has been made')
     const { targetPark } = req.body
     const [ user ] = await User.find({ _id: req.currentUser._id }) 
     if (!user) throw new Error('no data available for this user')

@@ -33,10 +33,8 @@ export const deleteComment = async (req, res) => {
   try {
     const { id, commentId } = req.params // destrcuturing id and comment id
     const park = await Park.findById(id) // finding where comments lives
-    console.log('park found --> ', park)
     if (!park) throw new Error()
     const commentToDelete = park.comments.id(commentId) // finding comment by its id
-    console.log('comment found --> ', commentToDelete)
     if (!commentToDelete) throw new Error()
     // if (!commentToDelete.owner.equals(req.currentUser._id)) throw new Error('unauthorized') to use when authorization will  be ready
     await commentToDelete.remove() //removing comment
