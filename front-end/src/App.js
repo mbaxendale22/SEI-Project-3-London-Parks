@@ -9,7 +9,6 @@ import ParkPage from './components/ParkPage.js'
 import NewRegister from './components/NewRegister.js'
 import NewLogin from './components/NewLogin.js'
 import { useState } from 'react/cjs/react.development'
-
 const App = () => {
   const [userData, setUserData] = useState([])
 
