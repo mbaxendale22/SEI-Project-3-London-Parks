@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
-import { Container, Divider, Grid, GridColumn, Icon, Header, Image, Reveal, RevealContent, Segment } from 'semantic-ui-react'
+import { Container, Divider, Grid, GridColumn, Icon, Header, Image, Reveal, RevealContent, Segment, Rating } from 'semantic-ui-react'
 import { motion } from 'framer-motion'
 import axios from 'axios'
 
@@ -83,7 +83,7 @@ useEffect(() => {
                   <Header as='h3' icon textAlign='center' color='yellow'>
                     <Icon name='star outline' />
                     <Header.Content>Average Rating</Header.Content>
-                    <Header.Content>{getAverage()}</Header.Content>
+                    <Rating defaultRating={park.averageRating} icon='star' maxRating={5} disabled/>
                   </Header>
                 </motion.div>
               }

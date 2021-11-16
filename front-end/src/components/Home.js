@@ -1,18 +1,12 @@
 import React from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { Link } from 'react-router-dom'
-import { Header, Segment, Image, Divider, Button, Container, Card } from 'semantic-ui-react'
+import { Header, Image, Button, Container, Card } from 'semantic-ui-react'
 
 
 
 
 const Home = () => {
-  // toast.success('Welcome to London Parks!', {
-  //   position: toast.POSITION.TOP_CENTER
-  // })
-
-
-
   return (
     <>
 

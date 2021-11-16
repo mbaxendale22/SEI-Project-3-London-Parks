@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { getTokenFromLocalStorage } from '../helpers/auth'
-import { Grid, Card, GridColumn, Image, Button, GridRow, Modal, Header, Icon, Segment, Container, Divider } from 'semantic-ui-react'
+import { Grid, Card, GridColumn, Image, Button, Modal, Header, Icon, Segment } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { motion } from 'framer-motion'
@@ -60,53 +60,58 @@ const UserProfile = ({ setUserData }) => {
 
   return (
     <>
-    <motion.div
-  initial={{ scale: 0 }}
-  animate={{ rotate: 360, scale: 1 }}
-  transition={{
-    type: "spring",
-    stiffness: 160,
-    damping: 20
-  }}>
-      <Grid centered columns={3}>
-        <GridColumn>
-          <Card fluid>
-            <Image src={userInfo.profilePicture} size='medium' />
-            <Card.Content>
-              <Card.Header>{userInfo.username}</Card.Header>
-              <Card.Meta>
-                <span className='date'>Joined: {joinData.slice(0, 10)}</span>
-              </Card.Meta>
-            </Card.Content>
-            <Card.Content extra>
-              <Modal
-                closeIcon
-                open={open}
-                trigger={<Button color='red' fluid>Delete my profile</Button>}
-                onClose={() => setOpen(false)}
-                onOpen={() => setOpen(true)}
-              >
-                <Header icon='archive' content='Deleting your profile' />
-                <Modal.Content>
-                  <p>
-                    Are you sure you want to delete your profile?
-                    <br />All data will be lost
-                  </p>
-                </Modal.Content>
-                <Modal.Actions>
-                  <Button color='red' onClick={() => setOpen(false)}>
-                    <Icon name='remove' /> No
-                  </Button>
-                  <Button color='green' onClick={handleDelete}>
-                    <Icon name='checkmark' /> Yes
-                  </Button>
-                </Modal.Actions>
-              </Modal>
-            </Card.Content>
-          </Card>
-        </GridColumn>
-      </Grid>
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ rotate: 360, scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 160,
+          damping: 20
+        }}>
+        
+        <Grid centered>
+          <GridColumn>
+            <Card fluid>
+              <Image src={userInfo.profilePicture} centered size='big' fluid/>
+              <Card.Content>
+                <Card.Header as='h1'>{userInfo.username}</Card.Header>
+                <Card.Meta>
+                  <span className='date'>Joined: {joinData.slice(0, 10)}</span>
+                </Card.Meta>
+              </Card.Content>
+              <Card.Content extra>
+                <Modal
+                  closeIcon
+                  open={open}
+                  trigger={<Button color='red' floated='right'>Delete my profile</Button>}
+                  onClose={() => setOpen(false)}
+                  onOpen={() => setOpen(true)}
+                >
+                  <Header icon='archive' content='Deleting your profile' />
+                  <Modal.Content>
+                    <p>
+                      Are you sure you want to delete your profile?
+                      <br />All data will be lost
+                    </p>
+                  </Modal.Content>
+                  <Modal.Actions>
+                    <Button color='red' onClick={() => setOpen(false)}>
+                      <Icon name='remove' /> No
+                    </Button>
+                    <Button color='green' onClick={handleDelete}>
+                      <Icon name='checkmark' /> Yes
+                    </Button>
+                  </Modal.Actions>
+                </Modal>
+              </Card.Content>
+            </Card>
+          </GridColumn>
+        </Grid>
       </motion.div>
+      
+      <Segment>
+        <Header as='h1' textAlign='center'>Your favourite parks in London!</Header>
+      </Segment>
       <Grid centered celled='internally'>
         {favParks.map(park => {
           return (
@@ -114,8 +119,8 @@ const UserProfile = ({ setUserData }) => {
               whileHover={{
                 position: 'relative',
                 zIndex: 1,
-                scale: [1,1.4,1.2],
-                rotate: [0,10,-10,0],
+                scale: [1, 1.4, 1.2],
+                rotate: [0, 10, -10, 0],
                 filter: [
                   'hue-rotate(0) contrast(100%)',
                   'hue-rotate(360deg) contrast(200%)',
@@ -145,7 +150,6 @@ const UserProfile = ({ setUserData }) => {
             </motion.div>
           )
         })}
-
       </Grid>
     </>
 

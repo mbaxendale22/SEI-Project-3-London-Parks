@@ -1,4 +1,3 @@
-import react from 'react'
 import axios from 'axios'
 import { Image, Input } from 'semantic-ui-react'
 
@@ -20,7 +19,7 @@ export const ImageUploadField = ({ handleImageUrl, value }) => {
     <>
       <label>Profile Picture</label>
       {value ?
-        <Image src={value} alt='Choosen image' />
+        <Image src={value} alt='Choosen image' fluid/>
         :
         <Input
           name='profilePicture'

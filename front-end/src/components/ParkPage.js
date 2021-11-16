@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { Header, Image, Divider, Grid, Segment, Container, Comment, Form, Button, Rating, List, GridColumn } from 'semantic-ui-react'
+import { Header, Image, Divider, Grid, Segment, Container, Comment, Form, Button, Rating, List, GridColumn, Modal, Icon } from 'semantic-ui-react'
 import { getTokenFromLocalStorage } from "../helpers/auth"
 import Favourite from './Favourite.js'
 import { userIsAuthenticated, getPayload } from '../helpers/auth'
-import { motion } from 'framer-motion'
+import { toast, ToastContainer, Flip } from 'react-toastify'
 import ReactMapGl from 'react-map-gl'
+
+
 
 const ParkPage = () => {
 
   const { id } = useParams()
+  const [open, setOpen] = useState(false)
   const [park, setPark] = useState(null)
-  const [imageURL, setImageURL] = useState('')
+  // const [imageURL, setImageURL] = useState('')
   const [newComment, setNewComment] = useState(false)
   const [toggle, setToggle] = useState(false)
   const [comment, setComment] = useState({
@@ -60,6 +63,8 @@ const ParkPage = () => {
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
       }
     )
+    deletingToast()
+    setOpen(false)
     setNewComment(!newComment)
   }
 
@@ -83,6 +88,7 @@ const ParkPage = () => {
           })
         setNewComment(!newComment)
         setToggle(!toggle)
+        addingToast()
       } catch (err) {
         console.log(err)
       }
@@ -93,19 +99,43 @@ const ParkPage = () => {
   }
 
 
-  const displayParkImages = () => {
-    if (park === null) {
-      return
-    } else {
-      const nextImage = park.images[Math.floor(Math.random() * park.images.length)]
-      // console.log('PARK IMAGES', park.images)
-      setImageURL(nextImage)
-      // console.log('next Image', nextImage)
-    }
+  // const displayParkImages = () => {
+  //   if (park === null) {
+  //     return
+  //   } else {
+  //     const nextImage = park.images[Math.floor(Math.random() * park.images.length)]
+  //     // console.log('PARK IMAGES', park.images)
+  //     setImageURL(nextImage)
+  //     // console.log('next Image', nextImage)
+  //   }
+  // }
+  // setTimeout(displayParkImages, 8500)
+
+
+
+  const deletingToast = () => {
+    toast.info('Comment is deleted!', {
+      position: "top-center",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+    })
   }
-  setTimeout(displayParkImages, 8500)
 
-
+  const addingToast = () => {
+    toast.success('Comment is added!', {
+      position: "top-center",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+    })
+  }
   const cyclingFriendly = () => {
     if (park.cyclistFriendly === 'yes') {
       return (
@@ -149,7 +179,7 @@ const ParkPage = () => {
   }
   return (
     <>
-    {/* <motion.div
+      {/* <motion.div
       initial={{ scaleY: 0 }}
       animate={{ scaleY: 1 }}
       exit={{ scaleY: 0 }}> */}
@@ -159,7 +189,7 @@ const ParkPage = () => {
             <Header as='h1' color='green' textAlign='center' id='parkHeader'>
               <Header.Content>{park.title}</Header.Content>
             </Header>
-            <Image src={imageURL} alt={park.title} class='ui image' centered rounded id='parkImg' />
+            <Image src={park.images[0]} alt={park.title} class='ui image' centered rounded id='parkImg' />
           </Container>
           <Header as='h3' color='green'><b>Description</b></Header>
           <Container>{park.description}</Container>
@@ -213,53 +243,81 @@ const ParkPage = () => {
               </Segment>
             </Grid.Column>
             <GridColumn>
-            <Segment raised >
-            <ReactMapGl
-              mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-              height='30em'
-              width='37em'
-              mapStyle='mapbox://styles/mapbox/outdoors-v11'
-              zoom={13}
-              latitude={lat}
-              longitude={long}
+              <Segment raised >
+                <ReactMapGl
+                  mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+                  height='30em'
+                  width='100%'
+                  mapStyle='mapbox://styles/mapbox/streets-v11'
+                  zoom={13}
+                  latitude={lat}
+                  longitude={long}
                 />
-          </Segment>
+              </Segment>
+            </GridColumn>
+            <GridColumn>
+              <Segment raised >
+
+              </Segment>
             </GridColumn>
           </Grid>
-          <Divider/>
+          <Divider />
           <Container>
             <Comment.Group>
               <Header as='h3' color='green' dividing>Comments</Header>
-              <Comment>
+              <Comment >
                 <Comment.Content>
-                  {park.comments.length &&
+                  {park.comments.length ?
                     park.comments.map(comment => {
                       return (
                         <>
-                          <Comment.Avatar as='a' src={comment.owner.profilePicture} />
+                          <Comment.Avatar as='a' src={comment.owner.profilePicture} floated='right'/>
                           <Comment.Author as='a'>{comment.owner.username}</Comment.Author>
                           <Comment.Metadata>
                             <div>{comment.createdAt.slice(0, 10)}</div>
                           </Comment.Metadata>
                           {comment.owner._id === getSub() &&
-                            <Button value={comment._id} onClick={deleteComment}>Delete</Button>}
+                            <Modal
+                              closeIcon
+                              open={open}
+                              trigger={<Button color='red'  floated='right'>Delete comment</Button>}
+                              onClose={() => setOpen(false)}
+                              onOpen={() => setOpen(true)}
+                            >
+                              <Header icon='archive' content='Deleting comment' />
+                              <Modal.Content>
+                                <p>
+                                  Are you sure you want to delete your comment?
+                                </p>
+                              </Modal.Content>
+                              <Modal.Actions>
+                                <Button color='red' onClick={() => setOpen(false)}>
+                                  <Icon name='remove' /> No
+                                </Button>
+                                <Button color='green' value={comment._id} onClick={deleteComment}>
+                                  <Icon name='checkmark' /> Yes
+                                </Button>
+                              </Modal.Actions>
+                            </Modal>
+                          }
 
                           <Comment.Text>{comment.text}</Comment.Text>
-                          <p>Rating: {comment.rating}</p>
+                          <Rating defaultRating={comment.rating} icon='star' maxRating={5} disabled/>
+                          <Divider/>
                         </>
-                      )
-                    })}
+                      ) 
+                    }): <Header textAlign='center'as='h2'>Be first to comment and rate this park!</Header>}
                   {userIsAuthenticated() ?
                     <Form reply>
                       <Form.TextArea onChange={handleChange} name='text' placeholder='Your comment...' />
                       <Rating onClick={handleStars} icon='star' maxRating={5} name='rating' />
-                      toggle ?
-                      <>
-                        <p style={{ color: 'red' }}>Please add a rating to submit your comment</p>
-                        <Button autoFocus onClick={handleSubmit} content='Add Comment' labelPosition='left' />
-                      </>
-                      :
-                      <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />
+                      {toggle ?
+                        <>
+                          <p style={{ color: 'red' }}>Please add a rating to submit your comment</p>
+                          <Button autoFocus onClick={handleSubmit} content='Add Comment' labelPosition='left' />
+                        </>
+                        :
+                        <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />}
                     </Form>
                     :
                     <Segment raised>
@@ -271,8 +329,20 @@ const ParkPage = () => {
           </Container>
           <Divider />
         </Container>}
+        <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        transition={Flip}
+      />
       <Segment size='massive' inverted color='olive'></Segment>
-    {/* </motion.div> */}
+      {/* </motion.div> */}
     </>
 
   )
