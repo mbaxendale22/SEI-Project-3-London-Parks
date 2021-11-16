@@ -23,7 +23,9 @@ export default [
       'https://www.parkgrandhydepark.co.uk/blog/wp-content/uploads/2020/02/Hyde-Park-in-London.jpg'],
     url: 'https://www.royalparks.org.uk/parks/hyde-park',
     activites: ['boating', 'swimming', 'tennis', 'football', 'horse riding', 'The Diana Princess of Wales Memorial Walk', 'playground'],
-    region: 'Central London'
+    region: 'Central London',
+    latitude: '51.50800',
+    longitude: '-0.16628'
   },
   {
     title: 'The Green Park',
@@ -43,7 +45,9 @@ export default [
       'https://images-production.gardenvisit.com/uploads/images/16302/green_park_1340_jpg_original.jpg'],
     url: 'https://www.royalparks.org.uk/parks/green-park',
     activites: ['The Diana Princess of Wales Memorial Walk', 'playground'],
-    region: 'Central London'
+    region: 'Central London',
+    latitude: '51.50307',
+    longitude: '-0.13028'
   },
   {
     title: 'Kensington Gardens',
@@ -63,7 +67,9 @@ export default [
       'https://imgs-akamai.mnstatic.com/92/56/92569678ddd765bb195906bb6491532c.jpg'],
     url: 'https://www.royalparks.org.uk/parks/kensington-gardens',
     activites: ['The Diana Princess of Wales Memorial Walk', 'playground'],
-    region: 'Central London'
+    region: 'Central London',
+    latitude: '51.50800',
+    longitude: '-0.16628'
   },
   {
     title: 'St Dunstan in the East Church Garden',
@@ -83,7 +89,9 @@ export default [
       'https://offloadmedia.feverup.com/secretldn.com/wp-content/uploads/2018/03/18145413/St-Dunstan-9.jpg'],
     url: 'https://www.cityoflondon.gov.uk/things-to-do/city-gardens/find-a-garden/st-dunstan-in-the-east-church-garden',
     activites: ['walks'],
-    region: 'Central London'
+    region: 'Central London',
+    latitude: '51.51020',
+    longitude: '-0.08284'
   },
 
   {
@@ -105,12 +113,14 @@ export default [
       'https://www.londonperfect.com/blog/wp-content/uploads/2021/03/london-saint-jamess-park.jpg'],
     url: 'https://www.royalparks.org.uk/parks/st-jamess-park',
     activites: ['The Diana Princess of Wales Memorial Walk', 'playground', 'walks'],
-    region: 'Central London'
+    region: 'Central London',
+    latitude: '51.50307',
+    longitude: '-0.13028'
   },
   {
     title: 'The Regent`s Park',
     description: 'The Regent’s Park combines large open spaces with tree-lined pathways, formal gardens, and four children’s playgrounds. It has excellent sports facilities, and contains central London’s largest outdoor sports area. Walk through the elegant flowerbeds in the Avenue Gardens, see more than 12,000 roses in Queen Mary’s Gardens, or hire a rowing boat and join the ducks on the boating lake. Visit the Open Air Theatre and London Zoo, then take a stroll up Primrose Hill for excellent views of the London skyline. The park also provides a warm welcome for wildlife. It has a large wetland area and is home to around 100 species of wild bird and a breeding population of hedgehogs.',
-    postcode: 'NW1 4NR',
+    postcode: 'NW1 4RU',
     dogFriendly: 'with some restrictions',
     cyclistFriendly: 'with some restrictions',
     images: ['https://www.wheretraveler.com/sites/default/files/regents_park_c_anatoleya_-_istock.jpg',
@@ -127,7 +137,9 @@ export default [
     ],
     url: 'https://www.royalparks.org.uk/parks/the-regents-park',
     activites: ['boating', 'netball', 'tennis', 'football', 'rugby', 'softball', 'cricket', 'running', 'playground', 'walks'],
-    region: 'North London'
+    region: 'North London',
+    latitude: '51.53257',
+    longitude: '-0.15788'
   },
   {
     title: 'Primrose Hill',
@@ -149,7 +161,9 @@ export default [
     ],
     url: 'https://www.royalparks.org.uk/parks/the-regents-park/things-to-see-and-do/primrose-hill',
     activites: ['playground','walks'],
-    region: 'North London'
+    region: 'North London',
+    latitude: '51.52832',
+    longitude: '-0.15074'
   },
   {
     title: 'Hampstead Heath',
@@ -173,7 +187,9 @@ export default [
     ],
     url: 'https://www.cityoflondon.gov.uk/things-to-do/green-spaces/hampstead-heath',
     activites: ['swimming', 'walks', 'tennis', 'athletics', 'cycling', 'football', 'cricket', 'fishing'],
-    region: 'North London'
+    region: 'North London',
+    latitude: '51.57872',
+    longitude: '-0.14919'
   },
   {
     title: 'Golders Hill Park',
@@ -197,7 +213,9 @@ export default [
     ],
     url: 'https://www.cityoflondon.gov.uk/things-to-do/green-spaces/hampstead-heath/where-to-go-at-hampstead-heath/golders-hill-park',
     activites: ['tennis', 'playground', 'walks'],
-    region: 'North London'
+    region: 'North London',
+    latitude: '51.56754',
+    longitude: '-0.18258'
   },
   {
     title: 'Finsbury Park',
@@ -221,7 +239,9 @@ export default [
     ],
     url: 'https://www.haringey.gov.uk/libraries-sport-and-leisure/parks-and-open-spaces/z-parks-and-open-spaces/finsbury-park',
     activites: ['basketball', 'boating', 'netball', 'playground', 'skatepark', 'table tennis', 'walks'],
-    region: 'North London'
+    region: 'North London',
+    latitude: '51.57462',
+    longitude: '-0.10335'
   },
   {
     title: 'Richmond Park',
@@ -246,7 +266,9 @@ export default [
       'https://www.royalparks.org.uk/_media/images/richmond-park/deer/Stag-and-his-hinds-Credit-Jules-Cox.jpg/w_1200.jpg'
     ],url: 'https://www.royalparks.org.uk/parks/richmond-park',
     activites: ['walks', 'parkcycle', 'horse riding', 'golf', 'fishing', 'power kiting', 'rugby', 'playground'],
-    region: 'South London'
+    region: 'South London',
+    latitude: '51.45184',
+    longitude: '-0.28242'
   },
   {
     title: 'Greenwich Park',
@@ -270,7 +292,9 @@ export default [
     ],
     url: 'https://www.royalparks.org.uk/parks/greenwich-park',
     activites: ['walks', 'boating', 'tennis', 'cricket', 'playground'],
-    region: 'South London'
+    region: 'South London',
+    latitude: '51.47300',
+    longitude: '0.00298'
   },
   {
     title: 'Royal Botanic Gardens, Kew',
@@ -298,7 +322,9 @@ export default [
     ],
     url: 'https://www.kew.org/',
     activites: ['walks', 'family activities', 'playground'],
-    region: 'South London'
+    region: 'South London',
+    latitude: '51.48522',
+    longitude: '-0.29120'
   },
   {
     title: 'Crystal Palas Park',
@@ -323,7 +349,9 @@ export default [
     ],
     url: 'https://www.crystalpalaceparktrust.org/',
     activites: ['walks', 'skatepark', 'boating', 'running', 'swimming', 'playground'],
-    region: 'South London'
+    region: 'South London',
+    latitude: '51.42046',
+    longitude: '-0.07102'
   },
   {
     title: 'Morden Hall Park',
@@ -347,7 +375,9 @@ export default [
     ],
     url: 'https://www.nationaltrust.org.uk/morden-hall-park?utm_content=london-parks-gardens-list&utm_source=secretldn&utm_medium=post&utm_term=cta40',
     activites: ['walks', 'volleyball', 'cricket', 'cycling', 'archery', 'playground'],
-    region: 'South London'
+    region: 'South London',
+    latitude: '51.40163',
+    longitude: '-0.18914'
   },
   {
     title: 'Walthamstow Wetlands',
@@ -370,7 +400,9 @@ export default [
     ],
     url: 'https://www.wildlondon.org.uk/walthamstow-wetlands-nature-reserve',
     activites: ['walks'],
-    region: 'East London'
+    region: 'East London',
+    latitude: '51.58600',
+    longitude: '-0.05300'
   },
   {
     title: 'Victoria Park',
@@ -392,7 +424,9 @@ export default [
     ],
     url: 'https://www.towerhamlets.gov.uk/lgnl/leisure_and_culture/parks_and_open_spaces/victoria_park/victoria_park.aspx',
     activites: ['playground', 'walks', 'swimming'],
-    region: 'East London'
+    region: 'East London',
+    latitude: '51.53325',
+    longitude: '-0.04070'
   },
   {
     title: 'London Fields',
@@ -416,7 +450,9 @@ export default [
     ],
     url: 'https://hackney.gov.uk/london-fields?utm_content=london-parks-gardens-list&utm_source=secretldn&utm_medium=post&utm_term=cta85',
     activites: ['playground', 'cricket', 'swimming', 'tennis', 'table tennis', 'outdoor gym', 'walks'],
-    region: 'East London'
+    region: 'East London',
+    latitude: '51.54232',
+    longitude: '-0.0615'
   },
   {
     title: 'Abney Park',
@@ -438,7 +474,9 @@ export default [
     ],
     url: 'https://abneypark.org/?utm_content=london-parks-gardens-list&utm_term=cta78',
     activites: ['walks'],
-    region: 'East London'
+    region: 'East London',
+    latitude: '51.56258',
+    longitude: '-0.07379'
   },
   {
     title: 'Bathnal Green Gardens',
@@ -460,7 +498,9 @@ export default [
     ],
     url: 'https://www.towerhamlets.gov.uk/lgnl/leisure_and_culture/parks_and_open_spaces/bethnal_green_gardens.aspx', 
     activites: ['playground', 'walks', 'basketball', 'tennis', 'football', 'netball'],
-    region: 'East London'
+    region: 'East London',
+    latitude: '51.52775',
+    longitude: '-0.05953'
   },
   {
     title: 'Chelsea Physic Garden',
@@ -486,7 +526,9 @@ export default [
     ],
     url: 'https://www.chelseaphysicgarden.co.uk/',
     activites: ['walks'],
-    region: 'West London'
+    region: 'West London',
+    latitude: '51.48431',
+    longitude: '-0.16335'
   },
   {
     title: 'Holland Park',
@@ -512,7 +554,9 @@ export default [
     ],
     url: 'https://www.rbkc.gov.uk/leisure-and-culture/parks/holland-park',
     activites: ['playground', 'tennis', 'football', 'golf', 'cricket', 'netball', 'walks'],
-    region: 'West London'
+    region: 'West London',
+    latitude: '51.50545',
+    longitude: '-0.20891'
   },
   {
     title: 'Brompton Cemetery',
@@ -535,7 +579,9 @@ export default [
     ],
     url: 'https://www.royalparks.org.uk/parks/brompton-cemetery?utm_content=london-parks-gardens-list&utm_source=secretldn&utm_medium=post&utm_term=cta100',
     activites: ['walks'],
-    region: 'West London'
+    region: 'West London',
+    latitude: '51.48266',
+    longitude: '-0.18682'
   },
   {
     title: 'Bishops Park',
@@ -559,7 +605,9 @@ export default [
     ],
     url: 'https://www.lbhf.gov.uk/arts-and-parks/parks-and-open-spaces/bishops-park',
     activites: ['walks', 'tennis', 'bowling greens', 'basketball', 'playground'],
-    region: 'West London'
+    region: 'West London',
+    latitude: '51.47077',
+    longitude: '-0.21590'
   },
   {
     title: 'Gunnersbury Park',
@@ -583,6 +631,8 @@ export default [
     ],
     url: 'https://www.visitgunnersbury.org/',
     activites: ['swimming', 'tennis', 'football', 'badminton', 'walks'],
-    region: 'West London'
+    region: 'West London',
+    latitude: '51.50139',
+    longitude: '-0.29283'
   }
 ]
