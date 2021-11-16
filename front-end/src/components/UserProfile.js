@@ -75,7 +75,7 @@ const UserProfile = ({ setUserData }) => {
             <Card.Content>
               <Card.Header>{userInfo.username}</Card.Header>
               <Card.Meta>
-                {/* <span className='date'>Joined: {joinData.slice(0, 10)}</span> */}
+                <span className='date'>Joined: {joinData.slice(0, 10)}</span>
               </Card.Meta>
             </Card.Content>
             <Card.Content extra>
