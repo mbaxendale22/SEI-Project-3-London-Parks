@@ -33,7 +33,7 @@ const NavBarHome = ({ userData }) => {
 
   return (
     <>
-      <Segment color='green' inverted>
+      <Segment style={{postion: 'relative'}} color='green' inverted>
         <Menu icon secondary color='green' inverted  >
           <MenuItem position='left'>
             <Menu.Item onClick={() => history.push('/')}>
@@ -71,12 +71,12 @@ const NavBarHome = ({ userData }) => {
         pauseOnHover
         transition={Flip}
       />
-      </Segment>
       <>
         {
           toggle && < RegionLinks />
         }
       </>
+      </Segment>
     </>
   )
 }
