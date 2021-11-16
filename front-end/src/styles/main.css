@@ -44,3 +44,9 @@
 #homeHeader {
   font-size: 55px;
 }
+
+#planner-input[placeholder] {
+  color: grey;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
