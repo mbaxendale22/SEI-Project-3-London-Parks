@@ -27,6 +27,8 @@ return (
             postcode={park.postcode}
             activities={park.activites}
             url={park.url}
+            latitude={park.latitude}
+            longitude={park.longitude}
           />
         )
       })}

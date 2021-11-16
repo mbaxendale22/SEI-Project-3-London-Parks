@@ -44,3 +44,16 @@
 #homeHeader {
   font-size: 55px;
 }
+
+/* .rec.rec-swipable{
+  height:40em;
+} */
+
+.carousel.carousel-slider {
+  height: 50em;
+}
+
+img{
+  height: 50em;
+  position: center;
+}

@@ -7,7 +7,8 @@ import Favourite from './Favourite.js'
 import { userIsAuthenticated, getPayload } from '../helpers/auth'
 import { toast, ToastContainer, Flip } from 'react-toastify'
 import ReactMapGl from 'react-map-gl'
-
+import { Carousel } from 'react-responsive-carousel'
+import "react-responsive-carousel/lib/styles/carousel.min.css"
 
 
 const ParkPage = () => {
@@ -36,7 +37,6 @@ const ParkPage = () => {
     }
     getData()
   }, [id, newComment])
-
 
   // get the payload for the current user, use this to conditionally render a delete button next to comments 
   // depending on whether the payload matches that of the owner of the comment
@@ -179,157 +179,162 @@ const ParkPage = () => {
   }
   return (
     <>
-      {/* <motion.div
-      initial={{ scaleY: 0 }}
-      animate={{ scaleY: 1 }}
-      exit={{ scaleY: 0 }}> */}
       {park &&
+      <><Header as='h1' color='green' textAlign='center' id='parkHeader'>
+          <Header.Content>{park.title}</Header.Content>
+        </Header>
         <Container>
-          <Container>
-            <Header as='h1' color='green' textAlign='center' id='parkHeader'>
-              <Header.Content>{park.title}</Header.Content>
-            </Header>
-            <Image src={park.images[0]} alt={park.title} class='ui image' centered rounded id='parkImg' />
+        <Carousel
+          showThumbs={false}
+          infiniteLoop={true}
+          autoPlay={true}
+          interval={2500}
+          transitionTime={1000}
+          autoFocus={true}
+          swipeable={true}
+        >
+            {park.images.map(image =><img src={image}></img>)}
+          </Carousel>
           </Container>
-          <Header as='h3' color='green'><b>Description</b></Header>
-          <Container>{park.description}</Container>
-          <Segment inverted color='olive'></Segment>
-          <Grid columns={2}>
-            <Grid.Column>
-              <Segment color='olive'>
-                <Grid columns={3}>
-                  <Grid.Column>
-                    <Container id='postCodeContainer'>
-                      <Header as='h4' textAlign='left' color='olive'>
-                        <Segment.Inline>
-                          <Container><p>Postcode</p></Container>
-                          <Container><p>{park.postcode}</p></Container>
-                        </Segment.Inline>
-                      </Header>
-                    </Container>
-                  </Grid.Column>
+          <Divider hidden/>
+            <Container>
+            <Header as='h3' color='green'><b>Description</b></Header>
+            <Container>{park.description}</Container>
+            <Segment inverted color='olive'></Segment>
+            <Grid columns={2}>
+              <Grid.Column>
+                <Segment color='olive'>
+                  <Grid columns={3}>
+                    <Grid.Column>
+                      <Container id='postCodeContainer'>
+                        <Header as='h4' textAlign='left' color='olive'>
+                          <Segment.Inline>
+                            <Container><p>Postcode</p></Container>
+                            <Container><p>{park.postcode}</p></Container>
+                          </Segment.Inline>
+                        </Header>
+                      </Container>
+                    </Grid.Column>
 
-                  <Grid.Column>
-                    <Segment basic>{dogsFriendly()}</Segment>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Segment basic>{cyclingFriendly()}</Segment>
-                  </Grid.Column>
-                </Grid>
-
-                <Divider />
-
-                <Segment.Inline>
-                  <Grid column={2}>
-                    <Image src={'https://thumbs.dreamstime.com/b/web-vector-icon-arrow-website-icon-cursor-move-web-vector-icon-arrow-website-icon-cursor-move-122726028.jpg'} size='tiny' />
-                    <p textAlign='left'><a href={park.url}>{park.title}</a></p>
+                    <Grid.Column>
+                      <Segment basic>{dogsFriendly()}</Segment>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Segment basic>{cyclingFriendly()}</Segment>
+                    </Grid.Column>
                   </Grid>
-                </Segment.Inline>
-              </Segment>
-              <Favourite park={park} id={id} />
-            </Grid.Column>
-            <Grid.Column>
-              <Segment color='olive'>
-                <div>
-                  <Header as='h4' textAlign='left' color='olive'>
-                    <Image src={'https://img.freepik.com/free-vector/landscape-park-scene-icon_24877-56515.jpg?size=338&ext=jpg'} alt={park.title} size='massive' left />Activities
-                  </Header>
-                  <List bulleted animated verticalAlign='middle'>
-                    {park.activites.map(activ => {
-                      return <List.Item>{activ}</List.Item>
-                    })}
-                  </List>
-                </div>
-              </Segment>
-            </Grid.Column>
-            <GridColumn>
-              <Segment raised >
-                <ReactMapGl
-                  mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-                  height='30em'
-                  width='100%'
-                  mapStyle='mapbox://styles/mapbox/streets-v11'
-                  zoom={13}
-                  latitude={lat}
-                  longitude={long}
-                />
-              </Segment>
-            </GridColumn>
-            <GridColumn>
-              <Segment raised >
 
-              </Segment>
-            </GridColumn>
-          </Grid>
-          <Divider />
-          <Container>
-            <Comment.Group>
-              <Header as='h3' color='green' dividing>Comments</Header>
-              <Comment >
-                <Comment.Content>
-                  {park.comments.length ?
-                    park.comments.map(comment => {
-                      return (
-                        <>
-                          <Comment.Avatar as='a' src={comment.owner.profilePicture} floated='right'/>
-                          <Comment.Author as='a'>{comment.owner.username}</Comment.Author>
-                          <Comment.Metadata>
-                            <div>{comment.createdAt.slice(0, 10)}</div>
-                          </Comment.Metadata>
-                          {comment.owner._id === getSub() &&
-                            <Modal
-                              closeIcon
-                              open={open}
-                              trigger={<Button color='red'  floated='right'>Delete comment</Button>}
-                              onClose={() => setOpen(false)}
-                              onOpen={() => setOpen(true)}
-                            >
-                              <Header icon='archive' content='Deleting comment' />
-                              <Modal.Content>
-                                <p>
-                                  Are you sure you want to delete your comment?
-                                </p>
-                              </Modal.Content>
-                              <Modal.Actions>
-                                <Button color='red' onClick={() => setOpen(false)}>
-                                  <Icon name='remove' /> No
-                                </Button>
-                                <Button color='green' value={comment._id} onClick={deleteComment}>
-                                  <Icon name='checkmark' /> Yes
-                                </Button>
-                              </Modal.Actions>
-                            </Modal>
-                          }
+                  <Divider />
 
-                          <Comment.Text>{comment.text}</Comment.Text>
-                          <Rating defaultRating={comment.rating} icon='star' maxRating={5} disabled/>
-                          <Divider/>
-                        </>
-                      ) 
-                    }): <Header textAlign='center'as='h2'>Be first to comment and rate this park!</Header>}
-                  {userIsAuthenticated() ?
-                    <Form reply>
-                      <Form.TextArea onChange={handleChange} name='text' placeholder='Your comment...' />
-                      <Rating onClick={handleStars} icon='star' maxRating={5} name='rating' />
-                      {toggle ?
-                        <>
-                          <p style={{ color: 'red' }}>Please add a rating to submit your comment</p>
-                          <Button autoFocus onClick={handleSubmit} content='Add Comment' labelPosition='left' />
-                        </>
-                        :
-                        <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />}
-                    </Form>
-                    :
-                    <Segment raised>
-                      <Header textAlign='center' as='h3'>To add comment and rating you have to <a href='/login'>Log</a> in or <a href='/register'>Register</a>!</Header>
-                    </Segment>}
-                </Comment.Content>
-              </Comment>
-            </Comment.Group>
-          </Container>
-          <Divider />
-        </Container>}
-        <ToastContainer
+                  <Segment.Inline>
+                    <Grid column={2}>
+                      <Image src={'https://thumbs.dreamstime.com/b/web-vector-icon-arrow-website-icon-cursor-move-web-vector-icon-arrow-website-icon-cursor-move-122726028.jpg'} size='tiny' />
+                      <p textAlign='left'><a href={park.url}>{park.title}</a></p>
+                    </Grid>
+                  </Segment.Inline>
+                </Segment>
+                <Favourite park={park} id={id} />
+              </Grid.Column>
+              <Grid.Column>
+                <Segment color='olive'>
+                  <div>
+                    <Header as='h4' textAlign='left' color='olive'>
+                      <Image src={'https://img.freepik.com/free-vector/landscape-park-scene-icon_24877-56515.jpg?size=338&ext=jpg'} alt={park.title} size='massive' left />Activities
+                    </Header>
+                    <List bulleted animated verticalAlign='middle'>
+                      {park.activites.map(activ => {
+                        return <List.Item>{activ}</List.Item>
+                      })}
+                    </List>
+                  </div>
+                </Segment>
+              </Grid.Column>
+              <GridColumn>
+                <Segment raised>
+                  <ReactMapGl
+                    mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+                    height='30em'
+                    width='100%'
+                    mapStyle='mapbox://styles/mapbox/streets-v11'
+                    zoom={13}
+                    latitude={lat}
+                    longitude={long} />
+                </Segment>
+              </GridColumn>
+              <GridColumn>
+                <Segment raised>
+
+                </Segment>
+              </GridColumn>
+            </Grid>
+            <Divider />
+            <Container>
+              <Comment.Group>
+                <Header as='h3' color='green' dividing>Comments</Header>
+                <Comment>
+                  <Comment.Content>
+                    {park.comments.length ?
+                      park.comments.map(comment => {
+                        return (
+                          <>
+                            <Comment.Avatar as='a' src={comment.owner.profilePicture} floated='right' />
+                            <Comment.Author as='a'>{comment.owner.username}</Comment.Author>
+                            <Comment.Metadata>
+                              <div>{comment.createdAt.slice(0, 10)}</div>
+                            </Comment.Metadata>
+                            {comment.owner._id === getSub() &&
+                              <Modal
+                                closeIcon
+                                open={open}
+                                trigger={<Button color='red' floated='right'>Delete comment</Button>}
+                                onClose={() => setOpen(false)}
+                                onOpen={() => setOpen(true)}
+                              >
+                                <Header icon='archive' content='Deleting comment' />
+                                <Modal.Content>
+                                  <p>
+                                    Are you sure you want to delete your comment?
+                                  </p>
+                                </Modal.Content>
+                                <Modal.Actions>
+                                  <Button color='red' onClick={() => setOpen(false)}>
+                                    <Icon name='remove' /> No
+                                  </Button>
+                                  <Button color='green' value={comment._id} onClick={deleteComment}>
+                                    <Icon name='checkmark' /> Yes
+                                  </Button>
+                                </Modal.Actions>
+                              </Modal>}
+
+                            <Comment.Text>{comment.text}</Comment.Text>
+                            <Rating defaultRating={comment.rating} icon='star' maxRating={5} disabled />
+                            <Divider />
+                          </>
+                        )
+                      }) : <Header textAlign='center' as='h2'>Be first to comment and rate this park!</Header>}
+                    {userIsAuthenticated() ?
+                      <Form reply>
+                        <Form.TextArea onChange={handleChange} name='text' placeholder='Your comment...' />
+                        <Rating onClick={handleStars} icon='star' maxRating={5} name='rating' />
+                        {toggle ?
+                          <>
+                            <p style={{ color: 'red' }}>Please add a rating to submit your comment</p>
+                            <Button autoFocus onClick={handleSubmit} content='Add Comment' labelPosition='left' />
+                          </>
+                          :
+                          <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />}
+                      </Form>
+                      :
+                      <Segment raised>
+                        <Header textAlign='center' as='h3'>To add comment and rating you have to <a href='/login'>Log</a> in or <a href='/register'>Register</a>!</Header>
+                      </Segment>}
+                  </Comment.Content>
+                </Comment>
+              </Comment.Group>
+            </Container>
+            <Divider />
+          </Container></>}
+      <ToastContainer
         position="top-right"
         autoClose={2000}
         hideProgressBar={false}
@@ -342,7 +347,6 @@ const ParkPage = () => {
         transition={Flip}
       />
       <Segment size='massive' inverted color='olive'></Segment>
-      {/* </motion.div> */}
     </>
 
   )
