@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useParams, useHistory, useLocation } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { Header, Image, Divider, Grid, Segment, Container, Comment, Form, Button, Rating, List } from 'semantic-ui-react'
 import { getTokenFromLocalStorage } from "../helpers/auth"
@@ -11,14 +11,16 @@ const ParkPage = () => {
 
   const { id } = useParams()
   const [park, setPark] = useState(null)
-  const history = useHistory()
+  const [imageURL, setImageURL] = useState('')
   const [newComment, setNewComment] = useState(false)
-  const refreshPage = useRef(null)
+  
 
   useEffect(() => {
     const getData = async () => {
       const { data: park } = await axios.get(`/api/london-parks-api/${id}`)
       setPark(park)
+      setImageURL(park.images[0])
+      console.log('PARK', park)
     }
     getData()
   }, [id, newComment])
@@ -42,22 +44,23 @@ const ParkPage = () => {
             headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }, // need to send the token on the headers object
           })
           setNewComment(!newComment)
-        // history.push(`/${park._id}`)
       } catch (err) {
         console.log(err)
       }
     }
-
+    
   const displayParkImages = () => {
     if (park === null) {
       return
     } else {
-      // refreshPage.current = park.images[Math.floor(Math.random()* park.images.length)]
-      console.log(refreshPage.current)
+      const nextImage = park.images[Math.floor(Math.random()* park.images.length)]
+      // console.log('PARK IMAGES', park.images)
+      setImageURL(nextImage)
+      // console.log('next Image', nextImage)
     }
   }
-  setInterval(displayParkImages, 5000)
-
+  setTimeout(displayParkImages, 8500)
+  
 
   const cyclingFriendly = () => {
     if (park.cyclistFriendly === 'yes') {
@@ -66,7 +69,7 @@ const ParkPage = () => {
       ) 
     } if (park.cyclistFriendly === 'no') {
       return (
-        <Image src={'https://previews.123rf.com/images/almightyalex/almightyalex1810/almightyalex181001450/111051484-stop-or-ban-sign-with-cyclist-icon-isolated-on-white-background-cycling-is-prohibited-vector-illustr.jpg'} size='mini' left class='greenBicycle'/>
+        <Image src={'https://previews.123rf.com/images/almightyalex/almightyalex1810/almightyalex181001450/111051484-stop-or-ban-sign-with-cyclist-icon-isolated-on-white-background-cycling-is-prohibited-vector-illustr.jpg'} size='large' left class='greenBicycle'/>
       )
     } else {
       return (
@@ -84,9 +87,9 @@ const ParkPage = () => {
 
   const dogsFriendly = () => {
     if (park.dogFriendly === 'yes'){
-      return <Image src={'https://static.thenounproject.com/png/14830-200.png'} size='mini' left/>
+      return <Image src={'https://static.thenounproject.com/png/14830-200.png'} size='small' left/>
     } if (park.dogFriendly === 'no') {
-      return <Image src={'https://createsigns.co.nz/wp-content/uploads/2017/05/No-Pets-Service-Animals-Allowed-Sign-No-Dog-Icon-1.png'} size='mini' left/>
+      return <Image src={'https://createsigns.co.nz/wp-content/uploads/2017/05/No-Pets-Service-Animals-Allowed-Sign-No-Dog-Icon-1.png'} size='small' left/>
     } else {
       return(
         <>
@@ -108,56 +111,57 @@ const ParkPage = () => {
       {park &&
       <Container >
         <Container>
-          <Segment>
-            <Header as='h1' color='green' textAlign='center'>{park.title}</Header>
-          </Segment>
-            <Image src={refreshPage.current} alt={park.title} class='ui fluid image' centered/>
+          <Header as='h1' color='green' textAlign='center' id='parkHeader'>
+            <Header.Content >{park.title}</Header.Content>
+          </Header>
+            <Image src={imageURL} alt={park.title} class='ui image' centered rounded id='parkImg'/>
         </Container>
-        <Header as='h3' color='green'>
-          <b>Description</b>
-        </Header>
-        <Segment color='green'>
-          <Container >{park.description}</Container>
-        </Segment>
+        <Header as='h3' color='green'><b>Description</b></Header>
+        <Container>{park.description}</Container>
+        <Segment inverted color='olive'></Segment>
 
         <Grid columns={2}>
           <Grid.Column>
-            <Segment color='green'>
-              <Segment.Inline basic >
-                <Grid columns={2} textAlign='left'>
-                  <Grid.Column>
-                    <Header as='h5' textAlign='left'>
+            <Segment color='olive'>
+              <Grid columns={3}>
+                <Grid.Column>
+                  <Container id='postCodeContainer'>
+                  <Header as='h4' textAlign='left' color='olive'>
+                    <Segment.Inline>
                       <Container><p>Postcode</p></Container>
-                      <Image src={'http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg'} alt={park.title} size='massive' left id='postCode'/>
                       <Container><p>{park.postcode}</p></Container>
-                    </Header>
-                  </Grid.Column>
-                </Grid>
-              </Segment.Inline>
-              <Segment basic>
-                <Grid columns={2}>
-                  <Grid.Column>
-                    <Segment basic>
-                      {dogsFriendly()}
-                    </Segment>
-                  </Grid.Column>
-                  <Grid.Column>{cyclingFriendly()}</Grid.Column>
-                </Grid>
-              </Segment>
+                    </Segment.Inline>
+                  </Header>
+                  </Container>
+                  
+                </Grid.Column>
+                <Grid.Column>
+                  <Segment basic>{dogsFriendly()}</Segment>
+                </Grid.Column>
+                <Grid.Column>
+                <Segment basic>{cyclingFriendly()}</Segment>
+                </Grid.Column>
+              </Grid>
+
               <Divider />
+
               <Segment.Inline >
                 <Grid column={2}>
-                  <Image src={'https://thumbs.dreamstime.com/b/web-vector-icon-arrow-website-icon-cursor-move-web-vector-icon-arrow-website-icon-cursor-move-122726028.jpg'} size='tiny' right/>
-                  <p textAlign='left'><a href={park.url}>{park.title}</a></p>
+                  <Image src={'https://thumbs.dreamstime.com/b/web-vector-icon-arrow-website-icon-cursor-move-web-vector-icon-arrow-website-icon-cursor-move-122726028.jpg'} size='tiny'/>
+                  <p textAlign='left' ><a href={park.url}>{park.title}</a></p>
                 </Grid>
               </Segment.Inline>
             </Segment> 
+            <Favourite park={park} id={id} />
           </Grid.Column>
+
+          
+
           <Grid.Column>
-            <Segment color='green'>
+            <Segment color='olive'>
               <div> 
-                <Header as='h5' textAlign='left' color='green'>
-                <Image src={'https://static.vecteezy.com/system/resources/previews/001/235/706/non_2x/group-of-masked-people-walking-in-the-park-vector.jpg'} alt={park.title} size='massive' left />Activities
+                <Header as='h4' textAlign='left' color='olive'>
+                <Image src={'https://img.freepik.com/free-vector/landscape-park-scene-icon_24877-56515.jpg?size=338&ext=jpg'} alt={park.title} size='massive' left />Activities
                 </Header>
                 <List bulleted animated verticalAlign='middle'>
                   {
@@ -168,13 +172,13 @@ const ParkPage = () => {
                 </List>
               </div>
             </Segment>
-            <Favourite park={park} id={id} />
+            
           </Grid.Column>
         </Grid>
-
+        <Segment basic></Segment>
         <Container>
           <Comment.Group>
-            <Header as='h3'color='green' dividing>Comments</Header>
+            <Header as='h3'color='olive'dividing>Comments</Header>
             <Comment>
               <Comment.Content>
                 {park.comments.map(comment => {
@@ -205,7 +209,9 @@ const ParkPage = () => {
         </Container>
         <Divider />
       </Container>
+      
       }
+      <Segment size='massive' inverted color='olive'></Segment>
     </motion.div>
   )
 }

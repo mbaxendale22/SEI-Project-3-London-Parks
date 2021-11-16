@@ -1,7 +1,7 @@
 import React from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { Link } from 'react-router-dom'
-import { Header, Segment, Image, Divider, Button, Container } from 'semantic-ui-react'
+import { Header, Segment, Image, Divider, Button, Container, Card } from 'semantic-ui-react'
 
 
 
@@ -14,113 +14,85 @@ const Home = () => {
 
 
   return (
-    <><Header size='huge' textAlign='center' color='green'>
+    <>
+
+    <Header as='h1' color='green' textAlign='center' id='homeHeader'>
       Best London Parks
-    </Header><Segment>
-        <Image src={'https://img2.goodfon.com/wallpaper/nbig/4/be/richmon-park-london-angliia-osen-oleni.jpg'} fluid rounded>
-        </Image>
-      </Segment><Segment>
-        <Button.Group basic color='green'>
+    </Header>
+    <Container>
+      <Card.Group>
+        <Card color='green'>
+          <Image src='https://www.parkgrandlancastergate.co.uk/blog/wp-content/uploads/2018/01/hyde-poark-2.jpg' wrapped ui={false} />
+          <Card.Content>
+            <Card.Header>
+              <Link to={{ pathname: '/parks' }}>
+                <Button fluid color='olive'>All Parks</Button>
+              </Link>
+            </Card.Header>
+          </Card.Content>
+        </Card>
 
-          <Link to={{ pathname: '/parks' }}>
+        <Card color='green'>
+          <Image src='https://cdn.shopify.com/s/files/1/0014/0633/7135/articles/primrose_hill_1200x.jpg?v=1532604924' wrapped ui={false} />
+          <Card.Content>
+            <Card.Header>
+            <Link to={{ pathname: '/parks/region', state: 'North%20London' }}>
+              <Button  fluid color='olive'>North London</Button>
+            </Link>
+            </Card.Header>
+          </Card.Content>
+        </Card>
 
-            <Button color='green'>All Parks</Button>
-          </Link>
+        <Card color='green'>
+          <Image src='https://i0.wp.com/www.montcalmroyallondoncity.co.uk/blog/wp-content/uploads/2017/12/shutterstock_156450068.jpg?fit=1000%2C667&ssl=1' wrapped ui={false} />
+          <Card.Content>
+            <Card.Header>
+            <Link to={{ pathname: '/parks/region', state: 'East%20London' }}>
+              <Button fluid color='olive'>East London</Button>
+            </Link>
+            </Card.Header>
+          </Card.Content>
+        </Card>
+      </Card.Group>
+    </Container>
+      
+    <Container>
+      <Card.Group>
+        <Card color='green'>
+          <Image src='https://www.london-forever.com/wp-content/uploads/2020/09/hyde-park.jpg' wrapped ui={false} />
+          <Card.Content>
+            <Card.Header>
+            <Link to={{ pathname: '/parks/region', state: 'Central%20London' }}>
+              <Button fluid color='olive'>Central London</Button>
+            </Link>
+            </Card.Header>
+          </Card.Content>
+        </Card>
 
-          <Link to={{ pathname: '/parks/region', state: 'North%20London' }}>
-            <Button>North London</Button>
-          </Link>
+        <Card color='green'>
+          <Image fluid src='https://img.locationscout.net/images/2019-05/richmond-park-london-uk-united-kingdom_l.jpeg' wrapped ui={false} />
+          <Card.Content>
+            <Card.Header>
+            <Link to={{ pathname: '/parks/region', state: 'South%20London' }}>
+              <Button fluid color='olive'>South London</Button>
+            </Link>
+            </Card.Header>
+          </Card.Content>
+        </Card>
 
-          <Link to={{ pathname: '/parks/region', state: 'Central%20London' }}>
-            <Button>Central London</Button>
-          </Link>
-
-          <Link to={{ pathname: '/parks/region', state: 'East%20London' }}>
-            <Button>East London</Button>
-          </Link>
-
-          <Link to={{ pathname: '/parks/region', state: 'South%20London' }}>
-            <Button
-            >South London</Button>
-          </Link>
-
-          <Link to={{ pathname: '/parks/region', state: 'West%20London' }}>
-            <Button
-            >West London</Button>
-          </Link>
-        </Button.Group>
-      </Segment><Divider /><Segment inverted color='green'></Segment><Divider /><Header size='huge' color='olive' textAlign='center'>
-        Best London Parks
-      </Header><Container>
-        <Button.Group basic color='olive'>
-
-          <Link to={{ pathname: '/parks' }}>
-
-            <Button color='green'>All Parks</Button>
-          </Link>
-
-          <Link to={{ pathname: '/parks/region', state: 'North%20London' }}>
-            <Button>North London</Button>
-          </Link>
-
-          <Link to={{ pathname: '/parks/region', state: 'Central%20London' }}>
-            <Button>Central London</Button>
-          </Link>
-
-          <Link to={{ pathname: '/parks/region', state: 'East%20London' }}>
-            <Button>East London</Button>
-          </Link>
-
-          <Link to={{ pathname: '/parks/region', state: 'South%20London' }}>
-            <Button
-            >South London</Button>
-          </Link>
-
-          <Link to={{ pathname: '/parks/region', state: 'West%20London' }}>
-            <Button
-            >West London</Button>
-          </Link>
-        </Button.Group>
-      </Container><Segment>
-        <div>
-          <Image.Group size='medium'>
-            <Image src={'https://www.parkgrandlancastergate.co.uk/blog/wp-content/uploads/2018/01/hyde-poark-2.jpg'} id='homeImg' />
-            <Image src={'https://www.uktourcenter.com/wp-content/uploads/2016/05/Regents-Park-London-UK-1024x576.jpeg'} id='homeImg' />
-            <Image src={'https://img2.goodfon.com/wallpaper/nbig/4/be/richmon-park-london-angliia-osen-oleni.jpg'} id='homeImg' />
-          </Image.Group>
-          <Divider hidden />
-          <Image.Group size='medium'>
-            <Image src={'https://offloadmedia.feverup.com/secretldn.com/wp-content/uploads/2017/10/18164038/walthamstow-wetlands.jpg'} id='homeImg' />
-            <Image src={'https://upload.wikimedia.org/wikipedia/commons/5/5c/II_Chelsea_Physic_Garden%2C_London%2C_UK.jpg'} id='homeImg' />
-            <Image src={'https://offloadmedia.feverup.com/secretldn.com/wp-content/uploads/2018/02/18150424/22637281_1082893518480502_4132483769749733376_n-2.jpg'} id='homeImg' />
-          </Image.Group>
-        </div>
-      </Segment><Segment inverted color='olive'></Segment>
-
-      {/* <Link to={{ pathname: '/parks' }}>
-        <button>All Parks</button>
-      </Link>
-
-      <Link to={{ pathname: '/parks/region', state: 'North%20London' }}>
-        <button>North London</button>
-      </Link>
-
-      <Link to={{ pathname: '/parks/region', state: 'Central%20London' }}>
-        <button>Central London</button>
-      </Link>
-
-      <Link to={{ pathname: '/parks/region', state: 'East%20London' }}>
-        <button>East London</button>
-      </Link>
-
-      <Link to={{ pathname: '/parks/region', state: 'South%20London' }}>
-        <button>South London</button>
-      </Link>
-          
-      <Link to={{ pathname: '/parks/region', state: 'West%20London' }}>
-        <button>West London</button>
-      </Link> */}
-      </>
+        <Card color='green'>
+          <Image src='https://offloadmedia.feverup.com/secretldn.com/wp-content/uploads/2018/02/18150424/22637281_1082893518480502_4132483769749733376_n-2.jpg' wrapped ui={false} />
+          <Card.Content>
+            <Card.Header>
+            <Link to={{ pathname: '/parks/region', state: 'West%20London' }}>
+              <Button  fluid color='olive'>West London</Button>
+            </Link>
+            </Card.Header>
+          </Card.Content>
+        </Card>
+      </Card.Group>
+    </Container>
+    </>
   )
 }
 export default Home
