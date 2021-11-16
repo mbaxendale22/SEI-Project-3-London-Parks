@@ -17,14 +17,23 @@
 }
 
 #greenBicycle {
-  height: 78px;
-  width: 100px;
+  height: 62px;
+  width: 90px;
 }
 
-#postCode {
-  height: 30px;
-  width: 27px;
+#postCodeContainer {
+  margin-top: 10px;
 }
-#homeImg {
-  height:200px;
+
+#parkHeader {
+  font-size: 55px;
+}
+
+#parkImg {
+  height: 400px;
+  width: 400px;
+}
+
+#homeHeader {
+  font-size: 55px;
 }
