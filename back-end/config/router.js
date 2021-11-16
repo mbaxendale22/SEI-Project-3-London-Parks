@@ -5,7 +5,7 @@ import { addComment, deleteComment, showComments } from '../controlers/comments.
 import { loginUser, registerUser } from '../controlers/auth.js'
 import { secureRoute } from '../config/secureRoute.js'
 import { userProfile } from '../controlers/userProfile.js'
-import { getAllUsers } from '../controlers/users.js'
+import { deleteUser, getAllUsers } from '../controlers/users.js'
 import { addFavPark, deleteFavParks } from '../controlers/favParks.js'
 
 const router = express.Router()
@@ -33,6 +33,10 @@ router.route('/allusers')
 
 router.route('/profile')
   .get(secureRoute,userProfile)
+  .delete(secureRoute,)
+
+router.route('/profile/:id')  
+  .delete(secureRoute,deleteUser)
 
 router.route('/favourite-parks')
   .post(secureRoute,addFavPark)

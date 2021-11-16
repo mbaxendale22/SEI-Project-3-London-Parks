@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useHistory} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { Header, Image, Divider, Grid, Segment, Container, Icon, Comment, Form, Button, Rating, List, Popup } from 'semantic-ui-react'
-import { getTokenFromLocalStorage, getPayload } from "../helpers/auth"
+import { Header, Image, Divider, Grid, Segment, Container, Comment, Form, Button, Rating, List } from 'semantic-ui-react'
+import { getTokenFromLocalStorage } from "../helpers/auth"
 import Favourite from './Favourite.js'
-import { UserComment } from './UserComment'
+import { userIsAuthenticated, getPayload } from '../helpers/auth'
+import { motion } from 'framer-motion'
 
 const ParkPage = () => {
 
   const { id } = useParams()
   const [park, setPark] = useState(null)
-  const history = useHistory()
+  const [imageURL, setImageURL] = useState('')
   const [newComment, setNewComment] = useState(false)
   const [toggle, setToggle] = useState(false)
   const [comment, setComment] = useState({
@@ -96,7 +97,7 @@ const getSub = () => {
       ) 
     } if (park.cyclistFriendly === 'no') {
       return (
-        <Image src={'https://previews.123rf.com/images/almightyalex/almightyalex1810/almightyalex181001450/111051484-stop-or-ban-sign-with-cyclist-icon-isolated-on-white-background-cycling-is-prohibited-vector-illustr.jpg'} size='mini' left class='greenBicycle'/>
+        <Image src={'https://previews.123rf.com/images/almightyalex/almightyalex1810/almightyalex181001450/111051484-stop-or-ban-sign-with-cyclist-icon-isolated-on-white-background-cycling-is-prohibited-vector-illustr.jpg'} size='large' left class='greenBicycle'/>
       )
     } else {
       return (
@@ -114,9 +115,9 @@ const getSub = () => {
 
   const dogsFriendly = () => {
     if (park.dogFriendly === 'yes'){
-      return <Image src={'https://static.thenounproject.com/png/14830-200.png'} size='mini' left/>
+      return <Image src={'https://static.thenounproject.com/png/14830-200.png'} size='small' left/>
     } if (park.dogFriendly === 'no') {
-      return <Image src={'https://createsigns.co.nz/wp-content/uploads/2017/05/No-Pets-Service-Animals-Allowed-Sign-No-Dog-Icon-1.png'} size='mini' left/>
+      return <Image src={'https://createsigns.co.nz/wp-content/uploads/2017/05/No-Pets-Service-Animals-Allowed-Sign-No-Dog-Icon-1.png'} size='small' left/>
     } else {
       return(
         <>
@@ -130,61 +131,65 @@ const getSub = () => {
       )
     }
   }
-
   return (
-    <>
+    <motion.div
+    initial={{ scaleY: 0 }}
+    animate={{ scaleY: 1 }}
+    exit={{ scaleY: 0 }}>
       {park &&
       <Container >
         <Container>
-          <Segment>
-            <Header as='h1' color='green' textAlign='center'>{park.title}</Header>
-          </Segment>
-            <Image src={park.images[Math.floor(Math.random()* park.images.length)]} alt={park.title} class='ui fluid image' centered/>
+          <Header as='h1' color='green' textAlign='center' id='parkHeader'>
+            <Header.Content >{park.title}</Header.Content>
+          </Header>
+            <Image src={imageURL} alt={park.title} class='ui image' centered rounded id='parkImg'/>
         </Container>
-        <Header as='h3' color='green'>
-          <b>Description</b>
-        </Header>
-        <Segment color='green'>
-          <Container >{park.description}</Container>
-        </Segment>
+        <Header as='h3' color='green'><b>Description</b></Header>
+        <Container>{park.description}</Container>
+        <Segment inverted color='olive'></Segment>
+
         <Grid columns={2}>
           <Grid.Column>
-            <Segment color='green'>
-              <Segment.Inline basic >
-                <Grid columns={2} textAlign='left'>
-                  <Grid.Column>
-                    <Header as='h5' textAlign='left'>
+            <Segment color='olive'>
+              <Grid columns={3}>
+                <Grid.Column>
+                  <Container id='postCodeContainer'>
+                  <Header as='h4' textAlign='left' color='olive'>
+                    <Segment.Inline>
                       <Container><p>Postcode</p></Container>
-                      <Image src={'http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg'} alt={park.title} size='massive' left id='postCode'/>
                       <Container><p>{park.postcode}</p></Container>
-                    </Header>
-                  </Grid.Column>
-                </Grid>
-              </Segment.Inline>
-              <Segment basic>
-                <Grid columns={2}>
-                  <Grid.Column>
-                    <Segment basic>
-                      {dogsFriendly()}
-                    </Segment>
-                  </Grid.Column>
-                  <Grid.Column>{cyclingFriendly()}</Grid.Column>
-                </Grid>
-              </Segment>
+                    </Segment.Inline>
+                  </Header>
+                  </Container>
+                  
+                </Grid.Column>
+                <Grid.Column>
+                  <Segment basic>{dogsFriendly()}</Segment>
+                </Grid.Column>
+                <Grid.Column>
+                <Segment basic>{cyclingFriendly()}</Segment>
+                </Grid.Column>
+              </Grid>
+
               <Divider />
+
               <Segment.Inline >
                 <Grid column={2}>
-                  <Image src={'https://thumbs.dreamstime.com/b/web-vector-icon-arrow-website-icon-cursor-move-web-vector-icon-arrow-website-icon-cursor-move-122726028.jpg'} size='tiny' right/>
-                  <p textAlign='left'><a href={park.url}>{park.title}</a></p>
+                  <Image src={'https://thumbs.dreamstime.com/b/web-vector-icon-arrow-website-icon-cursor-move-web-vector-icon-arrow-website-icon-cursor-move-122726028.jpg'} size='tiny'/>
+                  <p textAlign='left' ><a href={park.url}>{park.title}</a></p>
                 </Grid>
               </Segment.Inline>
             </Segment> 
+            <Favourite park={park} id={id} />
           </Grid.Column>
+
+          
+
           <Grid.Column>
-            <Segment color='green'>
+            <Segment color='olive'>
               <div> 
-                <Header as='h5' textAlign='left' color='green'>
-                <Image src={'https://static.vecteezy.com/system/resources/previews/001/235/706/non_2x/group-of-masked-people-walking-in-the-park-vector.jpg'} alt={park.title} size='massive' left />Activities
+                <Header as='h4' textAlign='left' color='olive'>
+                <Image src={'https://img.freepik.com/free-vector/landscape-park-scene-icon_24877-56515.jpg?size=338&ext=jpg'} alt={park.title} size='massive' left />Activities
                 </Header>
                 <List bulleted animated verticalAlign='middle'>
                   {
@@ -195,7 +200,7 @@ const getSub = () => {
                 </List>
               </div>
             </Segment>
-            <Favourite park={park} id={id} />
+            
           </Grid.Column>
         </Grid>
         <Container>
@@ -223,12 +228,12 @@ const getSub = () => {
       })
            
     }
-    
+     {
+       userIsAuthenticated() ? 
       <Form reply>
         <Form.TextArea onChange={handleChange} name='text' placeholder='Your comment...'/>
         <Rating onClick={handleStars} icon='star' maxRating={5} name='rating'/>
-      {
-      toggle ? 
+        toggle ? 
           <>
         <p style={{color: 'red'}}>Please add a rating to submit your comment</p>
         <Button autoFocus onClick={handleSubmit} content='Add Comment' labelPosition='left' />
@@ -237,9 +242,14 @@ const getSub = () => {
       :
       <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />
    
-    }
     
-    </Form>      
+    </Form>   
+    :
+    <Segment raised>
+    <Header textAlign='center' as='h3'>To add comment and rating you have to <a href='/login'>Log</a> in or <a href='/register'>Register</a>!</Header>
+  </Segment>
+  
+  }
     </Comment.Content>
     </Comment>
     </Comment.Group>        
@@ -247,7 +257,11 @@ const getSub = () => {
         <Divider/>
         </Container>
             }
-    </>
+
+            
+      
+      <Segment size='massive' inverted color='olive'></Segment>
+    </motion.div>
   )
 }
 

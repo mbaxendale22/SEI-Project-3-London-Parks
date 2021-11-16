@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import axios from 'axios'
 import ParkCard from './ParkCard'
+import { motion } from 'framer-motion'
 
 const ParkIndex = () => {
   const [parks, setParks] = useState([])

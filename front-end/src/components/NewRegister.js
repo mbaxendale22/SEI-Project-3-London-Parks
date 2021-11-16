@@ -1,8 +1,9 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Form, Button, Grid, GridColumn, Segment } from 'semantic-ui-react'
+import { Form, Button, Grid, GridColumn, Segment,Header } from 'semantic-ui-react'
 import { ImageUploadField } from './ImageUploadField'
+import { motion } from 'framer-motion'
 
 
 const NewRegister = () => {
@@ -46,6 +47,10 @@ const NewRegister = () => {
   }
 
   return (
+    <motion.div
+    initial={{ scaleY: 0 }}
+    animate={{ scaleY: 1 }}
+    exit={{ scaleY: 0 }}>
     <Grid centered>
       <GridColumn style={{ maxWidth: 550, marginTop: 100 }}>
         <Segment>
@@ -59,6 +64,7 @@ const NewRegister = () => {
                 type='text'
                 onChange={handleChange}
               />
+              {errors.username && <Header sub color='red'>User name has to be unique</Header>}
             </Form.Field>
             <Form.Field>
               <label>Email</label>
@@ -69,6 +75,7 @@ const NewRegister = () => {
                 type='email'
                 onChange={handleChange}
               />
+              {errors.email && <Header sub color='red'>Email address has to be unique</Header>}
             </Form.Field>
             <Form.Field>
               <label>Password</label>
@@ -78,6 +85,7 @@ const NewRegister = () => {
                 name='password'
                 onChange={handleChange}
               />
+              {errors.passwordConfirmation && <Header sub color='red'>Passwords does not match!</Header>}
             </Form.Field>
             <Form.Field>
               <label>Confirm Password</label>
@@ -87,6 +95,7 @@ const NewRegister = () => {
                 name='passwordConfirmation'
                 onChange={handleChange}
               />
+              {errors.password && <Header sub color='red'>Passwords does not match!</Header>}
             </Form.Field>
             <Form.Field>
               <ImageUploadField 
@@ -99,6 +108,7 @@ const NewRegister = () => {
         </Segment>
       </GridColumn>
     </Grid>
+    </motion.div>
   )
 }
 

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Form, Grid, Segment, GridColumn, Button } from 'semantic-ui-react'
+import { Form, Grid, Segment, GridColumn, Button, Header } from 'semantic-ui-react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const NewLogin = () => {
   const history = useHistory()
@@ -33,7 +34,10 @@ const NewLogin = () => {
   }
 
   return (
-    <>
+    <motion.div
+      initial={{ scaleY: 0 }}
+      animate={{ scaleY: 1 }}
+      exit={{ scaleY: 0 }}>
     <Grid centered>
     <GridColumn style ={{maxWidth: 550, marginTop: 100}}>
   <Segment>   
@@ -47,6 +51,7 @@ const NewLogin = () => {
     type='email'
     onChange={handleChange}
     />
+    {error && <Header sub color='red'>Login or password are inncorect!</Header>}
   </Form.Field>
   <Form.Field>
     <label>Password</label>
@@ -56,13 +61,14 @@ const NewLogin = () => {
       name='password'
       onChange={handleChange}
     />
+   {error && <Header sub color='red'>Password or login are inncorect!</Header>}
   </Form.Field>
   <Button positive fluid type='submit'>Submit</Button>
 </Form>
   </Segment>
     </GridColumn>
   </Grid>
-  </>
+  </motion.div>
   )
 }
 

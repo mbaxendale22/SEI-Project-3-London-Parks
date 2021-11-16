@@ -273,7 +273,7 @@ export default [
     region: 'South London'
   },
   {
-    title: 'Royal BotanicGardens, Kew',
+    title: 'Royal Botanic Gardens, Kew',
     description: 'Royal Botanic Gardens, Kew, is a non-departmental public body in the United Kingdom sponsored by the Department for Environment, Food and Rural Affairs. An internationally important botanical research and education institution, it employs 1,100 staff. Its board of trustees is chaired by Dame Amelia Fawcett.',
     postcode: ' TW9 3AE',
     dogFriendly: 'no',

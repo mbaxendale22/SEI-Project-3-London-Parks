@@ -1,20 +1,15 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom'
 import Home from './components/Home.js'
 import NavBarHome from './components/NavBarHome'
 import ParkIndex from './components/ParkIndex.js'
-// import Login from './components/Login.js'
-// import Register from './components/Register.js'
 import UserProfile from './components/UserProfile.js'
 import Region from './components/Region.js'
 import ParkPage from './components/ParkPage.js'
 import NewRegister from './components/NewRegister.js'
 import NewLogin from './components/NewLogin.js'
-import { useState } from 'react/cjs/react.development'
-
+import { useState } from 'react'
 const App = () => {
-
-
   const [userData, setUserData] = useState([])
 
   return (

@@ -8,6 +8,9 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   profilePicture: { type: String },
   favouriteParks: [{ type: mongoose.Schema.ObjectId, ref: 'Park' }]
+},
+{ 
+  timestamps: true
 })
 
 //******************* */ needs methods for user validation 
