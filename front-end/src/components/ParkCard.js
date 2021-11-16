@@ -99,7 +99,7 @@ const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitud
                   {
                     isNaN(getAverage()) ?
                       <motion.div whileHover={{ scale: 1.5 }} whileTap={{ scale: 0.9 }}>
-                        <Header as='h3' icon textAlign='center' color='yellow'>
+                        <Header  as='h3' icon textAlign='center' color='yellow'>
                           <Icon name='star outline' />
                           <Header.Content>Be the first to rate this park!</Header.Content>
                         </Header>
