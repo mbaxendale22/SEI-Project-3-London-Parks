@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { Header, Image, Divider, Grid, Segment, Container, Comment, Form, Button, Rating, List } from 'semantic-ui-react'
+import { Header, Image, Divider, Grid, Segment, Container, Comment, Form, Button, Rating, List, GridColumn } from 'semantic-ui-react'
 import { getTokenFromLocalStorage } from "../helpers/auth"
 import Favourite from './Favourite.js'
 import { userIsAuthenticated, getPayload } from '../helpers/auth'
 import { motion } from 'framer-motion'
+import ReactMapGl from 'react-map-gl'
 
 const ParkPage = () => {
 
@@ -20,10 +21,15 @@ const ParkPage = () => {
     owner: ''
   })
 
+  const [lat, setLat] = useState()
+  const [long, setLong] = useState()
+
   useEffect(() => {
     const getData = async () => {
       const { data: park } = await axios.get(`/api/london-parks-api/${id}`)
       setPark(park)
+      setLat(parseFloat(park.latitude))
+      setLong(parseFloat(park.longitude))
     }
     getData()
   }, [id, newComment])
@@ -142,22 +148,22 @@ const ParkPage = () => {
     }
   }
   return (
-    <motion.div
+    <>
+    {/* <motion.div
       initial={{ scaleY: 0 }}
       animate={{ scaleY: 1 }}
-      exit={{ scaleY: 0 }}>
+      exit={{ scaleY: 0 }}> */}
       {park &&
-        <Container >
+        <Container>
           <Container>
             <Header as='h1' color='green' textAlign='center' id='parkHeader'>
-              <Header.Content >{park.title}</Header.Content>
+              <Header.Content>{park.title}</Header.Content>
             </Header>
             <Image src={imageURL} alt={park.title} class='ui image' centered rounded id='parkImg' />
           </Container>
           <Header as='h3' color='green'><b>Description</b></Header>
           <Container>{park.description}</Container>
           <Segment inverted color='olive'></Segment>
-
           <Grid columns={2}>
             <Grid.Column>
               <Segment color='olive'>
@@ -171,8 +177,8 @@ const ParkPage = () => {
                         </Segment.Inline>
                       </Header>
                     </Container>
-
                   </Grid.Column>
+
                   <Grid.Column>
                     <Segment basic>{dogsFriendly()}</Segment>
                   </Grid.Column>
@@ -183,18 +189,15 @@ const ParkPage = () => {
 
                 <Divider />
 
-                <Segment.Inline >
+                <Segment.Inline>
                   <Grid column={2}>
                     <Image src={'https://thumbs.dreamstime.com/b/web-vector-icon-arrow-website-icon-cursor-move-web-vector-icon-arrow-website-icon-cursor-move-122726028.jpg'} size='tiny' />
-                    <p textAlign='left' ><a href={park.url}>{park.title}</a></p>
+                    <p textAlign='left'><a href={park.url}>{park.title}</a></p>
                   </Grid>
                 </Segment.Inline>
               </Segment>
               <Favourite park={park} id={id} />
             </Grid.Column>
-
-
-
             <Grid.Column>
               <Segment color='olive'>
                 <div>
@@ -202,17 +205,28 @@ const ParkPage = () => {
                     <Image src={'https://img.freepik.com/free-vector/landscape-park-scene-icon_24877-56515.jpg?size=338&ext=jpg'} alt={park.title} size='massive' left />Activities
                   </Header>
                   <List bulleted animated verticalAlign='middle'>
-                    {
-                      park.activites.map(activ => {
-                        return <List.Item >{activ}</List.Item>
-                      })
-                    }
+                    {park.activites.map(activ => {
+                      return <List.Item>{activ}</List.Item>
+                    })}
                   </List>
                 </div>
               </Segment>
-
             </Grid.Column>
+            <GridColumn>
+            <Segment raised >
+            <ReactMapGl
+              mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+              height='30em'
+              width='37em'
+              mapStyle='mapbox://styles/mapbox/outdoors-v11'
+              zoom={13}
+              latitude={lat}
+              longitude={long}
+                />
+          </Segment>
+            </GridColumn>
           </Grid>
+          <Divider/>
           <Container>
             <Comment.Group>
               <Header as='h3' color='green' dividing>Comments</Header>
@@ -228,50 +242,39 @@ const ParkPage = () => {
                             <div>{comment.createdAt.slice(0, 10)}</div>
                           </Comment.Metadata>
                           {comment.owner._id === getSub() &&
-                            <Button value={comment._id} onClick={deleteComment}>Delete</Button>
-                          }
+                            <Button value={comment._id} onClick={deleteComment}>Delete</Button>}
 
-                          < Comment.Text>{comment.text}</Comment.Text>
+                          <Comment.Text>{comment.text}</Comment.Text>
                           <p>Rating: {comment.rating}</p>
                         </>
                       )
-                    })
-
-                  }
-                  {
-                    userIsAuthenticated() ?
-                      <Form reply>
-                        <Form.TextArea onChange={handleChange} name='text' placeholder='Your comment...' />
-                        <Rating onClick={handleStars} icon='star' maxRating={5} name='rating' />
-                        toggle ?
-                        <>
-                          <p style={{ color: 'red' }}>Please add a rating to submit your comment</p>
-                          <Button autoFocus onClick={handleSubmit} content='Add Comment' labelPosition='left' />
-                        </>
-
-                        :
-                        <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />
-
-
-                      </Form>
+                    })}
+                  {userIsAuthenticated() ?
+                    <Form reply>
+                      <Form.TextArea onChange={handleChange} name='text' placeholder='Your comment...' />
+                      <Rating onClick={handleStars} icon='star' maxRating={5} name='rating' />
+                      toggle ?
+                      <>
+                        <p style={{ color: 'red' }}>Please add a rating to submit your comment</p>
+                        <Button autoFocus onClick={handleSubmit} content='Add Comment' labelPosition='left' />
+                      </>
                       :
-                      <Segment raised>
-                        <Header textAlign='center' as='h3'>To add comment and rating you have to <a href='/login'>Log</a> in or <a href='/register'>Register</a>!</Header>
-                      </Segment>
-
-                  }
+                      <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />
+                    </Form>
+                    :
+                    <Segment raised>
+                      <Header textAlign='center' as='h3'>To add comment and rating you have to <a href='/login'>Log</a> in or <a href='/register'>Register</a>!</Header>
+                    </Segment>}
                 </Comment.Content>
               </Comment>
             </Comment.Group>
           </Container>
           <Divider />
-        </Container>
-      }
-
-
-
+        </Container>}
       <Segment size='massive' inverted color='olive'></Segment>
-    </motion.div>
+    {/* </motion.div> */}
+    </>
+
   )
 }
 
