@@ -21,6 +21,8 @@ const parkSchema = new mongoose.Schema({
   url: { type: String },
   activites: [{ type: String }],
   region: { type: String }, 
+  latitude: { type: String },
+  longitude: { type: String },
   comments: [commentSchema]
 })
 

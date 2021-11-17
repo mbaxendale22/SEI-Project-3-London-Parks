@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Header, Image, Divider, Grid, Segment, Container, Comment, Form, Button, Rating, List } from 'semantic-ui-react'
 import { getTokenFromLocalStorage } from "../helpers/auth"
 import Favourite from './Favourite.js'
+import Weather from './Weather.js'
 import { userIsAuthenticated, getPayload } from '../helpers/auth'
 import { motion } from 'framer-motion'
 
@@ -24,6 +25,7 @@ const ParkPage = () => {
       const getData = async () => {
         const { data: park } = await axios.get(`/api/london-parks-api/${id}`)
         setPark(park)
+        setImageURL(park.images[0])
       }
       getData()
     }, [id, newComment])
@@ -85,10 +87,16 @@ const getSub = () => {
     document.querySelector('textarea').value = ''
     }
 
+    // const displayParkImages = () => {
+    //   if (park === null) {
+    //     return
+    //   } else {
+    //     const nextImage = park.images[Math.floor(Math.random()* park.images.length)]
+    //     setImageURL(nextImage)
+    //   }
+    // }
   
-
-
-
+    // setTimeout(displayParkImages, 5000)
 
   const cyclingFriendly = () => {
     if (park.cyclistFriendly === 'yes') {
@@ -139,15 +147,15 @@ const getSub = () => {
       {park &&
       <Container >
         <Container>
-          <Header as='h1' color='green' textAlign='center' id='parkHeader'>
+          <Header as='h1' color='olive' textAlign='center' id='parkHeader'>
             <Header.Content >{park.title}</Header.Content>
           </Header>
-            <Image src={imageURL} alt={park.title} class='ui image' centered rounded id='parkImg'/>
+            <Image src={park.images[0]} alt={park.title} class='ui image' centered rounded id='parkImg'/>
         </Container>
-        <Header as='h3' color='green'><b>Description</b></Header>
+        <Header as='h3' color='olive'><b>Description</b></Header>
         <Container>{park.description}</Container>
-        <Segment inverted color='olive'></Segment>
-
+        <Weather park = {park}/>
+        {/* <Segment inverted color='olive'></Segment> */}
         <Grid columns={2}>
           <Grid.Column>
             <Segment color='olive'>
@@ -205,7 +213,8 @@ const getSub = () => {
         </Grid>
         <Container>
         <Comment.Group>
-  <Header as='h3'color='green' dividing>Comments</Header>
+        <Segment basic></Segment>
+  <Header as='h3'color='olive' dividing>Comments</Header>
   <Comment>
     <Comment.Content>
       { park.comments.length &&
