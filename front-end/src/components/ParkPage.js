@@ -195,8 +195,7 @@ const ParkPage = () => {
             <Container>
             <Header as='h3' color='green'><b>Description</b></Header>
             <Container>{park.description}</Container>
-            <Weather park={park}/>
-           
+            <Weather park={park}/>   
             <Grid columns={2}>
               <Grid.Column>
                 <Segment color='olive'>
