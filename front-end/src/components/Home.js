@@ -9,10 +9,6 @@ import Carousel from "react-responsive-carousel/lib/js/components/Carousel/index
 
 const Home = () => {
   return (
-    <>
-      {/* <Header as='h1' color='green' textAlign='center' id='homeHeader'>
-        Best London Parks
-      </Header> */}
         <Carousel
           infiniteLoop={true}
           autoFocus={true}
@@ -51,7 +47,6 @@ const Home = () => {
             <Image src='https://offloadmedia.feverup.com/secretldn.com/wp-content/uploads/2018/02/18150424/22637281_1082893518480502_4132483769749733376_n-2.jpg' wrapped ui={false} />
           </div>
         </Carousel>
-    </>
   )
 }
 export default Home

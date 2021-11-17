@@ -33,7 +33,7 @@ const NavBarHome = ({ userData }) => {
 
   return (
     <>
-      <Segment style={{postion: 'relative'}} color='green' inverted>
+      <Segment style={{postion: 'relative'}} color='green' inverted vertical>
         <Menu icon secondary color='green' inverted  >
           <MenuItem position='left'>
             <Menu.Item onClick={() => history.push('/')}>

@@ -99,3 +99,11 @@ object-fit: fill;
   font-family: 'Lobster';
   font-size:3em;
 }
+
+.ui.green.inverted.vertical.segment {
+  margin-bottom: -15px;
+}
+
+.parkCardContainer {
+  margin-top: 40px;
+}

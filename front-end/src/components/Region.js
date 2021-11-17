@@ -20,9 +20,7 @@ const Region = () => {
   
 
   return (
-    <section className="section">
-  <div className='container'>
-    <div className="columns is-multiline">
+    <>
       <Header as={'h1'} textAlign={'center'} id='parkHeader' color='green'>
         {region && region[0].region}
         </Header>
@@ -43,9 +41,8 @@ const Region = () => {
         )
       })
       }
-    </div>
-  </div>
-</section>
+   
+</>
   )
 
 }

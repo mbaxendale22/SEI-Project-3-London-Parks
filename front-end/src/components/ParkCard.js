@@ -46,7 +46,7 @@ const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitud
           initial={{ x: '-100vw' }}
           animate={{ x: 0 }}
         >
-          <Container textAlign='center' key={_id} >
+          <Container className='parkCardContainer' textAlign='center' key={_id} >
             <Segment piled raised>
               <Grid columns={2} divided>
                 <GridColumn onClick={() => history.push(`/parks/${_id}`)}>
@@ -168,10 +168,6 @@ const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitud
         </motion.div>
 
       }
-
-
-
-
     </>
   )
 }
