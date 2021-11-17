@@ -258,7 +258,7 @@ const getSub = () => {
         <Divider/>
         </Container>
             }
-      <Planner park={park} />
+     
             
       
       <Segment size='massive' inverted color='olive'></Segment>
