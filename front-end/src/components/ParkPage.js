@@ -8,9 +8,9 @@ import Weather from './Weather.js'
 import { userIsAuthenticated, getPayload } from '../helpers/auth'
 import { toast, ToastContainer, Flip } from 'react-toastify'
 import ReactMapGl from 'react-map-gl'
-import { Carousel } from 'react-responsive-carousel'
+import Carousel from "react-responsive-carousel/lib/js/components/Carousel/index"
 import "react-responsive-carousel/lib/styles/carousel.min.css"
-import Planner  from './Planner.js'
+import Planner from './Planner.js'
 
 const ParkPage = () => {
 
@@ -21,18 +21,18 @@ const ParkPage = () => {
   const [newComment, setNewComment] = useState(false)
   const [toggle, setToggle] = useState(false)
   const [comment, setComment] = useState({
-      text: '',
-      rating: 0,
-      owner: ''
-    })
-    
-    useEffect(() => {
-      const getData = async () => {
-        const { data: park } = await axios.get(`/api/london-parks-api/${id}`)
-        setPark(park)
-      }
-      getData()
-    }, [id, newComment])
+    text: '',
+    rating: 0,
+    owner: ''
+  })
+
+  useEffect(() => {
+    const getData = async () => {
+      const { data: park } = await axios.get(`/api/london-parks-api/${id}`)
+      setPark(park)
+    }
+    getData()
+  }, [id, newComment])
 
   const [lat, setLat] = useState()
   const [long, setLong] = useState()
@@ -174,28 +174,30 @@ const ParkPage = () => {
   return (
     <>
       {park &&
-      <><Header as='h1' color='green' textAlign='center' id='parkHeader'>
+        <><Header as='h1' color='green' textAlign='center' id='parkHeader'>
           <Header.Content>{park.title}</Header.Content>
         </Header>
-        <Container>
-        <Carousel
-          showThumbs={false}
-          infiniteLoop={true}
-          autoPlay={true}
-          interval={2500}
-          transitionTime={1000}
-          autoFocus={true}
-          swipeable={true}
+          <Container>
+            <Carousel
+              showThumbs={true}
+              infiniteLoop={true}
+              autoPlay={true}
+              interval={2500}
+              transitionTime={1000}
+              autoFocus={true}
+              swipeable={true}
+              dynamicHeight={true}
+              animationHandler='fade'
 
-        >
-            {park.images.map(image => <img src={image}></img>)}
-          </Carousel>
+            >
+              {park.images.map(image => <img src={image}></img>)}
+            </Carousel>
           </Container>
-          <Divider hidden/>
-            <Container>
+          <Divider hidden />
+          <Container>
             <Header as='h3' color='green'><b>Description</b></Header>
             <Container>{park.description}</Container>
-            <Weather park={park}/>   
+            <Weather park={park} />
             <Grid columns={2}>
               <Grid.Column>
                 <Segment color='olive'>
@@ -210,7 +212,6 @@ const ParkPage = () => {
                         </Header>
                       </Container>
                     </Grid.Column>
-
                     <Grid.Column>
                       <Segment basic>{dogsFriendly()}</Segment>
                     </Grid.Column>
@@ -218,9 +219,7 @@ const ParkPage = () => {
                       <Segment basic>{cyclingFriendly()}</Segment>
                     </Grid.Column>
                   </Grid>
-
                   <Divider />
-
                   <Segment.Inline>
                     <Grid column={2}>
                       <Image src={'https://thumbs.dreamstime.com/b/web-vector-icon-arrow-website-icon-cursor-move-web-vector-icon-arrow-website-icon-cursor-move-122726028.jpg'} size='tiny' />
@@ -257,9 +256,7 @@ const ParkPage = () => {
                 </Segment>
               </GridColumn>
               <GridColumn>
-                <Segment raised>
-
-                </Segment>
+                <Planner park={park} />
               </GridColumn>
             </Grid>
             <Divider />

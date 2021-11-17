@@ -37,6 +37,8 @@ const Region = () => {
             postcode={region.postcode}
             activities={region.activites}
             url={region.url}
+            latitude={parseFloat(region.latitude)}
+            longitude={parseFloat(region.longitude)}
           />
         )
       })

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
-import { Container, Divider, Grid, GridColumn, Icon, Header, Image, Reveal, RevealContent, Segment, Rating, Modal, Button, Comment } from 'semantic-ui-react'
+import { Container, Divider, Grid, GridColumn, Icon, Header, Image, Reveal, RevealContent, Segment, Rating, Modal, Button, Comment, Embed } from 'semantic-ui-react'
 import { motion } from 'framer-motion'
 import axios from 'axios'
 import ReactMapGl from 'react-map-gl'
 
 
 
-const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitude}) => {
+const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitude }) => {
 
   const [open, setOpen] = useState(false)
   const [openComment, setOpenComment] = useState(false)
+  const [openTitle, setOpenTitle] = useState(false)
   const history = useHistory()
   const location = useLocation()
   const [park, setPark] = useState(null)
@@ -49,7 +50,7 @@ const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitud
             <Segment piled raised>
               <Grid columns={2} divided>
                 <GridColumn onClick={() => history.push(`/parks/${_id}`)}>
-                  <Reveal animated='move' instant>
+                  <Reveal animated='fade' instant>
                     <RevealContent visible>
                       <Image src={images[0]} alt={title} rounded fluid size='big'></Image>
                     </RevealContent>
@@ -58,14 +59,19 @@ const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitud
                     </RevealContent>
                   </Reveal>
                 </GridColumn>
+
                 <GridColumn>
                   <motion.div whileHover={{ scale: 1.5 }} >
                     <Header as='h3' icon textAlign='center' inverted color='red'>
                       <Icon name='hand point down outline' />
                       <Header.Content>{title}</Header.Content>
                     </Header>
+
                   </motion.div>
+
+
                   <Divider hidden />
+
                   <motion.div whileHover={{ scale: 1.5 }} whileTap={{ scale: 0.9 }}>
                     <Modal
                       onClose={() => setOpen(false)}
@@ -100,7 +106,7 @@ const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitud
                   {
                     isNaN(getAverage()) ?
                       <motion.div whileHover={{ scale: 1.5 }} whileTap={{ scale: 0.9 }}>
-                        <Header  as='h3' icon textAlign='center' color='yellow'>
+                        <Header as='h3' icon textAlign='center' color='yellow'>
                           <Icon name='star outline' />
                           <Header.Content>Be the first to rate this park!</Header.Content>
                         </Header>
@@ -118,24 +124,33 @@ const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitud
                           </Header>}
                         >
                           <Header as='h1' textAlign='center'>Latest comments!</Header>
-                          <Modal.Content >
+                          <Modal.Content scrolling>
                             <Segment raised>
                               {park.comments.length &&
                                 park.comments.map(comment => {
                                   return (
                                     <>
-                                      <Comment.Avatar as='a' src={comment.owner.profilePicture} floated='right' />
-                                      <Comment.Author as='a'>{comment.owner.username}</Comment.Author>
-                                      <Comment.Metadata>
-                                        <div>{comment.createdAt.slice(0, 10)}</div>
-                                      </Comment.Metadata>
-                                      <Comment.Text>{comment.text}</Comment.Text>
-                                      <Rating defaultRating={comment.rating} icon='star' maxRating={5} disabled />
-                                      <Divider />
+                                      <Container>
+                                        <Comment.Group>
+                                          <Comment>
+                                            <Comment.Content>
+                                              <Comment.Avatar as='a' src={comment.owner.profilePicture} floated='right' />
+                                              <Comment.Author as='a'>{comment.owner.username}</Comment.Author>
+                                              <Comment.Metadata>
+                                                <div>{comment.createdAt.slice(0, 10)}</div>
+                                              </Comment.Metadata>
+                                              <Comment.Text>{comment.text}</Comment.Text>
+                                              <Rating defaultRating={comment.rating} icon='star' maxRating={5} disabled />
+                                              <Divider />
+                                            </Comment.Content>
+                                          </Comment>
+                                        </Comment.Group>
+                                      </Container>
                                     </>
-                                  )})
-                                }
-                        </Segment>
+                                  )
+                                })
+                              }
+                            </Segment>
                           </Modal.Content>
                           <Modal.Actions>
                             <Button onClick={() => setOpenComment(false)} positive>

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Recursive&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 
 .ui.big.fluid.rounded.image {
@@ -48,18 +49,6 @@
   font-size: 55px;
 }
 
-/* .rec.rec-swipable{
-  height:40em;
-} */
-
-.carousel.carousel-slider {
-  height: 50em;
-}
-
-img{
-  height: 50em;
-  position: center;
-}
 
 #weather-main {
   background-color: #b5cc18;
@@ -99,4 +88,14 @@ img{
   color: grey;
   font-size: 0.8em;
   opacity: 0.8;
+}
+
+.homeCarousel img{
+height: 45em;
+object-fit: fill;
+}
+
+.ui.inverted.header.navbarTitle {
+  font-family: 'Lobster';
+  font-size:3em;
 }

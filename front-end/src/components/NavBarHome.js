@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
-import { Menu, Segment, Image, Icon, MenuItem } from 'semantic-ui-react'
+import { Menu, Segment, Image, Icon, MenuItem, Header } from 'semantic-ui-react'
 import RegionLinks from './RegionLinks'
 import { userIsAuthenticated } from '../helpers/auth'
 import { ToastContainer, toast, Flip } from 'react-toastify'
@@ -44,6 +44,9 @@ const NavBarHome = ({ userData }) => {
               onClick={() => setToogle(!toggle)}
             />
           </MenuItem>
+          <Menu.Item>
+            <Header as='h1' inverted className='navbarTitle'>Best London  Parks  🌳</Header>
+          </Menu.Item>
           {userIsAuthenticated() ?
             <MenuItem position='right'>
               <Menu.Item onClick={() => history.push('/profile')}>

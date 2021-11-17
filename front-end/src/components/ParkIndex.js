@@ -12,7 +12,7 @@ const ParkIndex = () => {
         }
         getData()
     }, [])
-
+ console.log(parks)
 return (
   <section className="section">
   <div className='container'>
@@ -27,8 +27,8 @@ return (
             postcode={park.postcode}
             activities={park.activites}
             url={park.url}
-            latitude={park.latitude}
-            longitude={park.longitude}
+            latitude={parseFloat(park.latitude)}
+            longitude={parseFloat(park.longitude)}
           />
         )
       })}
