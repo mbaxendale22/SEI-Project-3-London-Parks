@@ -7,6 +7,7 @@ import Favourite from './Favourite.js'
 import Weather from './Weather.js'
 import { userIsAuthenticated, getPayload } from '../helpers/auth'
 import { motion } from 'framer-motion'
+import Planner  from './Planner.js'
 
 const ParkPage = () => {
 
@@ -242,7 +243,7 @@ const getSub = () => {
       <Form reply>
         <Form.TextArea onChange={handleChange} name='text' placeholder='Your comment...'/>
         <Rating onClick={handleStars} icon='star' maxRating={5} name='rating'/>
-        toggle ? 
+       { toggle ? 
           <>
         <p style={{color: 'red'}}>Please add a rating to submit your comment</p>
         <Button autoFocus onClick={handleSubmit} content='Add Comment' labelPosition='left' />
@@ -250,7 +251,7 @@ const getSub = () => {
 
       :
       <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />
-   
+       }
     
     </Form>   
     :
@@ -266,7 +267,7 @@ const getSub = () => {
         <Divider/>
         </Container>
             }
-
+     
             
       
       <Segment size='massive' inverted color='olive'></Segment>
