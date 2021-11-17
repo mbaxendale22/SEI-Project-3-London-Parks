@@ -174,9 +174,11 @@ const ParkPage = () => {
   return (
     <>
       {park &&
-        <><Header as='h1' color='green' textAlign='center' id='parkHeader'>
-          <Header.Content>{park.title}</Header.Content>
-        </Header>
+        <><Segment raised className='regionTitle'>
+        <Header as={'h1'} textAlign={'center'} id='parkHeader' color='green'>
+          {park.title} 🍁
+          </Header>
+          </Segment>
           <Container>
             <Carousel
               showThumbs={true}
@@ -338,7 +340,6 @@ const ParkPage = () => {
         pauseOnHover
         transition={Flip}
       />
-      <Segment size='massive' inverted color='olive'></Segment>
     </>
 
   )

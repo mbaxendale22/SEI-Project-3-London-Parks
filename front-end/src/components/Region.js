@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation} from 'react-router-dom'
-import { Header } from 'semantic-ui-react'
+import { Header, Segment } from 'semantic-ui-react'
 import ParkCard from './ParkCard.js'
 import axios from 'axios'
 
@@ -21,9 +21,11 @@ const Region = () => {
 
   return (
     <>
+    <Segment raised className='regionTitle'>
       <Header as={'h1'} textAlign={'center'} id='parkHeader' color='green'>
-        {region && region[0].region}
+        {region && region[0].region} 🍁
         </Header>
+        </Segment>
       {region && 
         region.map(region => {
         return (

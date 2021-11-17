@@ -1,25 +1,29 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import ParkCard from './ParkCard'
+import { Segment, Header } from 'semantic-ui-react'
 
 const ParkIndex = () => {
   const [parks, setParks] = useState([])
 
-    useEffect(() => {
-        const getData = async () => {
-          const { data } = await axios.get('/api/london-parks-api')
-          setParks(data)
-        }
-        getData()
-    }, [])
- console.log(parks)
-return (
-  <section className="section">
-  <div className='container'>
-    <div className="columns is-multiline">
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios.get('/api/london-parks-api')
+      setParks(data)
+    }
+    getData()
+  }, [])
+  console.log(parks)
+  return (
+    <>
+      <Segment raised className='regionTitle'>
+        <Header as={'h1'} textAlign={'center'} id='parkHeader' color='green'>
+           All Parks 🍂
+        </Header>
+      </Segment>
       {parks.map(park => {
         return (
-          <ParkCard 
+          <ParkCard
             _id={park._id}
             title={park.title}
             images={park.images}
@@ -32,10 +36,9 @@ return (
           />
         )
       })}
-    </div>
-  </div>
-</section>
-)
+
+    </>
+  )
 
 }
 export default ParkIndex
