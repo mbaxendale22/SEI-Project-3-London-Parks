@@ -18,13 +18,21 @@
 
 #dog {
   height: 65px;
+  
 }
-
+#no-dog {
+  margin-top: 6px;
+}
+#dog-yes {
+  margin-top: 8px;
+}
 #greenBicycle {
-  height: 62px;
-  width: 90px;
+  margin-top: 8px;
 }
 
+#no-cycle {
+  margin-top: 6px;
+}
 #postCodeContainer {
   margin-top: 10px;
 }
@@ -33,11 +41,13 @@
   font-size: 5em;
   font-family: 'Genos', sans-serif !important;
 }
-
-#parkImg {
+/* #small-header {
+  margin-top: 0;
+} */
+/* #parkImg {
   height: 400px;
   width: 400px;
-}
+} */
 
 .ui.image {
   height: 20em;
@@ -138,3 +148,6 @@ a.item{
 .ui.olive.inverted.segment:hover {
   opacity: 1;
 }
+#activities-segment {
+  min-height: 210px !important;
+  }

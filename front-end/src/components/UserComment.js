@@ -1,13 +1,15 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import axios from 'axios'
-import { getTokenFromLocalStorage, getPayload } from "../helpers/auth"
-import { Rating, Comment, Header, Form, Button } from "semantic-ui-react"
+import { getTokenFromLocalStorage, userIsAuthenticated, getPayload } from "../helpers/auth"
+import { Segment, Rating, Comment, Header, Form, Button, Modal, Icon, Divider } from "semantic-ui-react"
+import { toast, ToastContainer, Flip } from 'react-toastify'
 
-
-export const UserComment = ({ id, park }) => {
+export const UserComment = ({ id }) => {
 
   const [newComment, setNewComment] = useState(false)
+  const [open, setOpen] = useState(false)
   const [toggle, setToggle] = useState(false)
+  const [allComments, setAllComments] = useState(true)
   const [comment, setComment] = useState({
     text: '',
     rating: 0,
@@ -39,7 +41,10 @@ export const UserComment = ({ id, park }) => {
         headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
       }
     )
+    deletingToast()
+    setOpen(false)
     setNewComment(!newComment)
+    // setToggle(!toggle)
   }
 
   const handleChange = (event) => {
@@ -51,18 +56,20 @@ export const UserComment = ({ id, park }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    if (comment.rating === 0) {
+    if (!comment.rating) {
       setToggle(!toggle)
       return
     } else {
       try {
-        await axios.post(`/api/london-parks-api/${park._id}/comments`, comment,
+        await axios.post(`/api/london-parks-api/${id}/comments`, comment,
           {
             headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }, // need to send the token on the headers object
           })
         setNewComment(!newComment)
-        setToggle(!toggle)
-        // history.push(`/${park._id}`)
+        addingToast()
+        setToggle(false)
+        console.log(getSub())
+        console.log(allComments[0].owner._id)
       } catch (err) {
         console.log(err)
       }
@@ -72,59 +79,116 @@ export const UserComment = ({ id, park }) => {
     document.querySelector('textarea').value = ''
   }
 
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios.get(`/api/london-parks-api/${id}/comments`)
+      setAllComments(data)
+    }
+    getData()
+  },  [id, newComment, setAllComments])
+
+  const deletingToast = () => {
+    toast.info('Comment is deleted!', {
+      position: "top-center",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+    })
+  }
+
+  const addingToast = () => {
+    toast.success('Comment is added!', {
+      position: "top-center",
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+    })
+  }
 
 
 
   return (
     <>
-      <Comment.Group>
-        <Header as='h3' color='green' dividing>Comments</Header>
+     <Comment.Group>
+      <Header as='h3' color='green' dividing>Comments</Header>
         <Comment>
           <Comment.Content>
-            {park.comments.length &&
-              park.comments.map(comment => {
+            {allComments.length ?
+              allComments.map(comment => {
                 return (
                   <>
-                    <Comment.Avatar as='a' src={comment.owner.profilePicture} />
+                    <Comment.Avatar as='a' src={comment.owner.profilePicture} floated='right' />
                     <Comment.Author as='a'>{comment.owner.username}</Comment.Author>
                     <Comment.Metadata>
                       <div>{comment.createdAt.slice(0, 10)}</div>
                     </Comment.Metadata>
                     {comment.owner._id === getSub() &&
-                      <Button value={comment._id} onClick={deleteComment}>Delete</Button>
-                    }
+                      <Modal
+                        closeIcon
+                        open={open}
+                        trigger={<Button color='red' floated='right'>Delete comment</Button>}
+                        onClose={() => setOpen(false)}
+                        onOpen={() => setOpen(true)}
+                      >
+                        <Header icon='archive' content='Deleting comment' />
+                        <Modal.Content>
+                          <p>
+                            Are you sure you want to delete your comment?
+                          </p>
+                        </Modal.Content>
+                        <Modal.Actions>
+                          <Button color='red' onClick={() => setOpen(false)}>
+                            <Icon name='remove' /> No
+                          </Button>
+                          <Button color='green' value={comment._id} onClick={deleteComment}>
+                            <Icon name='checkmark' /> Yes
+                          </Button>
+                        </Modal.Actions>
+                      </Modal>}
 
-                    < Comment.Text>{comment.text}</Comment.Text>
-                    <p>Rating: {comment.rating}</p>
+                    <Comment.Text>{comment.text}</Comment.Text>
+                    <Rating defaultRating={comment.rating} icon='star' maxRating={5} disabled />
+                    <Divider />
                   </>
                 )
-              })
-
-            }
-
-            <Form reply>
-              <Form.TextArea onChange={handleChange} name='text' placeholder='Your comment...' />
-              <Rating onClick={handleStars} icon='star' maxRating={5} name='rating' />
-              {
-                toggle ?
+              }) : <Header textAlign='center' as='h2'>Be first to comment and rate this park!</Header>}
+            {userIsAuthenticated() ?
+              <Form reply>
+                <Form.TextArea onChange={handleChange} name='text' placeholder='Your comment...' />
+                <Rating onClick={handleStars} icon='star' maxRating={5} name='rating' />
+                {toggle ?
                   <>
                     <p style={{ color: 'red' }}>Please add a rating to submit your comment</p>
                     <Button autoFocus onClick={handleSubmit} content='Add Comment' labelPosition='left' />
                   </>
-
                   :
-                  <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />
-
-              }
-
-            </Form>
+                  <Button onClick={handleSubmit} content='Add Comment' labelPosition='left' />}
+              </Form>
+              :
+              <Segment raised>
+                <Header textAlign='center' as='h3'>To add comment and rating you have to <a href='/login'>Log</a> in or <a href='/register'>Register</a>!</Header>
+              </Segment>}
           </Comment.Content>
         </Comment>
       </Comment.Group>
-    </>
-  )
-
-
-
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        transition={Flip} />
+        </>
+        )
 
 }

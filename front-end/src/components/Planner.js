@@ -20,14 +20,14 @@ const Planner = ({ park }) => {
 
 return (
 
-  <Segment style={{width: '25vw'}} raised textAlign='center'>
+  <Segment  raised textAlign='center' color='olive'>
   <Form style={{padding: '15px'}} onSubmit={handleSubmit}>
-    <Header size='medium'>How can I get there?</Header>
+    <Header color='olive'>How can I get there?</Header>
     <Form.Field>
-      <label>Enter your postcode</label>
+      <p style={{color:'#4183c4'}}>Enter your postcode</p>
       <input id='planner-input' fluid='false' size='small' onChange={handleChange} placeholder='SW19 1AA...' />
     </Form.Field>
-    <Button color='green' type='submit'>Take me there!</Button>
+    <Button color='olive' type='submit'>Take me there!</Button>
   </Form>
   </Segment>
 )
