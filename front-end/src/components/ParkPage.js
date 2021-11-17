@@ -106,7 +106,7 @@ const getSub = () => {
       ) 
     } if (park.cyclistFriendly === 'no') {
       return (
-        <Image src={'https://previews.123rf.com/images/almightyalex/almightyalex1810/almightyalex181001450/111051484-stop-or-ban-sign-with-cyclist-icon-isolated-on-white-background-cycling-is-prohibited-vector-illustr.jpg'} size='large' left class='greenBicycle'/>
+        <Image src={'https://previews.123rf.com/images/almightyalex/almightyalex1810/almightyalex181001450/111051484-stop-or-ban-sign-with-cyclist-icon-isolated-on-white-background-cycling-is-prohibited-vector-illustr.jpg'} size='tiny' left />
       )
     } else {
       return (
@@ -124,7 +124,7 @@ const getSub = () => {
 
   const dogsFriendly = () => {
     if (park.dogFriendly === 'yes'){
-      return <Image src={'https://static.thenounproject.com/png/14830-200.png'} size='small' left/>
+      return <Image src={'https://static.thenounproject.com/png/14830-200.png'} size='tiny' left/>
     } if (park.dogFriendly === 'no') {
       return <Image src={'https://createsigns.co.nz/wp-content/uploads/2017/05/No-Pets-Service-Animals-Allowed-Sign-No-Dog-Icon-1.png'} size='small' left/>
     } else {
