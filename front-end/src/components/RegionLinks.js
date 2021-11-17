@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useHistory } from 'react-router-dom' 
+import { Menu } from 'semantic-ui-react'
 
 const RegionLinks = () => {
 
@@ -15,13 +16,12 @@ const RegionLinks = () => {
   const displayToggle = () => toggle ? 'visable' : 'none' 
   
   return (
-   
     <motion.div
     initial= {{opacity: 0, translateY: '0',}}
     animate={{opacity: 0.7, translateY: '10px'}}
     transition={{delay: 0.2}} 
     style={{
-      position: 'fixed', left: '5.5vw', top: '4em',
+      position: 'absolute', left: '5.5em', top: '4em',
       background: 'green',
       color: 'white',
       fontWeight: 'bold',
@@ -51,7 +51,6 @@ const RegionLinks = () => {
     whileHover={{scale: 1.2}} data-id='All' onClick={redirect}>
       All Parks</motion.p>
     </motion.div>
- 
   )
 }
 

@@ -4,12 +4,15 @@ import axios from 'axios'
 import { Header, Image, Divider, Grid, Segment, Container, Comment, Form, Button, Rating, List, GridColumn, Modal, Icon } from 'semantic-ui-react'
 import { getTokenFromLocalStorage } from "../helpers/auth"
 import Favourite from './Favourite.js'
+import Weather from './Weather.js'
 import { userIsAuthenticated, getPayload } from '../helpers/auth'
 import { toast, ToastContainer, Flip } from 'react-toastify'
 import ReactMapGl from 'react-map-gl'
 import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
+import { motion } from 'framer-motion'
+import Planner  from './Planner.js'
 
 const ParkPage = () => {
 
@@ -20,10 +23,19 @@ const ParkPage = () => {
   const [newComment, setNewComment] = useState(false)
   const [toggle, setToggle] = useState(false)
   const [comment, setComment] = useState({
-    text: '',
-    rating: 0,
-    owner: ''
-  })
+      text: '',
+      rating: 0,
+      owner: ''
+    })
+    
+    useEffect(() => {
+      const getData = async () => {
+        const { data: park } = await axios.get(`/api/london-parks-api/${id}`)
+        setPark(park)
+        setImageURL(park.images[0])
+      }
+      getData()
+    }, [id, newComment])
 
   const [lat, setLat] = useState()
   const [long, setLong] = useState()

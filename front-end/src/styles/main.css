@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Recursive&display=swap');
+
+
 .ui.big.fluid.rounded.image {
   height: 20em;
 }
@@ -56,4 +59,44 @@
 img{
   height: 50em;
   position: center;
+}
+
+#weather-main {
+  background-color: #b5cc18;
+}
+
+#header-main {
+  color:blue;
+  padding: 0 15px;
+  font-size: 18px;
+  font-family: 'Recursive', sans-serif;
+  margin-bottom: 0;
+}
+#blue-segment {
+  background-color:#80c1ff;
+}
+#day {
+  padding: 0 15px;
+  margin:0;
+  color:white;
+  font-family: 'Recursive', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+#description {
+  padding: 0 15px;
+  margin: 5px 0 0 0;
+  color:blue;
+  font-family: 'Recursive', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+  #weather-column {
+  padding: 5px 0 0 0;
+  }
+#planner-input[placeholder] {
+  color: grey;
+  font-size: 0.8em;
+  opacity: 0.8;
 }
