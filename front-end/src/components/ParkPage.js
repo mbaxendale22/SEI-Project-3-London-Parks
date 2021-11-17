@@ -192,8 +192,9 @@ const ParkPage = () => {
           transitionTime={1000}
           autoFocus={true}
           swipeable={true}
+
         >
-            {park.images.map(image =><img src={image}></img>)}
+            {park.images.map(image => <img src={image}></img>)}
           </Carousel>
           </Container>
           <Divider hidden/>

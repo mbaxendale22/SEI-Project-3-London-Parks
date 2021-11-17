@@ -82,10 +82,10 @@ const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitud
                             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
                             height='30em'
                             width='100%'
-                            mapStyle='mapbox://styles/mapbox/satellite-streets-v11'
+                            mapStyle='mapbox://styles/mapbox/streets-v11'
                             zoom={13}
-                            latitude={parseFloat(latitude)}
-                            longitude={parseFloat(longitude)} />
+                            latitude={latitude}
+                            longitude={longitude} />
                         </Segment>
                       </Modal.Content>
                       <Modal.Actions>
