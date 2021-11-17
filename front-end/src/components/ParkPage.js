@@ -10,8 +10,6 @@ import { toast, ToastContainer, Flip } from 'react-toastify'
 import ReactMapGl from 'react-map-gl'
 import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
-
-import { motion } from 'framer-motion'
 import Planner  from './Planner.js'
 
 const ParkPage = () => {
@@ -32,7 +30,6 @@ const ParkPage = () => {
       const getData = async () => {
         const { data: park } = await axios.get(`/api/london-parks-api/${id}`)
         setPark(park)
-        setImageURL(park.images[0])
       }
       getData()
     }, [id, newComment])
@@ -109,21 +106,6 @@ const ParkPage = () => {
 
     document.querySelector('textarea').value = ''
   }
-
-
-  // const displayParkImages = () => {
-  //   if (park === null) {
-  //     return
-  //   } else {
-  //     const nextImage = park.images[Math.floor(Math.random() * park.images.length)]
-  //     // console.log('PARK IMAGES', park.images)
-  //     setImageURL(nextImage)
-  //     // console.log('next Image', nextImage)
-  //   }
-  // }
-  // setTimeout(displayParkImages, 8500)
-
-
 
   const deletingToast = () => {
     toast.info('Comment is deleted!', {
@@ -213,7 +195,8 @@ const ParkPage = () => {
             <Container>
             <Header as='h3' color='green'><b>Description</b></Header>
             <Container>{park.description}</Container>
-            <Segment inverted color='olive'></Segment>
+            <Weather park={park}/>
+           
             <Grid columns={2}>
               <Grid.Column>
                 <Segment color='olive'>
