@@ -7,7 +7,7 @@ import ReactMapGl from 'react-map-gl'
 
 
 
-const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitude }) => {
+const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitude}) => {
 
   const [open, setOpen] = useState(false)
   const [openComment, setOpenComment] = useState(false)
@@ -32,6 +32,7 @@ const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitud
     return aveRating / ratings.length
   }
 
+  console.log()
 
   useEffect(() => {
   }, [location.pathname, _id])

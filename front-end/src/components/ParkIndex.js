@@ -27,8 +27,8 @@ return (
             postcode={park.postcode}
             activities={park.activites}
             url={park.url}
-            latitude={parseFloat(park.latitude)}
-            longitude={parseFloat(park.longitude)}
+            latitude={park.latitude}
+            longitude={park.longitude}
           />
         )
       })}
