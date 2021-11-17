@@ -4,7 +4,13 @@ import Park from '../models/parks_model.js'
 export const showComments = async (req, res) => {
   try {
     const { id } = req.params
-    const comment = await Park.findById(id)
+    const comment = await Park.findById(id).populate({
+      path: 'comments',
+      populate: { 
+        path: 'owner',
+        model: 'User'
+      }
+    })
     return res.status(200).json(comment.comments)
   } catch (err) {
     return res.status(404).json()

@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from 'react'
 import axios from 'axios'
 import ParkCard from './ParkCard'
-import { motion } from 'framer-motion'
 
 const ParkIndex = () => {
   const [parks, setParks] = useState([])
@@ -28,6 +27,8 @@ return (
             postcode={park.postcode}
             activities={park.activites}
             url={park.url}
+            latitude={park.latitude}
+            longitude={park.longitude}
           />
         )
       })}

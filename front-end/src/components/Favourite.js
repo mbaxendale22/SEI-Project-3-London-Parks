@@ -98,10 +98,10 @@ const removeFav = async () => {
 }
 
   return (
-    <div>
+    <div color='olive'>
             {
               favourite ? 
-                  <Segment raised class='parkPageColumns'>
+                  <Segment raised class='parkPageColumns' color='olive'>
             <Header as='h3'icon textAlign='center' inverted color='red' >
               <Popup trigger ={<Icon onClick={removeFav} name = 'heart'/>}>
                 <Popup.Content>
@@ -112,7 +112,7 @@ const removeFav = async () => {
             </Header>
             </Segment>
             : 
-            <Segment raised class='parkPageColumns'>
+            <Segment raised class='parkPageColumns' color='olive'>
             <Header as='h3'icon textAlign='center' inverted color='red' >
               <Popup 
                 trigger ={

@@ -10,7 +10,6 @@ const commentSchema = new mongoose.Schema({
   timestamps: true
 }
 )
-
 const parkSchema = new mongoose.Schema({
   title: { type: String, required: true, unique: true },
   description: { type: String, required: true, unique: true },
@@ -21,9 +20,9 @@ const parkSchema = new mongoose.Schema({
   url: { type: String },
   activites: [{ type: String }],
   region: { type: String }, 
+  comments: [commentSchema],
   latitude: { type: String },
-  longitude: { type: String },
-  comments: [commentSchema]
+  longitude: { type: String }
 })
 
 // * RATINGS

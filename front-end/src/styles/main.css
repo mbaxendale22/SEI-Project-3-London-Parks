@@ -17,12 +17,21 @@
 
 #dog {
   height: 65px;
+  
 }
-
+#no-dog {
+  margin-top: 6px;
+}
+#dog-yes {
+  margin-top: 8px;
+}
 #greenBicycle {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
+#no-cycle {
+  margin-top: 6px;
+}
 #postCodeContainer {
   margin-top: 10px;
 }
@@ -30,11 +39,13 @@
 #parkHeader {
   font-size: 55px;
 }
-
-#parkImg {
+/* #small-header {
+  margin-top: 0;
+} */
+/* #parkImg {
   height: 400px;
   width: 400px;
-}
+} */
 
 .ui.image {
   height: 20em;
@@ -45,6 +56,19 @@
   
 #homeHeader {
   font-size: 55px;
+}
+
+.carousel.carousel-slider {
+  height: 50em;
+}
+
+img{
+  height: 50em;
+  position: center;
+}
+
+#header-park-info {
+margin-top: 10px;
 }
 
 #weather-main {
@@ -78,11 +102,14 @@
   font-weight: 600;
 }
 
-  #weather-column {
+#weather-column {
   padding: 5px 0 0 0;
   }
 #planner-input[placeholder] {
   color: grey;
   font-size: 0.8em;
   opacity: 0.8;
+}
+#activities-segment {
+min-height: 210px !important;
 }
