@@ -16,10 +16,8 @@ const ParkPage = () => {
 
   const { id } = useParams()
   const [park, setPark] = useState(null)
-  // const [imageURL, setImageURL] = useState('')
   const [lat, setLat] = useState()
   const [long, setLong] = useState()
-  const [newComment, setNewComment] = useState(false)
 
   useEffect(() => {
     const getData = async () => {
@@ -29,7 +27,7 @@ const ParkPage = () => {
       setLong(parseFloat(park.longitude))
     }
     getData()
-  }, [id, newComment])
+  }, [id])
 
   
   return (

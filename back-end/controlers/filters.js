@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+
 import Park from '../models/parks_model.js'
 
 export const getRegion = async (req, res) => {

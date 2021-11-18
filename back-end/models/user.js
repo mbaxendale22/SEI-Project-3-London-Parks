@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 })
 
-//******************* */ needs methods for user validation 
 
 
 // * Remove password when returning user as JSON in the response, that happens in the controllers

@@ -1,7 +1,7 @@
 import React from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { Link } from 'react-router-dom'
-import { Header, Image, Segment } from 'semantic-ui-react'
+import { Header, Segment } from 'semantic-ui-react'
 import Carousel from "react-responsive-carousel/lib/js/components/Carousel/index"
 
 

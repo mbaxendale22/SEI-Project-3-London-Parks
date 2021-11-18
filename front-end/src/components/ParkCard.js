@@ -7,17 +7,14 @@ import ReactMapGl from 'react-map-gl'
 
 
 
-const ParkCard = ({ _id, title, images, postcode, activities, longitude, latitude }) => {
+const ParkCard = ({ _id, title, images, postcode, longitude, latitude }) => {
 
   const [open, setOpen] = useState(false)
   const [openComment, setOpenComment] = useState(false)
-  const [openTitle, setOpenTitle] = useState(false)
   const history = useHistory()
   const location = useLocation()
   const [park, setPark] = useState(null)
 
-  const activeUpper = activities.map(x => `${x.charAt(0).toUpperCase()}${x.slice(1, x.length)} `)
-  const activityList = activeUpper.join(' ')
 
   useEffect(() => {
     const getData = async () => {

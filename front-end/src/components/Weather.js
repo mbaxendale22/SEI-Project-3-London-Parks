@@ -6,16 +6,14 @@ import moment from 'moment'
 const Weather = ({ park }) => {
   const [weather, setWeather] = useState(null)
   const [hasError, setHasError] = useState(false)
-// const APIkey = aac79f7437159960c7f5b86c296e60a3
 
 
 useEffect(() => {
   if (!park) return 
   const getData = async() => {
     try {
-      const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${park.latitude}&lon=${park.longitude}&units=metric&exclude=minutely,hourly&appid=aac79f7437159960c7f5b86c296e60a3`)
+      const { data } = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${park.latitude}&lon=${park.longitude}&units=metric&exclude=minutely,hourly&appid=${process.env.REACT_APP_APIkey}`)
     setWeather(data)
-    // console.log('RESPONSERESPONSE', data)
     } catch(err) {
       setHasError(true)
     }

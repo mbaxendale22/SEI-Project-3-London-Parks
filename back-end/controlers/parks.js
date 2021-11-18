@@ -65,37 +65,3 @@ export const editingPark = async (req, res) => {
     return res.status(200).json(err)
   }
 }
-
-// // * COMMENTS
-// export const addAComment = async (req, res) => {
-//   try {
-//     const { id } = req.params
-//     const park = await Park.findById(id)
-//     if (!park) throw new Error('Park not found') // if no park
-//     const newComment = { ...req.body, owner: req.currentUser._id }
-//     // console.log(newComment)
-//     park.comments.push(newComment)// add new comment
-//     await park.save({ validateModifiedOnly: true }) //save the updated park
-//     return res.status(200).json(park) 
-//   } catch (err) {
-//     console.log(err)
-//     return res.status(404).json({ ' message': err.message })
-//   }
-// }
-
-// export const deleteAComment = async (req, res) => {
-//   try {
-//     const { id, commentId } = req.params
-//     const park = await Park.findById(id)
-//     if (!park) throw new Error('Park not found')
-//     const commentToDelete = park.comments.id(commentId)
-//     if (!commentToDelete) throw new Error('Comment not found') // if no comment
-//     if (!commentToDelete.owner.equals(req.currentUser._id)) throw new Error('unauthorized') // if owner is not current user
-//     await commentToDelete.remove() // remove comment
-//     await park.save({ validateModifiedOnly: true }) //save the updated park
-//     return res.sendStatus(204)
-//   } catch (err) {
-//     console.log()
-//     return res.status(404).json({ 'message': err.message })
-//   }
-// }

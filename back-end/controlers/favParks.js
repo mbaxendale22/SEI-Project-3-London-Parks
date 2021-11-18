@@ -1,6 +1,5 @@
 import User from '../models/user.js'
 import Park from '../models/parks_model.js'
-import mongoose from 'mongoose'
 
 export const addFavPark = async (req, res) => {
   try {

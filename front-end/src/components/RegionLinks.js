@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useHistory } from 'react-router-dom' 
-import { Menu } from 'semantic-ui-react'
 
 const RegionLinks = () => {
 

@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form, Header, Segment } from 'semantic-ui-react'
 
-// INSERT COMPONENT WITH PROPS INTO THE PARKS PAGE COMPONENT 
-{/* <Planner park={park} /> */}
 
 const Planner = ({ park }) => {
 
