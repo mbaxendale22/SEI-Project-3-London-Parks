@@ -35,11 +35,13 @@ London parks was a group project developed in fulfilment of General Assembly's S
 On the landing page users can chose a region by which to filter parks, see all the parks, or login/register to access the social features of the app
 ![Landing Page](./readme_assets/landing_parks.png)
 
-If a region is chosen, the region page is shown with a card containing key info about a particular park, including an average rating for the park
+If a region is chosen, the region page is shown with cards containing key info about each park in that region, including an average rating for the park
 
 ![region page](./readme_assets/region_parks.png)
 
 the main park show page contains a picture carousel as well as information about the park
+
+![park index carousel](./readme_assets/park_index_car.png)
 
 ![park index information](./readme_assets/park_index_info.png)
 
