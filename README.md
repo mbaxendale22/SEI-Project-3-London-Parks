@@ -4,9 +4,9 @@
 
 ## Project Team 
 
-[Matthew Baxendale](https://github.com/mbaxendale22)
-[Piotr Jankowski](https://github.com/janek2204)
-[Mariana Lozynska](https://github.com/mlozynska)
+* [Matthew Baxendale](https://github.com/mbaxendale22)
+* [Piotr Jankowski](https://github.com/janek2204)
+* [Mariana Lozynska](https://github.com/mlozynska)
 
 
 ## Overview
