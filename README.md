@@ -10,7 +10,36 @@
 
 
 ## Overview
-London parks was a group project developed in fulfilment of General Assembly's Software Engineering Immersive Bootcamp. The brief was to create a full stack web application using the MERN stack. The time frame for the project was nine days. The London Parks App allows users to search for parks in London. Each park has a range of information including a weather forecast, suggested activities, a map showing the park's location, and an option to receive real-time travel information to the park. If users choose the register on the site, they gain access to leaving reviews and ratings for the parks, as well as adding parks to their list of favourite parks. While this Readme will offer an overview of the project as a whole, I will primarily be focused on outlining my specific contribution to the project by centering on features I was assigned.  
+London parks was a group project developed in fulfilment of General Assembly's Software Engineering Immersive Bootcamp. It was the third project in the course and was the first full stack application any of the project team had delivered. The London Parks App allows users to search for parks in London, get key information about each park, and leave comments and reviews about parks they have visited.  While this Readme will offer an overview of the project as a whole, I will primarily be focused on outlining my specific contribution to the project by centering on features I was assigned.  
+
+## Guest Credentials
+You can make your own account using dummy credentials or use the following to log in: 
+email: piotr@mail.com
+password: Password123
+
+
+## Technical Project Brief 
+
+
+* Build a full-stack MERN application by making your own back-end and your own front-end
+* Use an Express API to serve your data from a Mongo database
+* Consume your API with a separate front-end built with React
+* Be a complete product which most likely means multiple relationships and CRUD functionality for at least a couple of models
+* Implement thoughtful user stories/wireframes that are significant enough to help you know which features are core MVP and which you can cut
+* Be deployed online so it's publicly accessible.
+* Timeframe: 9 days
+
+
+## User Stories
+
+The user stories around which they project was planned and built are as follows: 
+
+* Users can search for parks by geographical region (within London), or simply view all the parks in the collection. 
+* Users receive a range of information about each park including: suggested activities, facilities available, the local weather forecast for the next few days.
+* Users can get real-time travel information regarding the park
+* Users can create an account, log in and sign out of the app.
+* Users can add and remove a park to/from their list of favourite parks.
+* Users can add comments and rate parks. 
 
 
 ## Tech Stack 
@@ -80,88 +109,62 @@ The team worked collaboratively on initial planning and building out a RESTful A
 
 ## Featured Code Snippet
 
-The following code snippet is taken from the Favourites component, these functions collectively handle allowing a user to favourite a park and updating the UI accordingly
+
+The following code snippet is taken from the Favourites component, this component handles allowing a user to favourite a park and updating the UI accordingly.
+
+
+First, we check if the user has already added this park to their favourites previously: 
+```javascript
+  //get the userData of the current user, will be used to check if this park is in their 
+  // favourite parks key in the useEffect directly below
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios.get('/api/profile', 
+      {
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
+      }
+      )
+      setUserData(data)
+    }
+    getData()
+  }, [])
+  
+  // check if this park is already in the users FavouriteParks key, check to see if the 
+  // userData request has returned before running main function.
+  useEffect(()=> {
+    const checkFavourite = () => {
+      if (userData === null ) {
+        return console.log('use effect running on initial render')
+      }
+      else {
+        const checkPark = userData.favouriteParks.filter(x => x._id === park._id)
+        checkPark.length ? setFavourite(true): console.log('not a fav park')
+      }  
+    }
+    checkFavourite()
+  }, [userData, park._id])
+
+  ```
+
+If the park is already in the user's favourites then the following UI is displayed (a filled heart icon) and a `removeFav` function provided to remove the park if the user wishes: 
 
 
 ```javascript
-// requirements: ui - toggle making a park a 'favourite', display the park as a favourite if previously marked by the user as such 
-// requirements: functionality - check if the park is already a user favourite on db; send http requests to add or remove the park from user's favourites in db 
 
-const Favourite = ({ park, id }) => {
+        <Segment raised class='parkPageColumns' color='olive'>
+            <Header as='h3'icon textAlign='center' inverted color='red' >
+              <Popup trigger ={<Icon onClick={removeFav} name = 'heart'/>}>
+                <Popup.Content>
+                  <p>Click to <strong>REMOVE</strong> this park from your favourites</p>
+                </Popup.Content>
+              </Popup>     
+            <Header.Content>Favourite</Header.Content>
+            </Header>
+            </Segment>
+```
+The `removeFav` is as follows:
 
-  const [ toggle, setToggle ] = useState(null)
-  const [ clicked, setClicked ] = useState(false)
-  const [ favourite, setFavourite ] = useState(null)
-  const [ favData, setFavData ] = useState(null)
-  const [ userData, setUserData ] = useState(null)
-
-  //event handlers to toggle between an outline and full heart favourite icon
-// also set state to be sent when the click event (handleclick) is triggered 
-const handleMouseEnter = () => {
-  const newFavData = { ...favData, targetPark: id }
-  setFavData(newFavData)
-  setToggle(true)
-}
-const handleMouseExit = () => {
-  console.log(clicked)
-  clicked ? setToggle(true) : setToggle(false)
-}
-
-//make the request to add or remove this park from the user's favourite parks key in the db
-const handleClick = async () => {
-  try {
-    setToggle(true)
-    setClicked(!clicked)
-    if (!clicked) {
-      await axios.post('/api/favourite-parks', favData, 
-      {
-        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
-      }
-      )
-    } else {
-      await axios.delete('/api/favourite-parks', 
-      {
-        data: { favData },
-        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
-      }
-      )
-    }
-} catch {
-console.log('error')
-} 
-}
-
-//get the userData of the current user, will be used to check if this park is in their 
-// favourite parks key in the useEffect directly below
-useEffect(() => {
-  const getData = async () => {
-    const { data } = await axios.get('/api/profile', 
-    {
-      headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
-    }
-    )
-    setUserData(data)
-  }
-  getData()
-}, [])
-
-// check if this park is already in the users FavouriteParks key, check to see if the 
-// userData request has returned before running main function.
-useEffect(()=> {
-  const checkFavourite = () => {
-    if (userData === null ) {
-      return console.log('use effect running on initial render')
-    }
-    else {
-      const checkPark = userData.favouriteParks.filter(x => x._id === park._id)
-      checkPark.length ? setFavourite(true): console.log('not a fav park')
-    }  
-  }
-  checkFavourite()
-}, [userData, park._id])
-
-//onclick handler to remove favourite set by useEffect directly above && send
-// a delete request to the db for the current user
+```javascript
 
 const removeFav = async () => {
   setFavourite(false)
@@ -175,15 +178,99 @@ const removeFav = async () => {
   } catch (err) {
   console.log(err)
 }
-}
-
 
 ```
+
+If the park is not in the users favourites already then things get more interesting. The main problem I faced here was making sure that the piece of state used to store the updated value of the user's favourite parks was updated before a post or delete request was sent to the server. This sounds straightforward but ss far as I'm aware its difficult to know when a piece of state within a function will actually be updated. Updating the value of the data & sending a HTTP request need to be seperated into different functions with different triggers coming from the UI. 
+
+My solution was to use a `onMouseEnter()` and `onMouseExit()` as the mechanism to handle to:
+
+1. Toggle between displaying a full heart icon and a heart outline (UI update) and,
+2. Set `favData` piece of state to the current park's ID:
+
+
+```javascript
+
+  //event handlers to toggle between an outline and full heart favourite icon
+// also set state to be sent when the click event (handleclick) is triggered 
+
+
+const handleMouseEnter = () => {
+  const newFavData = { ...favData, targetPark: id }
+  setFavData(newFavData)
+  setToggle(true)
+}
+const handleMouseExit = () => {
+  clicked ? setToggle(true) : setToggle(false)
+}
+
+```
+
+The HTTP request to update the user's data on the server is trigged by the user clicking on the icon: 
+                  
+```javascript
+    //make the request to add or remove this park from the user's favourite parks key in the db
+    const handleClick = async () => {
+      try {
+        setToggle(true)
+        setClicked(!clicked)
+        if (!clicked) {
+          await axios.post('/api/favourite-parks', favData, 
+          {
+            headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
+          }
+          )
+        } else {
+          await axios.delete('/api/favourite-parks', 
+          {
+            data: { favData },
+            headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` }
+          }
+          )
+        }
+    } catch {
+    console.log('error')
+    } 
+
+```
+
+In order to stagger this process, I used a popup to prompt the user to click on the icon if they want to add the park to their favourites. 
+The pop up needed to ask the correct question, i.e., whether the user should be ADDING or REMOVING the park from their favourites. The truth-value of `clicked` is used to control which of these messages is displayed to the user. The full JSX used to render the whole component is as follows:  
+
+```javascript
+
+<Segment raised class='parkPageColumns' color='olive'>
+            <Header as='h3'icon textAlign='center' inverted color='red' >
+              <Popup 
+                trigger ={
+                  !toggle ? 
+                  <Icon onMouseEnter ={handleMouseEnter} onClick={handleClick}  name ='heart outline'/> 
+                  : <Icon onClick={handleClick} onMouseLeave={handleMouseExit} name ='heart'/>
+                }>
+                <Popup.Content>
+                  {
+                    clicked ? 
+                    <p>Click to <strong>REMOVE</strong> this park from your favourites</p> 
+                    : <p>Click to <strong>ADD</strong> this to your favourites</p>
+                  }
+                  </Popup.Content>
+                </Popup>
+                  <Header.Content>Favourite</Header.Content>
+                </Header>
+            </Segment>
+
+  ```
+
+
+The result is an experience similar to other 'liking' processes users might be used to (like Twitter, for example). The UI changes are fluid and the process is reliable and stable. Of course it would be better to have everything take place with a simple click rather than having to use a popup to prompt the user (again, like you find on Twitter). However, as first attempt I was pretty happy with the results. 
+
+
+
 
 ## Known Bugs
 
 * Mapbox is not currently working post-deployment
-* The notification confirming sign out sometimes displays 'see you soon undefined' rather than the user's username username. 
+* The notification confirming sign out sometimes displays 'see you soon undefined' rather than the user's username.
 
 ## Development Challenges & Wins
  
@@ -191,7 +278,7 @@ The aspect of this project I enjoyed this most was working collaboratively on a 
 
 Development challenges specific to my role in the team included:
 
-* To add a park to a user's 'favourites', my aim for was to mirror the sort of experience users are familiar with from social media sites such as twitter by clicking on an empty heart icon and having it replaced with a filled heart icon. As such, syncing up the UI changes, with state changes and async HTTP requests was definitely a challenge. 
+* To add a park to a user's 'favourites' was a challenge (as outlined in detailed above). I faced a similar challenge when allowing the user to rate the park by interacting with stars rather than just inputing a number. This was made easier by adopting a component from React Semantic UI set up to watch for changes to the stars -  a bit like a handleChange function might watch an input element. Whereas with the 'favourites' component, I was setting the process up from scratch.
 
 * Initially I had planned to use Transport for London's Unified API to get real time travel data. However, with the project nearing a close I did not have enough time to explore the API fully. Instead I had the user's input build a query string that sent them directly to Transport for London's journey planner with the correct parameters already filled in. Although it would be ideal to have the information returned in the application itself, this was a solution that was stable and could be implemented in the time I had left.   
 
