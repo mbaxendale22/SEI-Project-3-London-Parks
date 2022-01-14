@@ -182,7 +182,7 @@ const removeFav = async () => {
 
 ```
 
-If the park is not in the users favourites already then things get more interesting. The main problem I faced here was making sure that the piece of state used to store the updated value of the user's favourite parks was updated before a POST or DELETE request was sent to the server. This sounds straightforward enough but as far as I'm aware its difficult to know when a piece of state within a function will actually be updated, i.e., when the setPieceOfState() function will be exectuted regardless of where it is called within the function. I therefore attempted to seperate updating the value of the data from sending a HTTP request, by executing them from within different functions, with those functions being triggered by seperated UI mechanisms.
+If the park is not in the users favourites already then things get more interesting. The main problem I faced here was making sure that the piece of state used to store the updated value of the user's favourite parks was updated before a POST or DELETE request was sent to the server. This sounds straightforward enough but as far as I'm aware its difficult to know when a piece of state within a function will actually be updated, i.e., when the setPieceOfState() function will be exectuted regardless of where it is called within the function. Accordingly, I attempted to seperate updating the value of the data from sending a HTTP request, by executing them from within different functions, with those functions being triggered by seperate UI mechanisms.
 
 My solution was to use a `onMouseEnter()` and `onMouseExit()` as the mechanism to:
 
@@ -278,7 +278,7 @@ The aspect of this project I enjoyed this most was working collaboratively on a 
 
 Development challenges specific to my role in the team included:
 
-* To add a park to a user's 'favourites' was a challenge (as outlined in detailed above). I faced a similar challenge when allowing the user to rate the park by interacting with stars rather than just inputing a number. This was made easier by adopting a component from React Semantic UI set up to watch for changes to the stars -  a bit like a handleChange function might watch an input element. Whereas with the 'favourites' component, I was setting the process up from scratch.
+* To add a park to a user's 'favourites' was a challenge (as outlined in detailed above). I faced a similar challenge when allowing the user to rate the park by interacting with stars rather than just inputing a number. This was made easier by adopting a component from React Semantic UI set up to watch for changes to the stars -  a bit like a handleChange function might watch an input element.
 
 * Initially I had planned to use Transport for London's Unified API to get real time travel data. However, with the project nearing a close I did not have enough time to explore the API fully. Instead I had the user's input build a query string that sent them directly to Transport for London's journey planner with the correct parameters already filled in. Although it would be ideal to have the information returned in the application itself, this was a solution that was stable and could be implemented in the time I had left.   
 
