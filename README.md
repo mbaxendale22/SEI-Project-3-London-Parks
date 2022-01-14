@@ -14,6 +14,7 @@ London parks was a group project developed in fulfilment of General Assembly's S
 
 ## Guest Credentials
 You can make your own account using dummy credentials or use the following to log in: 
+
 email: piotr@mail.com
 password: Password123
 
@@ -26,7 +27,7 @@ password: Password123
 * Consume your API with a separate front-end built with React
 * Be a complete product which most likely means multiple relationships and CRUD functionality for at least a couple of models
 * Implement thoughtful user stories/wireframes that are significant enough to help you know which features are core MVP and which you can cut
-* Be deployed online so it's publicly accessible.
+* Be deployed online so it's publicly accessible
 * Timeframe: 9 days
 
 
@@ -162,7 +163,7 @@ If the park is already in the user's favourites then the following UI is display
             </Header>
             </Segment>
 ```
-The `removeFav` is as follows:
+The `removeFav` function sends a DELETE HTTP request to remove the park from that user's favourite park collection:
 
 ```javascript
 
@@ -181,12 +182,12 @@ const removeFav = async () => {
 
 ```
 
-If the park is not in the users favourites already then things get more interesting. The main problem I faced here was making sure that the piece of state used to store the updated value of the user's favourite parks was updated before a post or delete request was sent to the server. This sounds straightforward but ss far as I'm aware its difficult to know when a piece of state within a function will actually be updated. Updating the value of the data & sending a HTTP request need to be seperated into different functions with different triggers coming from the UI. 
+If the park is not in the users favourites already then things get more interesting. The main problem I faced here was making sure that the piece of state used to store the updated value of the user's favourite parks was updated before a POST or DELETE request was sent to the server. This sounds straightforward enough but as far as I'm aware its difficult to know when a piece of state within a function will actually be updated, i.e., when the setPieceOfState() function will be exectuted regardless of where it is called within the function. I therefore attempted to seperate updating the value of the data from sending a HTTP request, by executing them from within different functions, with those functions being triggered by seperated UI mechanisms.
 
-My solution was to use a `onMouseEnter()` and `onMouseExit()` as the mechanism to handle to:
+My solution was to use a `onMouseEnter()` and `onMouseExit()` as the mechanism to:
 
 1. Toggle between displaying a full heart icon and a heart outline (UI update) and,
-2. Set `favData` piece of state to the current park's ID:
+2. Set `favData` piece of state to the current park's ID, this piece of state will later be used as the data sent with the HTTP request:
 
 
 ```javascript
@@ -206,7 +207,7 @@ const handleMouseExit = () => {
 
 ```
 
-The HTTP request to update the user's data on the server is trigged by the user clicking on the icon: 
+The HTTP request to update the user's data on the server is trigged by the user clicking on the icon itself: 
                   
 ```javascript
     //make the request to add or remove this park from the user's favourite parks key in the db
@@ -234,8 +235,9 @@ The HTTP request to update the user's data on the server is trigged by the user 
 
 ```
 
-In order to stagger this process, I used a popup to prompt the user to click on the icon if they want to add the park to their favourites. 
-The pop up needed to ask the correct question, i.e., whether the user should be ADDING or REMOVING the park from their favourites. The truth-value of `clicked` is used to control which of these messages is displayed to the user. The full JSX used to render the whole component is as follows:  
+In order to stagger this process, I used a popup to prompt the user to click on the icon if they want to add the park to their favourites. Indicating to the user that although the heart was now filled (for example), they still needed to click on the icon to confirm.
+
+The pop up needed to ask the correct question, i.e., whether the user should be ADDING or REMOVING the park from their favourites. The truth-value of `clicked` is used to control which of these messages is displayed to the user. The JSX used to render the correct options is as follows:  
 
 ```javascript
 
@@ -263,8 +265,6 @@ The pop up needed to ask the correct question, i.e., whether the user should be 
 
 
 The result is an experience similar to other 'liking' processes users might be used to (like Twitter, for example). The UI changes are fluid and the process is reliable and stable. Of course it would be better to have everything take place with a simple click rather than having to use a popup to prompt the user (again, like you find on Twitter). However, as first attempt I was pretty happy with the results. 
-
-
 
 
 ## Known Bugs
